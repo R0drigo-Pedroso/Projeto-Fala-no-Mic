@@ -5,7 +5,7 @@ function Home() {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <StatusBar barStyle="default" />
-      <Text>Home!</Text>
+      <Text>Home! teste</Text>
     </View>
   );
 }

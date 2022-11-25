@@ -5,24 +5,8 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Home from "./src/screens/Home";
 import Favoritos from "./src/screens/Favoritos";
-
-function Publicar() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <StatusBar barStyle="default" />
-      <Text>Publicar!</Text>
-    </View>
-  );
-}
-
-function Perfil() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <StatusBar barStyle="default" />
-      <Text>Perfil</Text>
-    </View>
-  );
-}
+import Publicar from "./src/screens/Publicar";
+import Perfil from "./src/screens/Perfil";
 
 const Tab = createBottomTabNavigator();
 

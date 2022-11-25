@@ -4,7 +4,7 @@ function Favoritos() {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <StatusBar barStyle="default" />
-      <Text>Favoritos!</Text>
+      <Text>Favoritos teste!</Text>
     </View>
   );
 }

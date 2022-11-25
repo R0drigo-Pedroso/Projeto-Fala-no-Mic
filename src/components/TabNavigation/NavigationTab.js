@@ -5,7 +5,7 @@ const Tabs = () => {
     <View>
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <StatusBar barStyle="default" />
-        <Text>Home!</Text>
+        <Text>Home! teste do teste</Text>
       </View>
 
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
@@ -15,7 +15,7 @@ const Tabs = () => {
 
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <StatusBar barStyle="default" />
-        <Text>Perfil!</Text>
+        <Text>Publicar!</Text>
       </View>
 
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>

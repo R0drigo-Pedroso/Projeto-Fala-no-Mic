@@ -4,24 +4,6 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-function Home() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <StatusBar barStyle="default" />
-      <Text>Home!</Text>
-    </View>
-  );
-}
-
-function Favoritos() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <StatusBar barStyle="default" />
-      <Text>Favoritos!</Text>
-    </View>
-  );
-}
-
 function Publicar() {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
