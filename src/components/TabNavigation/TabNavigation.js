@@ -1,10 +1,26 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import Home from "./src/screens/Home";
-import Favoritos from "./src/screens/Favoritos";
+
+function Home() {
+  return (
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <StatusBar barStyle="default" />
+      <Text>Home!</Text>
+    </View>
+  );
+}
+
+function Favoritos() {
+  return (
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <StatusBar barStyle="default" />
+      <Text>Favoritos!</Text>
+    </View>
+  );
+}
 
 function Publicar() {
   return (
@@ -19,14 +35,14 @@ function Perfil() {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <StatusBar barStyle="default" />
-      <Text>Perfil</Text>
+      <Text>Perfil!</Text>
     </View>
   );
 }
 
 const Tab = createBottomTabNavigator();
 
-export default function App() {
+function TabNavigation() {
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -70,4 +86,4 @@ export default function App() {
   );
 }
 
-const estilos = StyleSheet.create({});
+export default TabNavigation;
