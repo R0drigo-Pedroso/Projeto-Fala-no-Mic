@@ -4,10 +4,10 @@
     "slug": "fala-no-mic",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/logo_fala_no_mic.png",
+    "icon": "./assets/image/logo_fala_no_mic.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/logo_fala_no_mic.png",
+      "image": "./assets/image/logo_fala_no_mic.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -20,7 +20,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/logo_fala_no_mic.png",
+        "foregroundImage": "./assets/image/logo_fala_no_mic.png",
         "backgroundColor": "#FFFFFF"
       }
     },
