@@ -15,8 +15,8 @@ import { useFonts } from "expo-font";
 
 function Home() {
   const [fontCarregar] = useFonts({
-    nunito: require("../../assets/fonts/NunitoSans-Regular.ttf"),
-    carterOne: require("../../assets/fonts/CarterOne-Regular.ttf"),
+    nunitoOne: require("../../assets/fonts/NunitoSans-Regular.ttf"),
+    carterTier: require("../../assets/fonts/CarterOne-Regular.ttf"),
   });
 
   if (!fontCarregar);
@@ -34,11 +34,14 @@ function Home() {
         <View style={estilos.descricao}>
           <View>
             <Text style={estilos.fontTitulo}>Titulo</Text>
-            <Text style={estilos.textCorrido}>descrição</Text>
+            <Text style={estilos.textCorrido}>
+              Lorem Ipsum is simply dummy text of the printing and typesetting
+              industry
+            </Text>
           </View>
 
-          <Pressable>
-            <Text>Saiba +</Text>
+          <Pressable style={estilos.botaoSaiba}>
+            <Text style={estilos.textSaiba}>Saiba +</Text>
           </Pressable>
         </View>
       </View>
@@ -54,12 +57,12 @@ const estilos = StyleSheet.create({
   },
 
   fontTitulo: {
-    fontFamily: "carterOne",
+    fontFamily: "carterTier",
     fontSize: 24,
   },
 
   textCorrido: {
-    fontFamily: "nunito",
+    fontFamily: "nunitoOne",
     fontSize: 13,
   },
 
@@ -70,13 +73,28 @@ const estilos = StyleSheet.create({
     padding: 8,
     marginTop: 16,
     marginBottom: 16,
-    fontFamily: "carterOne",
+    fontFamily: "carterTier",
   },
 
   areaConteudo: {
     width: "100%",
     flexDirection: "row",
     padding: 8,
+  },
+
+  botaoSaiba: {
+    backgroundColor: "#322727",
+    width: 80,
+    padding: 8,
+    marginTop: 16,
+    alignItems: "center",
+    borderRadius: 8,
+  },
+
+  textSaiba: {
+    fontFamily: "nunito",
+    fontSize: 16,
+    color: "#E3BC40",
   },
 
   image: {
@@ -91,5 +109,6 @@ const estilos = StyleSheet.create({
   descricao: {
     flex: 0.7,
     padding: 8,
+    marginLeft: 16,
   },
 });
