@@ -15,16 +15,7 @@ function Perfil() {
   return (
     <SafeAreaView style={estilos.viewSafe}>
       <StatusBar barStyle="default" />
-      <View style={estilos.container}>
-        <Pressable
-          style={estilos.botao}
-          onPress={() => {
-            navigation.navigate("Login");
-          }}
-        >
-          <Text style={estilos.texto}>Enviar</Text>
-        </Pressable>
-      </View>
+      <View style={estilos.container}></View>
     </SafeAreaView>
   );
 }

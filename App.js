@@ -15,7 +15,7 @@ import { useState } from "react";
 const Tab = createBottomTabNavigator();
 
 export default function App() {
-  const [areaLogada, setArealogada] = useState("");
+  const [areaLogada, setArealogada] = useState(true);
 
   return (
     <NavigationContainer>
@@ -54,10 +54,10 @@ export default function App() {
         <>
           {areaLogada ? (
             <>
+              <Tab.Screen name="Perfil" component={Perfil} />
               <Tab.Screen name="Home" component={Home} />
               <Tab.Screen name="Favoritos" component={Favoritos} />
               <Tab.Screen name="Publicar" component={Publicar} />
-              <Tab.Screen name="Perfil" component={Perfil} />
             </>
           ) : (
             <>
@@ -65,11 +65,6 @@ export default function App() {
               <Tab.Screen name="Cadastro" component={Cadastro} />
             </>
           )}
-          <Tab.Screen
-            navigation={areaLogada ? "user" : "guest"}
-            name="favoritos"
-            component={Favoritos}
-          />
         </>
       </Tab.Navigator>
     </NavigationContainer>
