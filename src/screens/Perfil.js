@@ -8,12 +8,17 @@ import {
 } from "react-native";
 import React from "react";
 
-function Perfil({ login }) {
+function Perfil({ navigation }) {
   return (
     <SafeAreaView style={estilos.viewSafe}>
       <StatusBar barStyle="default" />
       <View style={estilos.container}>
-        <Pressable style={estilos.botao}>
+        <Pressable
+          style={estilos.botao}
+          onPress={() => {
+            return navigation.navigate("Login");
+          }}
+        >
           <Text style={estilos.texto}>Enviar</Text>
         </Pressable>
       </View>
