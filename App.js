@@ -7,6 +7,7 @@ import Home from "./src/screens/Home";
 import Favoritos from "./src/screens/Favoritos";
 import Publicar from "./src/screens/Publicar";
 import Perfil from "./src/screens/Perfil";
+import Login from "./src/screens/Login";
 
 const Tab = createBottomTabNavigator();
 
@@ -49,6 +50,7 @@ export default function App() {
         <Tab.Screen name="Favoritos" component={Favoritos} />
         <Tab.Screen name="Publicar" component={Publicar} />
         <Tab.Screen name="Perfil" component={Perfil} />
+        <Tab.Screen name="Login" component={Login} />
       </Tab.Navigator>
     </NavigationContainer>
   );

@@ -7,8 +7,11 @@ import {
   View,
 } from "react-native";
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
 
-function Perfil({ navigation }) {
+function Perfil() {
+  const navigation = useNavigation();
+
   return (
     <SafeAreaView style={estilos.viewSafe}>
       <StatusBar barStyle="default" />
@@ -16,7 +19,7 @@ function Perfil({ navigation }) {
         <Pressable
           style={estilos.botao}
           onPress={() => {
-            return navigation.navigate("Login");
+            navigation.navigate("Login");
           }}
         >
           <Text style={estilos.texto}>Enviar</Text>
