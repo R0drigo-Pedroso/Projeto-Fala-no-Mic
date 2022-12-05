@@ -26,16 +26,4 @@ const estilos = StyleSheet.create({
   container: {
     padding: 8,
   },
-  botao: {
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "black",
-    padding: 8,
-    width: "100%",
-    borderRadius: 4,
-  },
-  texto: {
-    color: "white",
-    fontSize: 16,
-  },
 });

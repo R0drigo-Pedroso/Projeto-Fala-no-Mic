@@ -54,10 +54,10 @@ export default function App() {
         <>
           {areaLogada ? (
             <>
-              <Tab.Screen name="Perfil" component={Perfil} />
               <Tab.Screen name="Home" component={Home} />
               <Tab.Screen name="Favoritos" component={Favoritos} />
               <Tab.Screen name="Publicar" component={Publicar} />
+              <Tab.Screen name="Perfil" component={Perfil} />
             </>
           ) : (
             <>
