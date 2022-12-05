@@ -15,7 +15,7 @@ function Perfil() {
   return (
     <SafeAreaView style={estilos.viewSafe}>
       <StatusBar barStyle="default" />
-      <View style={estilos.container}></View>
+      <View style={estilos.container}> </View>
     </SafeAreaView>
   );
 }
