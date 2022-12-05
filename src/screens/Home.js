@@ -27,16 +27,15 @@ function Home() {
       <Text style={estilos.titulo}>Eventos</Text>
 
       <View style={estilos.areaConteudo}>
-        <View style={estilos.image}>
-          <Image style={estilos.imageTamanho} source={imageteste} />
-        </View>
+        <Image style={estilos.imageTamanho} source={imageteste} />
 
         <View style={estilos.descricao}>
           <View>
             <Text style={estilos.fontTitulo}>Titulo</Text>
-            <Text style={estilos.textCorrido}>
+            <Text style={estilos.textDescricao}>
               Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry
+              industry, Lorem Ipsum is simply dummy text of the printing and
+              typesetting industry
             </Text>
           </View>
 
@@ -61,9 +60,19 @@ const estilos = StyleSheet.create({
     fontSize: 24,
   },
 
-  textCorrido: {
+  descricao: {
+    flex: 0.7,
+    padding: 8,
+    marginLeft: 8,
+    marginBottom: 8,
+    marginTop: 8,
+  },
+
+  textDescricao: {
     fontFamily: "nunitoOne",
     fontSize: 13,
+    marginTop: 8,
+    marginBottom: 8,
   },
 
   titulo: {
@@ -79,7 +88,8 @@ const estilos = StyleSheet.create({
   areaConteudo: {
     width: "100%",
     flexDirection: "row",
-    padding: 8,
+    backgroundColor: "#fff",
+    elevation: 5,
   },
 
   botaoSaiba: {
@@ -92,23 +102,14 @@ const estilos = StyleSheet.create({
   },
 
   textSaiba: {
-    fontFamily: "nunito",
     fontSize: 16,
     color: "#E3BC40",
-  },
-
-  image: {
-    flex: 0.3,
+    fontFamily: "carterTier",
   },
 
   imageTamanho: {
     width: "100%",
-    height: 150,
-  },
-
-  descricao: {
-    flex: 0.7,
-    padding: 8,
-    marginLeft: 16,
+    height: "100%",
+    flex: 0.4,
   },
 });
