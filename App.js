@@ -15,7 +15,8 @@ import { useState } from "react";
 const Tab = createBottomTabNavigator();
 
 export default function App() {
-  const [areaLogada, setAreaLogada] = useState("");
+  const [areaLogada, setArealogada] = useState("");
+
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -50,13 +51,26 @@ export default function App() {
           tabBarInactiveTintColor: "black",
         })}
       >
-        <Tab.Screen name="Home" component={Home} />
-        <Tab.Screen name="Favoritos" component={Favoritos} />
-        <Tab.Screen name="Publicar" component={Publicar} />
-        <Tab.Screen name="Perfil" component={Perfil} />
-
-        <Tab.Screen name="Login" component={Login} />
-        <Tab.Screen name="Cadastro" component={Cadastro} />
+        <>
+          {areaLogada ? (
+            <>
+              <Tab.Screen name="Home" component={Home} />
+              <Tab.Screen name="Favoritos" component={Favoritos} />
+              <Tab.Screen name="Publicar" component={Publicar} />
+              <Tab.Screen name="Perfil" component={Perfil} />
+            </>
+          ) : (
+            <>
+              <Tab.Screen name="Login" component={Login} />
+              <Tab.Screen name="Cadastro" component={Cadastro} />
+            </>
+          )}
+          <Tab.Screen
+            navigation={areaLogada ? "user" : "guest"}
+            name="favoritos"
+            component={Favoritos}
+          />
+        </>
       </Tab.Navigator>
     </NavigationContainer>
   );
