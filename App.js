@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, useScrollToTop } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Home from "./src/screens/Home";
@@ -8,10 +8,14 @@ import Favoritos from "./src/screens/Favoritos";
 import Publicar from "./src/screens/Publicar";
 import Perfil from "./src/screens/Perfil";
 import Login from "./src/screens/Login";
+import Cadastro from "./src/screens/Cadastro";
+
+import { useState } from "react";
 
 const Tab = createBottomTabNavigator();
 
 export default function App() {
+  const [areaLogada, setAreaLogada] = useState("");
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -50,7 +54,9 @@ export default function App() {
         <Tab.Screen name="Favoritos" component={Favoritos} />
         <Tab.Screen name="Publicar" component={Publicar} />
         <Tab.Screen name="Perfil" component={Perfil} />
+
         <Tab.Screen name="Login" component={Login} />
+        <Tab.Screen name="Cadastro" component={Cadastro} />
       </Tab.Navigator>
     </NavigationContainer>
   );
