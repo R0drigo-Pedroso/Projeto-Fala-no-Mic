@@ -1,14 +1,42 @@
-import { StatusBar, StyleSheet, Text, View } from "react-native";
+import {
+  Pressable,
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import React from "react";
 
-function Perfil() {
+function Perfil({ login }) {
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    <SafeAreaView style={estilos.viewSafe}>
       <StatusBar barStyle="default" />
-      <Text>Perfil teste do teste</Text>
-    </View>
+      <View style={estilos.container}>
+        <Pressable style={estilos.botao}>
+          <Text style={estilos.texto}>Enviar</Text>
+        </Pressable>
+      </View>
+    </SafeAreaView>
   );
 }
 export default Perfil;
 
-const styles = StyleSheet.create({});
+const estilos = StyleSheet.create({
+  viewSafe: { flex: 1 },
+  container: {
+    padding: 8,
+  },
+  botao: {
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "black",
+    padding: 8,
+    width: "100%",
+    borderRadius: 4,
+  },
+  texto: {
+    color: "white",
+    fontSize: 16,
+  },
+});
