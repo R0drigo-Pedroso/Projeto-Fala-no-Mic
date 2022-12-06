@@ -12,6 +12,7 @@ import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import fruta from "../../assets/image/fruta.jpg";
 import astronauta from "../../assets/image/astronauta.jpg";
+import { FontAwesome5 } from "@expo/vector-icons";
 
 function Perfil() {
   const navigation = useNavigation();
@@ -36,8 +37,16 @@ function Perfil() {
 
           <View style={estilos.backgroundCard}>
             <View style={estilos.card}>
-              <Text style={estilos.texto}>Descrição</Text>
+              <Text style={estilos.texto}>Descrição: </Text>
+              <Text>loremdmasçflnsaçlfnlfnddddddddddddddddddddddddddddddd</Text>
+              <Text>loremdmasçflnsaçlfnlfnddddddddddddddddddddddddddddddd</Text>
+              <Text>loremdmasçflnsaçlfnlfnddddddddddddddddddddddddddddddd</Text>
+              <Text>loremdmasçflnsaçlfnlfnddddddddddddddddddddddddddddddd</Text>
             </View>
+          </View>
+
+          <View style={estilos.redes}>
+            <FontAwesome5 name="deezer" size={24} color="red" />
           </View>
         </View>
       </ScrollView>
@@ -50,7 +59,7 @@ const estilos = StyleSheet.create({
   viewSafe: { flex: 1, backgroundColor: "#F7F7F7" },
   container: {},
   imagem: {
-    height: "90%",
+    height: 500,
   },
   user: {
     height: "50%",
@@ -62,7 +71,7 @@ const estilos = StyleSheet.create({
     borderRadius: 350,
   },
   viewFoto: {
-    height: "90%",
+    height: 500,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "rgba(0,0,0, 0.8)",
@@ -80,15 +89,26 @@ const estilos = StyleSheet.create({
   },
   card: {
     backgroundColor: "#FFFFFF",
-    height: "80%",
-    padding: 8,
+    height: 250,
+    padding: 12,
     width: "90%",
-    justifyContent: "center",
+    borderRadius: 5,
+    shadowColor: "#171717",
+    shadowOffset: { left: -15, right: 15 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
   },
   texto: {
     color: "black",
+    fontSize: 24,
+    fontWeight: "bold",
   },
   backgroundCard: {
     alignItems: "center",
+  },
+  redes: {
+    flex: 1,
+    alignItems: "center",
+    marginVertical: 50,
   },
 });
