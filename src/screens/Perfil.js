@@ -20,7 +20,7 @@ function Perfil() {
         <ImageBackground
           source={fruta}
           resizeMode="cover"
-          style={estilos.image}
+          style={estilos.imagem}
         >
           <Text style={estilos.text}>Inside</Text>
         </ImageBackground>
@@ -32,7 +32,8 @@ export default Perfil;
 
 const estilos = StyleSheet.create({
   viewSafe: { flex: 1 },
-  container: {
-    padding: 8,
+  container: {},
+  imagem: {
+    height: "80%",
   },
 });
