@@ -1,14 +1,24 @@
-import { StatusBar, StyleSheet, Text, View } from "react-native";
+import { SafeAreaView, StatusBar, StyleSheet, Text, View } from "react-native";
 import React from "react";
 
 function Publicar() {
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <StatusBar barStyle="default" />
-      <Text>Publicar!</Text>
-    </View>
+    <SafeAreaView style={estilos.viewSafe}>
+      <View style={estilos.container}>
+        <Text>Descrição:</Text>
+      </View>
+    </SafeAreaView>
   );
 }
 export default Publicar;
 
-const styles = StyleSheet.create({});
+const estilos = StyleSheet.create({
+  viewSafe: {
+    flex: 1,
+  },
+  container: {
+    flex: 1,
+    padding: 8,
+    backgroundColor: "#f7f7f7",
+  },
+});
