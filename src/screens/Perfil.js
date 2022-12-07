@@ -88,8 +88,8 @@ function Perfil() {
 export default Perfil;
 
 const estilos = StyleSheet.create({
-  viewSafe: { flex: 1, backgroundColor: "#F7F7F7" },
-  container: {},
+  viewSafe: { flex: 1 },
+  container: { flex: 1, backgroundColor: "#f7f7f7" },
   imagem: {
     height: 500,
   },
