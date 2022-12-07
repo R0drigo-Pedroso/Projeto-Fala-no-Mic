@@ -12,6 +12,7 @@ import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import fruta from "../../assets/image/fruta.jpg";
 import astronauta from "../../assets/image/astronauta.jpg";
+/* Import dos ícones */
 import { FontAwesome5 } from "@expo/vector-icons";
 
 function Perfil() {
@@ -37,16 +38,47 @@ function Perfil() {
 
           <View style={estilos.backgroundCard}>
             <View style={estilos.card}>
-              <Text style={estilos.texto}>Descrição: </Text>
-              <Text>loremdmasçflnsaçlfnlfnddddddddddddddddddddddddddddddd</Text>
-              <Text>loremdmasçflnsaçlfnlfnddddddddddddddddddddddddddddddd</Text>
-              <Text>loremdmasçflnsaçlfnlfnddddddddddddddddddddddddddddddd</Text>
-              <Text>loremdmasçflnsaçlfnlfnddddddddddddddddddddddddddddddd</Text>
+              <Text style={estilos.titulo}>Descrição: </Text>
+              <Text style={estilos.texto}>
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the industry's standard dummy
+                text ever since the 1500s, when an unknown printer took a galley
+                of type and scrambled it to make a type specimen book. It has
+                survived not only five centuries, but also the leap into
+                electronic typesetting, remaining essentially unchanged. It was
+                popularised in the 1960s with the release of Letraset sheets
+                containing Lorem Ipsum passages, and more recently with desktop
+                publishing software like Aldus PageMaker including versions of
+                Lorem Ipsum.
+              </Text>
             </View>
           </View>
 
           <View style={estilos.redes}>
-            <FontAwesome5 name="deezer" size={24} color="red" />
+            <View style={estilos.nomeRede}>
+              <FontAwesome5 name="deezer" size={32} color="black" />
+              <Text style={estilos.textIcon}>deezer</Text>
+            </View>
+
+            <View style={estilos.nomeRede}>
+              <FontAwesome5 name="youtube" size={32} color="black" />
+              <Text style={estilos.textIcon}>youtube</Text>
+            </View>
+
+            <View style={estilos.nomeRede}>
+              <FontAwesome5 name="spotify" size={32} color="black" />
+              <Text style={estilos.textIcon}>spotify</Text>
+            </View>
+
+            <View style={estilos.nomeRede}>
+              <FontAwesome5 name="soundcloud" size={32} color="black" />
+              <Text style={estilos.textIcon}>soundcloud</Text>
+            </View>
+
+            <View style={estilos.nomeRede}>
+              <FontAwesome5 name="instagram" size={32} color="black" />
+              <Text style={estilos.textIcon}>instagram</Text>
+            </View>
           </View>
         </View>
       </ScrollView>
@@ -89,26 +121,38 @@ const estilos = StyleSheet.create({
   },
   card: {
     backgroundColor: "#FFFFFF",
-    height: 250,
-    padding: 12,
+    height: 300,
+    padding: 16,
     width: "90%",
     borderRadius: 5,
     shadowColor: "#171717",
     shadowOffset: { left: -15, right: 15 },
     shadowOpacity: 0.2,
     shadowRadius: 3,
+    marginVertical: 24,
   },
-  texto: {
+  titulo: {
     color: "black",
     fontSize: 24,
     fontWeight: "bold",
+    padding: 8,
+  },
+  texto: {
+    padding: 8,
   },
   backgroundCard: {
     alignItems: "center",
   },
   redes: {
-    flex: 1,
+    flexDirection: "column",
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginVertical: 24,
+  },
+  nomeRede: {
     alignItems: "center",
-    marginVertical: 50,
+  },
+  textIcon: {
+    marginVertical: 8,
   },
 });
