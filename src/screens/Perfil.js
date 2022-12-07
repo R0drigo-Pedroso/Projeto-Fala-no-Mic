@@ -48,7 +48,6 @@ function Perfil() {
                 electronic typesetting, remaining essentially unchanged. It was
                 popularised in the 1960s with the release of Letraset sheets
                 containing Lorem Ipsum passages, and more recently with desktop
-                publishing software like Aldus PageMaker including versions of
                 Lorem Ipsum.
               </Text>
             </View>
@@ -139,6 +138,8 @@ const estilos = StyleSheet.create({
   },
   texto: {
     padding: 8,
+    lineHeight: 20,
+    fontSize: 13,
   },
   backgroundCard: {
     alignItems: "center",
