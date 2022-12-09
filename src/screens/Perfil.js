@@ -110,7 +110,7 @@ const estilos = StyleSheet.create({
   },
   usuario: {
     color: "white",
-    fontSize: 18,
+    fontSize: 24,
     marginVertical: 10,
     fontWeight: "bold",
   },
@@ -139,6 +139,8 @@ const estilos = StyleSheet.create({
   },
   texto: {
     padding: 8,
+    fontSize: 13,
+    lineHeight: 18
   },
   backgroundCard: {
     alignItems: "center",
@@ -154,5 +156,6 @@ const estilos = StyleSheet.create({
   },
   textIcon: {
     marginVertical: 8,
+    fontSize: 13
   },
 });
