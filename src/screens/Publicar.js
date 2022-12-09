@@ -117,6 +117,7 @@ const estilos = StyleSheet.create({
     padding: 8,
     color: "#372727",
     opacity: 0.5,
+    fontSize: 13
   },
   icon: {
     textAlign: "center",
