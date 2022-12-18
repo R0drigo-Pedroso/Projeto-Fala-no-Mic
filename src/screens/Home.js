@@ -8,6 +8,8 @@ import {
   Pressable,
   TextInput,
   Button,
+  Touchable,
+  TouchableOpacity,
 } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -30,7 +32,7 @@ function Cadastro() {
           </View>
 
           <View style={estilos.containerTitulo}>
-            <Text style={estilos.titulo}>Cadastrar</Text>
+            <Text style={estilos.titulo}>Cadastro</Text>
           </View>
 
           <View style={estilos.inputs}>
@@ -53,9 +55,21 @@ function Cadastro() {
               onChangeText={setSenha}
               placeholder="senha"
               value={senha}
-            />
+            />    
           </View>
-          <Pressable style={estilos.botao} />
+        
+        <View style={estilos.containerBotao}>
+          <TouchableOpacity style={estilos.botao}> 
+                <Text style={estilos.textoBotao}>Cadastrar</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View>
+          <Text style={estilos.lgpd}>Ao criar o seu cadastro, você concorda com a nossa Política de Privacidade</Text>
+          <Text style={estilos.entrar}>Já tem cadastro? Entrar</Text>
+        </View>
+
+         
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -65,8 +79,13 @@ function Cadastro() {
 export default Cadastro;
 
 const estilos = StyleSheet.create({
+  container: {
+    marginTop: 10
+  },
   titulo: {
     fontSize: 22,
+    marginBottom: 10,
+    //marginTop: 20
   },
   campoNome: {
     fontSize: 16,
@@ -124,6 +143,32 @@ const estilos = StyleSheet.create({
     alignItems: "center",
   },
   botao: {
-    backgroundColor: "red",
+    backgroundColor: "#322727", //"#322727"
+    fontSize: 16,
+    height: 58,
+    margin: 20,
+    padding: 10,
+    borderRadius: 5, 
+    borderRadius: 10,
   },
+  textoBotao: {
+    fontSize: 20,
+    color: "#E3BC40",
+    textAlign: "center",
+    marginTop: 5 
+  },
+  lgpd: {
+    margin: 10,
+    textAlign: "center",
+    fontSize: 15,
+    lineHeight: 24
+  },
+  entrar: {
+    margin: 10,
+    textAlign: "center",
+    fontSize: 15,
+    marginBottom: 30,
+  },
+  
+
 });
