@@ -80,7 +80,7 @@ export default Cadastro;
 
 const estilos = StyleSheet.create({
   container: {
-    marginTop: 10
+    marginTop: 8,
   },
   titulo: {
     fontSize: 22,
@@ -158,16 +158,19 @@ const estilos = StyleSheet.create({
     marginTop: 5 
   },
   lgpd: {
+    color: "#322727",
     margin: 10,
     textAlign: "center",
     fontSize: 15,
     lineHeight: 24
   },
   entrar: {
-    margin: 10,
-    textAlign: "center",
+    color: "#322727",
     fontSize: 15,
+    textAlign: "center",
+    margin: 10,
     marginBottom: 30,
+
   },
   
 
