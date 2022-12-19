@@ -37,16 +37,9 @@ function Cadastro() {
 
           <View style={estilos.inputs}>
             <TextInput
-              style={estilos.campoNome}
-              onChangeText={setNome}
-              placeholder="nome"
-              value={nome}
-            />
-
-            <TextInput
               style={estilos.campoEmail}
               onChangeText={setEmail}
-              placeholder="exemplo@exemplo.com"
+              placeholder="email"
               value={email}
             />
 
@@ -60,13 +53,12 @@ function Cadastro() {
         
         <View style={estilos.containerBotao}>
           <TouchableOpacity style={estilos.botao}> 
-                <Text style={estilos.textoBotao}>Cadastrar</Text>
+                <Text style={estilos.textoBotao}>Entrar</Text>
           </TouchableOpacity>
         </View>
 
         <View>
-          <Text style={estilos.lgpd}>Ao criar o seu cadastro, você concorda com a nossa Política de Privacidade</Text>
-          <Text style={estilos.entrar}>Já tem cadastro? Entrar</Text>
+          <Text style={estilos.lgpd}>Não tem cadastro? Cadastre-se</Text>
         </View>
 
          
