@@ -32,7 +32,7 @@ function Cadastro() {
           </View>
 
           <View style={estilos.containerTitulo}>
-            <Text style={estilos.titulo}>Cadastro</Text>
+            <Text style={estilos.titulo}>Acessar conta</Text>
           </View>
 
           <View style={estilos.inputs}>
