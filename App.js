@@ -50,7 +50,7 @@ export default function App() {
           tabBarActiveTintColor: "#372727 ",
           tabBarInactiveTintColor: "black",
         })}
-      >
+      > 
         <>
           {areaLogada ? (
             <>
