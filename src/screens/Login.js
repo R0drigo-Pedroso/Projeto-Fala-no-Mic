@@ -7,9 +7,6 @@ import {
   Image,
   Pressable,
   TextInput,
-  Button,
-  Touchable,
-  TouchableOpacity,
 } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -18,7 +15,6 @@ import { AntDesign } from "@expo/vector-icons";
 import logo from "../../assets/image/logo_fala_no_mic.png";
 
 function Login() {
-  const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
 
@@ -52,9 +48,9 @@ function Login() {
           </View>
 
           <View style={estilos.containerBotao}>
-            <TouchableOpacity style={estilos.botao}>
+            <Pressable style={estilos.botao}>
               <Text style={estilos.textoBotao}>Entrar</Text>
-            </TouchableOpacity>
+            </Pressable>
           </View>
 
           <View>
@@ -75,7 +71,7 @@ const estilos = StyleSheet.create({
   titulo: {
     fontSize: 22,
     marginBottom: 10,
-    //marginTop: 20
+    marginLeft: 8,
   },
   campoNome: {
     fontSize: 16,
@@ -86,10 +82,6 @@ const estilos = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 10,
     width: "85%",
-    // shadowColor: "#171717",
-    // shadowOffset: { width: -2, height: 4 },
-    // shadowOpacity: 0.2,
-    // shadowRadius: 3,
   },
   campoEmail: {
     fontSize: 16,
