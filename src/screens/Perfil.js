@@ -21,7 +21,7 @@ import Cadastro from "./Cadastro";
 function Perfil() {
   const navigation = useNavigation();
 
-  const autenticacao = "";
+  const autenticacao = "login";
 
   if (autenticacao == "perfil") {
     return (

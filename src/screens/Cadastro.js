@@ -7,9 +7,6 @@ import {
   Image,
   Pressable,
   TextInput,
-  Button,
-  Touchable,
-  TouchableOpacity,
 } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -59,9 +56,9 @@ function Cadastro() {
           </View>
 
           <View style={estilos.containerBotao}>
-            <TouchableOpacity style={estilos.botao}>
+            <Pressable style={estilos.botao}>
               <Text style={estilos.textoBotao}>Cadastrar</Text>
-            </TouchableOpacity>
+            </Pressable>
           </View>
 
           <View>
