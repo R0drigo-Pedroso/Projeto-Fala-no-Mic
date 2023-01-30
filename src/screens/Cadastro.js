@@ -86,7 +86,7 @@ const estilos = StyleSheet.create({
   titulo: {
     fontSize: 22,
     marginBottom: 10,
-    //marginTop: 20
+    marginLeft: 8,
   },
   campoNome: {
     fontSize: 16,
