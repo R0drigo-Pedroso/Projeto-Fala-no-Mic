@@ -14,14 +14,16 @@ import fruta from "../../assets/image/fruta.jpg";
 import astronauta from "../../assets/image/astronauta.jpg";
 /* Import dos ícones */
 import { FontAwesome5 } from "@expo/vector-icons";
+
 import Login from "./Login";
+import Cadastro from "./Cadastro";
 
 function Perfil() {
   const navigation = useNavigation();
 
-  const autenticacao = false;
+  const autenticacao = "login";
 
-  if (autenticacao) {
+  if (autenticacao == "perfil") {
     return (
       <SafeAreaView style={estilos.viewSafe}>
         <StatusBar barStyle="default" />
@@ -87,8 +89,10 @@ function Perfil() {
         </ScrollView>
       </SafeAreaView>
     );
-  } else {
+  } else if (autenticacao == "login") {
     return <Login />;
+  } else {
+    return <Cadastro />;
   }
 }
 export default Perfil;
