@@ -48,20 +48,18 @@ function Cadastro() {
               onChangeText={setSenha}
               placeholder="senha"
               value={senha}
-            />    
+            />
           </View>
-        
-        <View style={estilos.containerBotao}>
-          <TouchableOpacity style={estilos.botao}> 
-                <Text style={estilos.textoBotao}>Entrar</Text>
-          </TouchableOpacity>
-        </View>
 
-        <View>
-          <Text style={estilos.lgpd}>Não tem cadastro? Cadastre-se</Text>
-        </View>
+          <View style={estilos.containerBotao}>
+            <TouchableOpacity style={estilos.botao}>
+              <Text style={estilos.textoBotao}>Entrar</Text>
+            </TouchableOpacity>
+          </View>
 
-         
+          <View>
+            <Text style={estilos.lgpd}>Não tem cadastro? Cadastre-se</Text>
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -140,21 +138,21 @@ const estilos = StyleSheet.create({
     height: 58,
     margin: 20,
     padding: 10,
-    borderRadius: 5, 
+    borderRadius: 5,
     borderRadius: 10,
   },
   textoBotao: {
     fontSize: 20,
     color: "#E3BC40",
     textAlign: "center",
-    marginTop: 5 
+    marginTop: 5,
   },
   lgpd: {
     color: "#322727",
     margin: 10,
     textAlign: "center",
     fontSize: 15,
-    lineHeight: 24
+    lineHeight: 24,
   },
   entrar: {
     color: "#322727",
@@ -162,8 +160,5 @@ const estilos = StyleSheet.create({
     textAlign: "center",
     margin: 10,
     marginBottom: 30,
-
   },
-  
-
 });
