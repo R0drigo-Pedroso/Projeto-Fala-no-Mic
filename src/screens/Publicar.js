@@ -7,11 +7,38 @@ import {
   TextInput,
   ScrollView,
   Pressable,
+  Image
 } from "react-native";
-import React from "react";
 import { Entypo } from "@expo/vector-icons";
+import { useState } from "react";
+import * as ImagePicker from 'expo-image-picker';
+
+
+
 
 function Publicar() {
+
+  const [image, setImage] = useState(null);
+
+
+
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
+    }
+  };
+
+
   return (
     <SafeAreaView style={estilos.viewSafe}>
       <ScrollView>
@@ -30,16 +57,20 @@ function Publicar() {
             <Text style={estilos.titulo}>Adicionar imagem:</Text>
           </View>
 
-          <View style={estilos.backgroundCard}>
-            <View style={estilos.cardImage}>
-              <Entypo
-                name="image"
-                size={24}
-                color="black"
-                style={estilos.icon}
-              />
+          <Pressable onPress={pickImage}>
+            <View style={estilos.backgroundCard}>
+            {image && <Image source={{ uri: image }} style={{ width: "100%", height: 200 }} />}
+            {!image &&
+              <View style={estilos.cardImage}>
+                <Entypo
+                  name="image"
+                  size={24}
+                  color="black"
+                  style={estilos.icon}
+                />
+              </View>}
             </View>
-          </View>
+          </Pressable>
 
           <View style={estilos.viewCampo}>
             <Text style={estilos.nomeLabel}>Endereço</Text>
