@@ -18,12 +18,9 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import Login from "./Login";
 import Cadastro from "./Cadastro";
 
-function Perfil() {
-  ui.start("#firebaseui-auth-container", {
-    signInOptions: [firebase.auth.EmailAuthProvider.PROVIDER_ID],
-    // Other config options...
-  });
+import { initializeApp } from "firebase/app";
 
+function Perfil() {
   const navigation = useNavigation();
 
   const autenticacao = "login";
