@@ -14,75 +14,82 @@ import fruta from "../../assets/image/fruta.jpg";
 import astronauta from "../../assets/image/astronauta.jpg";
 /* Import dos ícones */
 import { FontAwesome5 } from "@expo/vector-icons";
+import Login from "./Login";
 
 function Perfil() {
   const navigation = useNavigation();
 
-  return (
-    <SafeAreaView style={estilos.viewSafe}>
-      <StatusBar barStyle="default" />
+  const autenticacao = false;
 
-      <ScrollView>
-        <View style={estilos.container}>
-          <ImageBackground
-            source={fruta}
-            resizeMode="cover"
-            style={estilos.imagem}
-          >
-            <View style={estilos.viewFoto}>
-              <Image source={astronauta} style={estilos.foto} />
-              <Text style={estilos.usuario}>Nome do Usuário</Text>
-              <Text style={estilos.endereco}>São Paulo, Brasil</Text>
+  if (autenticacao) {
+    return (
+      <SafeAreaView style={estilos.viewSafe}>
+        <StatusBar barStyle="default" />
+
+        <ScrollView>
+          <View style={estilos.container}>
+            <ImageBackground
+              source={fruta}
+              resizeMode="cover"
+              style={estilos.imagem}
+            >
+              <View style={estilos.viewFoto}>
+                <Image source={astronauta} style={estilos.foto} />
+                <Text style={estilos.usuario}>Nome do Usuário</Text>
+                <Text style={estilos.endereco}>São Paulo, Brasil</Text>
+              </View>
+            </ImageBackground>
+
+            <View style={estilos.backgroundCard}>
+              <View style={estilos.card}>
+                <Text style={estilos.titulo}>Descrição: </Text>
+                <Text style={estilos.texto}>
+                  Lorem Ipsum is simply dummy text of the printing and
+                  typesetting industry. Lorem Ipsum has been the industry's
+                  standard dummy text ever since the 1500s, when an unknown
+                  printer took a galley of type and scrambled it to make a type
+                  specimen book. It has survived not only five centuries, but
+                  also the leap into electronic typesetting, remaining
+                  essentially unchanged. It was popularised in the 1960s with
+                  the release of Letraset sheets containing Lorem Ipsum
+                  passages, and more recently with desktop Lorem Ipsum.
+                </Text>
+              </View>
             </View>
-          </ImageBackground>
 
-          <View style={estilos.backgroundCard}>
-            <View style={estilos.card}>
-              <Text style={estilos.titulo}>Descrição: </Text>
-              <Text style={estilos.texto}>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book. It has
-                survived not only five centuries, but also the leap into
-                electronic typesetting, remaining essentially unchanged. It was
-                popularised in the 1960s with the release of Letraset sheets
-                containing Lorem Ipsum passages, and more recently with desktop
-                Lorem Ipsum.
-              </Text>
+            <View style={estilos.redes}>
+              <View style={estilos.nomeRede}>
+                <FontAwesome5 name="deezer" size={32} color="black" />
+                <Text style={estilos.textIcon}>deezer</Text>
+              </View>
+
+              <View style={estilos.nomeRede}>
+                <FontAwesome5 name="youtube" size={32} color="black" />
+                <Text style={estilos.textIcon}>youtube</Text>
+              </View>
+
+              <View style={estilos.nomeRede}>
+                <FontAwesome5 name="spotify" size={32} color="black" />
+                <Text style={estilos.textIcon}>spotify</Text>
+              </View>
+
+              <View style={estilos.nomeRede}>
+                <FontAwesome5 name="soundcloud" size={32} color="black" />
+                <Text style={estilos.textIcon}>soundcloud</Text>
+              </View>
+
+              <View style={estilos.nomeRede}>
+                <FontAwesome5 name="instagram" size={32} color="black" />
+                <Text style={estilos.textIcon}>instagram</Text>
+              </View>
             </View>
           </View>
-
-          <View style={estilos.redes}>
-            <View style={estilos.nomeRede}>
-              <FontAwesome5 name="deezer" size={32} color="black" />
-              <Text style={estilos.textIcon}>deezer</Text>
-            </View>
-
-            <View style={estilos.nomeRede}>
-              <FontAwesome5 name="youtube" size={32} color="black" />
-              <Text style={estilos.textIcon}>youtube</Text>
-            </View>
-
-            <View style={estilos.nomeRede}>
-              <FontAwesome5 name="spotify" size={32} color="black" />
-              <Text style={estilos.textIcon}>spotify</Text>
-            </View>
-
-            <View style={estilos.nomeRede}>
-              <FontAwesome5 name="soundcloud" size={32} color="black" />
-              <Text style={estilos.textIcon}>soundcloud</Text>
-            </View>
-
-            <View style={estilos.nomeRede}>
-              <FontAwesome5 name="instagram" size={32} color="black" />
-              <Text style={estilos.textIcon}>instagram</Text>
-            </View>
-          </View>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
+        </ScrollView>
+      </SafeAreaView>
+    );
+  } else {
+    return <Login />;
+  }
 }
 export default Perfil;
 
