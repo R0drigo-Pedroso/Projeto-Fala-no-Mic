@@ -12,6 +12,11 @@ import {
 import { Entypo } from "@expo/vector-icons";
 import { useState } from "react";
 import * as ImagePicker from 'expo-image-picker';
+import { storage } from "../../firebaseConfig";
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+
+
+
 
 
 
@@ -19,6 +24,8 @@ import * as ImagePicker from 'expo-image-picker';
 function Publicar() {
 
   const [image, setImage] = useState(null);
+
+
 
 
 
@@ -37,6 +44,8 @@ function Publicar() {
       setImage(result.assets[0].uri);
     }
   };
+
+  
 
 
   return (
