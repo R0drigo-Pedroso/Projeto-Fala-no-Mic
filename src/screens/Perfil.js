@@ -19,9 +19,14 @@ import Login from "./Login";
 import Cadastro from "./Cadastro";
 
 function Perfil() {
+  ui.start("#firebaseui-auth-container", {
+    signInOptions: [firebase.auth.EmailAuthProvider.PROVIDER_ID],
+    // Other config options...
+  });
+
   const navigation = useNavigation();
 
-  const autenticacao = "perfil";
+  const autenticacao = "login";
 
   if (autenticacao == "perfil") {
     return (
