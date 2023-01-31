@@ -2,6 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer, useScrollToTop } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Home from "./src/screens/Home";
 import Favoritos from "./src/screens/Favoritos";
@@ -13,6 +14,7 @@ import Cadastro from "./src/screens/Cadastro";
 import { useState } from "react";
 
 const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   const [areaLogada, setArealogada] = useState(true);
@@ -33,7 +35,7 @@ export default function App() {
                 iconName = focused ? "add-circle" : "add-circle-outline";
                 break;
 
-              case "Perfil":
+              case "Login":
                 iconName = focused
                   ? "person-circle-sharp"
                   : "person-circle-outline";
@@ -57,11 +59,10 @@ export default function App() {
               <Tab.Screen name="Home" component={Home} />
               <Tab.Screen name="Favoritos" component={Favoritos} />
               <Tab.Screen name="Publicar" component={Publicar} />
-              <Tab.Screen name="Perfil" component={Perfil} />
+              <Tab.Screen name="Login" component={Login} />
             </>
           ) : (
             <>
-              <Tab.Screen name="Login" component={Login} />
               <Tab.Screen name="Cadastro" component={Cadastro} />
             </>
           )}

@@ -7,59 +7,128 @@ import {
   Image,
   Pressable,
   TextInput,
+  Alert,
 } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useState } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import logo from "../../assets/image/logo_fala_no_mic.png";
+import { auth } from "../../firebaseConfig";
 
-function Login() {
+/* Importamos as funções de autenticação diretamente da lib */
+import {
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+} from "firebase/auth";
+import Perfil from "./Perfil";
+import Cadastro from "./Cadastro";
+
+function Login({ navigation }) {
+  const [telaCadastro, setTelaCadastro] = useState(false);
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [validaLogin, setValidaLogin] = useState(false);
 
-  return (
-    <SafeAreaView>
-      <StatusBar barStyle="default" />
-      <ScrollView>
-        <View style={estilos.container}>
-          <View style={estilos.containerFoto}>
-            <Image source={logo} style={estilos.foto} />
+  const cadastro = () => {
+    setTelaCadastro(true);
+  };
+
+  const login = () => {
+    if (!email || !senha) {
+      Alert.alert("Atenção!", "Você deve preencher todos os campos");
+      return; // parar o processo
+    }
+
+    signInWithEmailAndPassword(auth, email, senha)
+      .then(() => {
+        setValidaLogin(true);
+        Alert.alert("Você foi logado");
+      })
+      .catch((error) => {
+        console.log(error);
+        console.log(error.code);
+        let mensagem;
+        switch (error.code) {
+          case "auth/user-not-found":
+            mensagem = "Usuário não encontrado!";
+            break;
+          case "auth/wrong-password":
+            mensagem = "Senha incorreta";
+            break;
+          default:
+            mensagem = "Houve um erro, tente novamente mais tarde";
+            break;
+        }
+        Alert.alert("Ops!", mensagem);
+      });
+  };
+
+  const recuperarSenha = () => {
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        Alert.alert("Recuperar senha", "Verifique sua caixa de entrada");
+      })
+      .catch((error) => console.log(error));
+  };
+
+  /* Vai para tela de Cadastro */
+  if (telaCadastro) {
+    return <Cadastro />;
+  }
+
+  if (validaLogin) {
+    return <Perfil />;
+  } else {
+    return (
+      <SafeAreaView>
+        <StatusBar barStyle="default" />
+        <ScrollView>
+          <View style={estilos.container}>
+            <View style={estilos.containerFoto}>
+              <Image source={logo} style={estilos.foto} />
+            </View>
+
+            <View style={estilos.containerTitulo}>
+              <Text style={estilos.titulo}>Acessar conta</Text>
+            </View>
+
+            <View style={estilos.inputs}>
+              <TextInput
+                style={estilos.campoEmail}
+                onChangeText={setEmail}
+                placeholder="email"
+                value={email}
+              />
+
+              <TextInput
+                style={estilos.campoSenha}
+                onChangeText={setSenha}
+                placeholder="senha"
+                value={senha}
+              />
+            </View>
+
+            <View style={estilos.containerBotao}>
+              <Pressable style={estilos.botao} onPress={login}>
+                <Text style={estilos.textoBotao}>Entrar</Text>
+              </Pressable>
+            </View>
+
+            <View>
+              <Text style={estilos.lgpd}>
+                Não tem cadastro?
+                <Text style={estilos.cadastrese} onPress={cadastro}>
+                  {" "}
+                  Cadastre-se
+                </Text>
+              </Text>
+            </View>
           </View>
-
-          <View style={estilos.containerTitulo}>
-            <Text style={estilos.titulo}>Acessar conta</Text>
-          </View>
-
-          <View style={estilos.inputs}>
-            <TextInput
-              style={estilos.campoEmail}
-              onChangeText={setEmail}
-              placeholder="email"
-              value={email}
-            />
-
-            <TextInput
-              style={estilos.campoSenha}
-              onChangeText={setSenha}
-              placeholder="senha"
-              value={senha}
-            />
-          </View>
-
-          <View style={estilos.containerBotao}>
-            <Pressable style={estilos.botao}>
-              <Text style={estilos.textoBotao}>Entrar</Text>
-            </Pressable>
-          </View>
-
-          <View>
-            <Text style={estilos.lgpd}>Não tem cadastro? Cadastre-se</Text>
-          </View>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
+        </ScrollView>
+      </SafeAreaView>
+    );
+  }
 }
 
 export default Login;
@@ -143,8 +212,12 @@ const estilos = StyleSheet.create({
     color: "#322727",
     margin: 10,
     textAlign: "center",
-    fontSize: 15,
+    fontSize: 16,
     lineHeight: 24,
+  },
+  cadastrese: {
+    fontWeight: "bold",
+    fontSize: 18,
   },
   entrar: {
     color: "#322727",
