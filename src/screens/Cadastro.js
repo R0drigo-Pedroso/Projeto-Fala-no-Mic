@@ -21,11 +21,13 @@ import Perfil from "./Perfil";
 
 function Cadastro() {
   const [telaLogin, setTelaLogin] = useState(false);
-  const [telaCadastro, setTelaCadastro] = useState(false);
+  const [telaPeril, setTelaPerfil] = useState(false);
+  const [telaHome, setHome] = useState(false);
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
 
+  /* Vai para Cadastro */
   const login = () => {
     setTelaLogin(true);
   };
@@ -34,12 +36,9 @@ function Cadastro() {
     return <Login />;
   }
 
-  const perfil = () => {
-    setTelaCadastro(true);
-  };
-
-  if (telaCadastro) {
-    return <Cadastro />;
+  /* Vai para perfil */
+  if (telaPeril) {
+    return <Perfil />;
   }
 
   const cadastrar = () => {
@@ -64,7 +63,7 @@ function Cadastro() {
           {
             text: "Sim, bora lá!",
             onPress: () => {
-              navigation.replace("Perfil");
+              setTelaPerfil(true);
             },
             style: "default",
           },

@@ -17,9 +17,8 @@ import { FontAwesome5 } from "@expo/vector-icons";
 
 import Login from "./Login";
 import Cadastro from "./Cadastro";
-import { auth } from "../../firebaseConfig";
 
-import { auth } from "../firebaseConfig";
+import { auth } from "../../firebaseConfig";
 import { signOut } from "firebase/auth";
 import { useState } from "react";
 
