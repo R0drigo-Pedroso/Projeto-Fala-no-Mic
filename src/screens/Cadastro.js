@@ -15,8 +15,9 @@ import { useState } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import logo from "../../assets/image/logo_fala_no_mic.png";
 import Login from "./Login";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebaseConfig";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth, db } from "../../firebaseConfig";
+import api from "../../services/api";
 import Perfil from "./Perfil";
 
 function Cadastro() {
@@ -26,6 +27,7 @@ function Cadastro() {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [descricao, setDescricao] = useState("");
 
   /* Vai para Cadastro */
   const login = () => {
@@ -41,6 +43,21 @@ function Cadastro() {
     return <Perfil />;
   }
 
+  const salvar = async () => {
+    try {
+      const resposta = await api.post("/usuario.json", {
+        nome: nome,
+        email: email,
+        descricao: descricao,
+        idAuthentication: id,
+      });
+      cadastrar();
+      // Alert.alert("Salvo com sucesso!!!");
+    } catch (error) {
+      console.log("Deu ruim na busca da API: " + error.message);
+    }
+  };
+
   const cadastrar = () => {
     if (!email || !senha) {
       Alert.alert("Atenção", "Você deve preencher e-mail e senha");
@@ -49,6 +66,13 @@ function Cadastro() {
 
     createUserWithEmailAndPassword(auth, email, senha)
       .then(() => {
+        console.log(auth);
+        /* Ao fazer a criação do novo usuário (com email e senha), aproveitamos para atualizar
+        via updateProfile a propriedade do auth que permite adicionar um nome ao usuário */
+        updateProfile(auth.currentUser, {
+          displayName: nome,
+        });
+
         Alert.alert("Cadastro", "Conta criada com sucesso!", [
           {
             text: "Não, me deixe aqui mesmo",
@@ -132,7 +156,7 @@ function Cadastro() {
 
           <View style={estilos.containerBotao}>
             <Pressable style={estilos.botao}>
-              <Text style={estilos.textoBotao} onPress={cadastrar}>
+              <Text style={estilos.textoBotao} onPress={salvar}>
                 Cadastrar
               </Text>
             </Pressable>

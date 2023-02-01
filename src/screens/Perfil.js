@@ -23,6 +23,10 @@ import { signOut } from "firebase/auth";
 import { useState } from "react";
 
 function Perfil() {
+  /* Recuperando os dados do usuário atual (logado) */
+  const usuarioLogado = auth.currentUser;
+  console.log(usuarioLogado);
+
   return (
     <SafeAreaView style={estilos.viewSafe}>
       <StatusBar barStyle="default" />
@@ -36,25 +40,15 @@ function Perfil() {
           >
             <View style={estilos.viewFoto}>
               <Image source={astronauta} style={estilos.foto} />
-              <Text style={estilos.usuario}>Nome do Usuário</Text>
-              <Text style={estilos.endereco}>São Paulo, Brasil</Text>
+              <Text style={estilos.usuario}>{usuarioLogado.displayName}</Text>
+              <Text style={estilos.endereco}>Informe sua localidade</Text>
             </View>
           </ImageBackground>
 
           <View style={estilos.backgroundCard}>
             <View style={estilos.card}>
               <Text style={estilos.titulo}>Descrição: </Text>
-              <Text style={estilos.texto}>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book. It has
-                survived not only five centuries, but also the leap into
-                electronic typesetting, remaining essentially unchanged. It was
-                popularised in the 1960s with the release of Letraset sheets
-                containing Lorem Ipsum passages, and more recently with desktop
-                Lorem Ipsum.
-              </Text>
+              <Text style={estilos.texto}>{usuarioLogado.descricao}</Text>
             </View>
           </View>
 
