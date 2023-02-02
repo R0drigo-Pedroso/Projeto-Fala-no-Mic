@@ -49,7 +49,6 @@ function Cadastro() {
         nome: nome,
         email: email,
         descricao: descricao,
-        idAuthentication: id,
       });
       cadastrar();
       // Alert.alert("Salvo com sucesso!!!");
