@@ -1,20 +1,11 @@
-import {
-  StatusBar,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  Pressable,
-  TextInput,
-  Alert,
-} from "react-native";
+import {StatusBar,ScrollView,StyleSheet,Text,View,Image,Pressable,TextInput,Alert} from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useState } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import logo from "../../assets/image/logo_fala_no_mic.png";
-import { auth } from "../../firebaseConfig";
+// import { auth } from "../../firebaseConfig";
+import { firebase } from "../../firebaseConfig";
 
 /* Importamos as funções de autenticação diretamente da lib */
 import {
@@ -40,7 +31,7 @@ function Login({ navigation }) {
       return; // parar o processo
     }
 
-    signInWithEmailAndPassword(auth, email, senha)
+    signInWithEmailAndPassword(firebase.auth, email, senha)
       .then(() => {
         setValidaLogin(true);
         Alert.alert("Você foi logado");
@@ -65,7 +56,7 @@ function Login({ navigation }) {
   };
 
   const recuperarSenha = () => {
-    sendPasswordResetEmail(auth, email)
+    sendPasswordResetEmail(firebase.auth, email)
       .then(() => {
         Alert.alert("Recuperar senha", "Verifique sua caixa de entrada");
       })

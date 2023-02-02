@@ -1,15 +1,4 @@
-import {
-  StatusBar,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  Pressable,
-  TextInput,
-  Alert,
-} from "react-native";
-import React from "react";
+import {StatusBar,ScrollView,StyleSheet,Text,View,Image,Pressable,TextInput,Alert} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useState } from "react";
 import { AntDesign } from "@expo/vector-icons";
