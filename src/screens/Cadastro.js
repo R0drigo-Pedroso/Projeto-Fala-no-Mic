@@ -4,9 +4,10 @@ import { useState } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import logo from "../../assets/image/logo_fala_no_mic.png";
 import Login from "./Login";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, db } from "../../firebaseConfig";
+// import { firebase } from "../../firebaseConfig";
 import api from "../../services/api";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import Perfil from "./Perfil";
 
 function Cadastro() {
@@ -32,29 +33,50 @@ function Cadastro() {
     return <Perfil />;
   }
 
-  const salvar = async () => {
+  // const salvar = async () => {
+  //   try {
+  //     const resposta = await api.post("/usuario.json", {
+  //       nome: nome,
+  //       email: email,
+  //       descricao: descricao,
+  //     });
+  //     cadastrar();
+  //     // Alert.alert("Salvo com sucesso!!!");
+  //   } catch (error) {
+  //     console.log("Deu ruim na busca da API: " + error.message);
+  //   }
+  // };
+
+  const salvar = async (event) => {
+    event.preventDefault();
+    // console.log(nome, email, mensagem)
+
+    const opcoes = {
+      method: "POST",
+      body: JSON.stringify({email}),
+      headers: {
+        // Configurando cabeçalhos para requisições
+        "Content-type" : "application/json; charset=utf-8",
+      },
+    };
+    // Script para envio dos dados para a API
     try {
-      const resposta = await api.post("/usuario.json", {
-        nome: nome,
-        email: email,
-        descricao: descricao,
-      });
+      await fetch(`https://mobile-api-bst9.onrender.com/perfil`, opcoes);
+      alert("Dados Enviados")
       cadastrar();
-      // Alert.alert("Salvo com sucesso!!!");
     } catch (error) {
-      console.log("Deu ruim na busca da API: " + error.message);
+      console.log("Deu ruim" . error.message)
     }
-  };
+  }
 
   const cadastrar = () => {
     if (!email || !senha) {
       Alert.alert("Atenção", "Você deve preencher e-mail e senha");
       return;
     }
-
     createUserWithEmailAndPassword(auth, email, senha)
       .then(() => {
-        console.log(auth);
+        // console.log(auth);
         /* Ao fazer a criação do novo usuário (com email e senha), aproveitamos para atualizar
         via updateProfile a propriedade do auth que permite adicionar um nome ao usuário */
         updateProfile(auth.currentUser, {

@@ -8,10 +8,10 @@ import logo from "../../assets/image/logo_fala_no_mic.png";
 import { firebase } from "../../firebaseConfig";
 
 /* Importamos as funções de autenticação diretamente da lib */
-import {
-  signInWithEmailAndPassword,
-  sendPasswordResetEmail,
-} from "firebase/auth";
+// import {
+//   signInWithEmailAndPassword,
+//   sendPasswordResetEmail,
+// } from "firebase/auth";
 import Perfil from "./Perfil";
 import Cadastro from "./Cadastro";
 
@@ -31,7 +31,7 @@ function Login({ navigation }) {
       return; // parar o processo
     }
 
-    signInWithEmailAndPassword(firebase.auth, email, senha)
+    firebase.auth().signInWithEmailAndPassword(email, senha)
       .then(() => {
         setValidaLogin(true);
         Alert.alert("Você foi logado");
@@ -56,7 +56,7 @@ function Login({ navigation }) {
   };
 
   const recuperarSenha = () => {
-    sendPasswordResetEmail(firebase.auth, email)
+    firebase.auth().sendPasswordResetEmail(email)
       .then(() => {
         Alert.alert("Recuperar senha", "Verifique sua caixa de entrada");
       })

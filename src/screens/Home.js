@@ -1,11 +1,5 @@
-import {
-  StatusBar,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  Pressable,
-} from "react-native";
+import { useState, useEffect } from "react";
+import {StatusBar,StyleSheet,Text,View,Image,Pressable} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import imageteste from "../../assets/image/festahiphop.jpg";
@@ -19,11 +13,29 @@ function Home() {
 
   if (!fontCarregar);
 
+  const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        async function getProducts() {
+            try{
+                const resposta = await fetch("https://tec-api.onrender.com/alunos")
+
+                const dados = await resposta.json();
+                setProducts(dados);
+            } catch (error) {
+                console.log("Deu ruim! " + error.message);
+            }
+        }
+
+        getProducts();
+    }, [])
+
   return (
     <SafeAreaView style={estilos.corFundo}>
       <StatusBar barStyle="default" />
-      <Text style={estilos.titulo}>Eventos</Text>
-
+      {products.map(({id, nome, primeira, segunda}) => (
+      <Text style={estilos.titulo}>{nome}</Text>
+      ))}
       <View style={estilos.areaConteudo}>
         <Image style={estilos.imageTamanho} source={imageteste} />
 
@@ -42,6 +54,7 @@ function Home() {
           </Pressable>
         </View>
       </View>
+       
     </SafeAreaView>
   );
 }
