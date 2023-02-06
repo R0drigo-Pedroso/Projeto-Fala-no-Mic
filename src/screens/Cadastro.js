@@ -48,7 +48,7 @@ function Cadastro() {
       const resposta = await api.post("/usuario.json", {
         nome: nome,
         email: email,
-        descricao: descricao,
+        descricao: senha,
       });
       cadastrar();
       // Alert.alert("Salvo com sucesso!!!");
@@ -56,7 +56,7 @@ function Cadastro() {
       console.log("Deu ruim na busca da API: " + error.message);
     }
   };
-
+  
   const cadastrar = () => {
     if (!email || !senha) {
       Alert.alert("Atenção", "Você deve preencher e-mail e senha");

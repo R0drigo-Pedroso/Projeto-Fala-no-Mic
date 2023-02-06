@@ -1,14 +1,5 @@
-import {
-  ImageBackground,
-  SafeAreaView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  ScrollView,
-} from "react-native";
-import React from "react";
+import { ImageBackground, SafeAreaView, StatusBar,StyleSheet,Text,View,Image,ScrollView,Pressable,
+TextInput} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import fruta from "../../assets/image/fruta.jpg";
 import astronauta from "../../assets/image/astronauta.jpg";
@@ -20,13 +11,81 @@ import Cadastro from "./Cadastro";
 
 import { auth } from "../../firebaseConfig";
 import { signOut } from "firebase/auth";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function Perfil() {
   /* Recuperando os dados do usuário atual (logado) */
   const usuarioLogado = auth.currentUser;
-  console.log(usuarioLogado);
+  // console.log(usuarioLogado);
 
+  const [products, setProducts] = useState([]);
+  const navigation = useNavigation();
+
+
+//   useEffect(() => {
+//     async function getProducts() {
+//         try{
+//             const resposta = await fetch(`https://falanomic-e8ea9-default-rtdb.firebaseio.com/usuario.json`)
+
+//             const dados = await resposta.json();
+//             setProducts(dados);
+//         } catch (error) {
+//             console.log("Deu ruim! " + error.message);
+//         }
+//     }
+
+//     getProducts();
+// }, [])
+
+useEffect(() => {
+  async function locaisVisitados() {
+    try {
+      const resposta = await fetch(`https://falanomic-e8ea9-default-rtdb.firebaseio.com/usuario.json`)
+      
+      const dados = await resposta.json();
+
+      let listaDeLoc = [];
+
+
+      for (const loc in dados) {
+          const objetoLoc = {
+            email: dados[loc].email, 
+            descricao: dados[loc].descricao
+          //   descricao: dados[post].descricao, // bla blah
+          //   categoria: dados[post].categoria, // comportamento
+          };
+
+          listaDeLoc.push(objetoLoc);
+
+      }
+
+      setProducts(listaDeLoc);
+
+
+    } catch (error) {
+      console.log("Deu ruim na busca na API: " + error.message);
+    }
+  }
+  locaisVisitados();
+
+  
+}, []);
+
+var descricao;
+products.forEach(function(product) {
+  console.log(product)
+  if(product.email == usuarioLogado.email){
+    console.log(product.descricao)
+    descricao = product.descricao
+  } else {
+    // console.log(typeof(product.email))
+    // console.log(typeof(usuarioLogado.email))
+    console.log("errei")
+  }
+});
+
+
+   
   return (
     <SafeAreaView style={estilos.viewSafe}>
       <StatusBar barStyle="default" />
@@ -41,14 +100,24 @@ function Perfil() {
             <View style={estilos.viewFoto}>
               <Image source={astronauta} style={estilos.foto} />
               <Text style={estilos.usuario}>{usuarioLogado.displayName}</Text>
-              <Text style={estilos.endereco}>Informe sua localidade</Text>
+                      <Text style={estilos.endereco}>{descricao}</Text>
+
+              
+          
+              
             </View>
           </ImageBackground>
 
           <View style={estilos.backgroundCard}>
             <View style={estilos.card}>
-              <Text style={estilos.titulo}>Descrição: </Text>
-              <Text style={estilos.texto}>{usuarioLogado.descricao}</Text>
+              <Text style={estilos.titulo}>Descrição:</Text>
+              <TextInput 
+              style={estilos.texto}
+              value={products.email}
+              />
+               <Pressable style={estilos.editar} onPress={() => {
+                editarPerfil()
+               }}><Text style={{fontWeight:"bold", fontSize: 18}}>Editar</Text></Pressable> 
             </View>
           </View>
 
@@ -155,4 +224,9 @@ const estilos = StyleSheet.create({
   textIcon: {
     marginVertical: 8,
   },
+  editar: {
+    position: "absolute",
+    top: 260,
+    left: 250
+  }
 });

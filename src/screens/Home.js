@@ -10,6 +10,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import imageteste from "../../assets/image/festahiphop.jpg";
 import { useFonts } from "expo-font";
+import { useState, useEffect } from "react";
 
 function Home() {
   const [fontCarregar] = useFonts({
@@ -18,6 +19,8 @@ function Home() {
   });
 
   if (!fontCarregar);
+
+   
 
   return (
     <SafeAreaView style={estilos.corFundo}>
