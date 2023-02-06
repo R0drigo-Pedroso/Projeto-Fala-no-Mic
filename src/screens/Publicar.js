@@ -7,27 +7,16 @@ import {
   TextInput,
   ScrollView,
   Pressable,
-  Image
+  Image,
 } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import { useState } from "react";
-import * as ImagePicker from 'expo-image-picker';
-import { storage } from "../../firebaseConfig";
-import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import * as ImagePicker from "expo-image-picker";
 
-
-
-
-
-
+import CarregarFont from "../components/fonts/useFonts";
 
 function Publicar() {
-
   const [image, setImage] = useState(null);
-
-
-
-
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -45,61 +34,69 @@ function Publicar() {
     }
   };
 
-  
-
-
-  return (
-    <SafeAreaView style={estilos.viewSafe}>
-      <ScrollView>
-        <View style={estilos.container}>
-          <View style={estilos.viewTitulo}>
-            <Text style={estilos.titulo}>Descrição:</Text>
-          </View>
-
-          <View style={estilos.backgroundCard}>
-            <View style={estilos.card}>
-              <Text style={estilos.texto}>Qual é o seu evento?</Text>
+  if (CarregarFont) {
+    return (
+      <SafeAreaView style={estilos.viewSafe}>
+        <ScrollView>
+          <View style={estilos.container}>
+            <View style={estilos.viewTitulo}>
+              <Text style={estilos.titulo}>Descrição:</Text>
             </View>
-          </View>
 
-          <View style={estilos.viewTitulo}>
-            <Text style={estilos.titulo}>Adicionar imagem:</Text>
-          </View>
-
-          <Pressable onPress={pickImage}>
             <View style={estilos.backgroundCard}>
-            {image && <Image source={{ uri: image }} style={{ width: "100%", height: 200 }} />}
-            {!image &&
-              <View style={estilos.cardImage}>
-                <Entypo
-                  name="image"
-                  size={24}
-                  color="black"
-                  style={estilos.icon}
-                />
-              </View>}
+              <View style={estilos.card}>
+                <Text style={estilos.texto}>Qual é o seu evento?</Text>
+              </View>
             </View>
-          </Pressable>
 
-          <View style={estilos.viewCampo}>
-            <Text style={estilos.nomeLabel}>Endereço</Text>
-            <TextInput style={estilos.input} placeholder="Av, Rua ou estrada" />
-          </View>
+            <View style={estilos.viewTitulo}>
+              <Text style={estilos.titulo}>Adicionar imagem:</Text>
+            </View>
 
-          <View style={estilos.viewCampo}>
-            <Text style={estilos.nomeLabel}>Data</Text>
-            <TextInput style={estilos.input} placeholder="Define uma data" />
-          </View>
-
-          <View style={estilos.viewbotao}>
-            <Pressable style={estilos.botao}>
-              <Text style={estilos.botaoTexto}>Publicar</Text>
+            <Pressable onPress={pickImage}>
+              <View style={estilos.backgroundCard}>
+                {image && (
+                  <Image
+                    source={{ uri: image }}
+                    style={{ width: "100%", height: 200 }}
+                  />
+                )}
+                {!image && (
+                  <View style={estilos.cardImage}>
+                    <Entypo
+                      name="image"
+                      size={24}
+                      color="black"
+                      style={estilos.icon}
+                    />
+                  </View>
+                )}
+              </View>
             </Pressable>
+
+            <View style={estilos.viewCampo}>
+              <Text style={estilos.nomeLabel}>Endereço</Text>
+              <TextInput
+                style={estilos.input}
+                placeholder="Av, Rua ou estrada"
+              />
+            </View>
+
+            <View style={estilos.viewCampo}>
+              <Text style={estilos.nomeLabel}>Data</Text>
+              <TextInput style={estilos.input} placeholder="Define uma data" />
+            </View>
+
+            <View style={estilos.viewbotao}>
+              <Pressable style={estilos.botao}>
+                <Text style={estilos.botaoTexto}>Publicar</Text>
+              </Pressable>
+            </View>
           </View>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
+        </ScrollView>
+      </SafeAreaView>
+    );
+  }
 }
 export default Publicar;
 
@@ -119,11 +116,14 @@ const estilos = StyleSheet.create({
   titulo: {
     fontSize: 24,
     fontWeight: "bold",
+    fontFamily: "carterTier",
   },
+
   nomeLabel: {
     fontSize: 24,
     fontWeight: "bold",
     marginVertical: 4,
+    fontFamily: "nunitoOne",
   },
   backgroundCard: {
     padding: 8,

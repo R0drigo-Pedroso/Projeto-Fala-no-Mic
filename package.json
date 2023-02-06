@@ -2,6 +2,11 @@
   "name": "fala-no-mic",
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
+  "font": {
+    "assets": [
+      "./assets/fonts"
+    ]
+  },
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -15,7 +20,7 @@
     "@react-navigation/native-stack": "^6.9.2",
     "axios": "^1.2.0",
     "expo": "~47.0.8",
-    "expo-font": "^11.0.1",
+    "expo-font": "~11.0.1",
     "expo-status-bar": "~1.4.2",
     "firebase": "^9.16.0",
     "firebaseui": "^6.0.2",
