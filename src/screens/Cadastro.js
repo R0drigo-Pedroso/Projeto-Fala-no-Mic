@@ -16,7 +16,8 @@ import { AntDesign } from "@expo/vector-icons";
 import logo from "../../assets/image/logo_fala_no_mic.png";
 import Login from "./Login";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth, db } from "../../firebaseConfig";
+import { auth, db} from "../../firebaseConfig";
+import { ref, set } from "firebase/database";
 import api from "../../services/api";
 import Perfil from "./Perfil";
 
@@ -42,20 +43,15 @@ function Cadastro() {
   if (telaPeril) {
     return <Perfil />;
   }
-
-  const salvar = async () => {
-    try {
-      const resposta = await api.post("/usuario.json", {
-        nome: nome,
-        email: email,
-        descricao: senha,
-      });
-      cadastrar();
-      // Alert.alert("Salvo com sucesso!!!");
-    } catch (error) {
-      console.log("Deu ruim na busca da API: " + error.message);
-    }
-  };
+  function salvar(email, senha) {
+    db.ref('usuario/').set({
+      email: email,
+      senha: senha
+});
+    Alert.alert("Atenção", "Deu certo");
+    cadastrar();
+  }
+  
   
   const cadastrar = () => {
     if (!email || !senha) {
