@@ -63,22 +63,22 @@ function Cadastro() {
 
     const opcoes = {
       method: "POST",
-      body: JSON.stringify({descricao, email}),
+      body: JSON.stringify({ descricao, email }),
       headers: {
         // Configurando cabeçalhos para requisições
-        "Content-type" : "application/json; charset=utf-8",
+        "Content-type": "application/json; charset=utf-8",
       },
     };
     // Script para envio dos dados para a API
     try {
-      await fetch(`http://10.20.45.35:3000/perfil`, opcoes);
-      alert("Dados Enviados")
+      await fetch(`http://10.20.47.68:3000/perfil`, opcoes);
+      alert("Dados Enviados");
       cadastrar();
     } catch (error) {
-      console.log("Deu ruim" . error.message)
+      console.log("Deu ruim".error.message);
     }
-  }
-  
+  };
+
   const cadastrar = () => {
     if (!email || !senha) {
       Alert.alert("Atenção", "Você deve preencher e-mail e senha");
