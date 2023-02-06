@@ -1,5 +1,5 @@
 import { ImageBackground, SafeAreaView, StatusBar,StyleSheet,Text,View,Image,ScrollView,Pressable,
-TextInput} from "react-native";
+TextInput, Button, Alert} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import fruta from "../../assets/image/fruta.jpg";
 import astronauta from "../../assets/image/astronauta.jpg";
@@ -12,12 +12,17 @@ import Cadastro from "./Cadastro";
 import { auth } from "../../firebaseConfig";
 import { signOut } from "firebase/auth";
 import { useState, useEffect } from "react";
+import * as ImagePicker from 'expo-image-picker';
+import { firebaseDois } from "../../firebaseConfigDois"
+
 
 function Perfil() {
   /* Recuperando os dados do usuário atual (logado) */
   const usuarioLogado = auth.currentUser;
   // console.log(usuarioLogado);
   const [posts, setPosts] = useState([]);
+  const [image, setImage] = useState("");
+  const [uploading, setUploading] = useState(false);
 
 
   useEffect(() => {
@@ -36,6 +41,43 @@ function Perfil() {
   const [products, setProducts] = useState([]);
   const navigation = useNavigation();
   console.log(posts)
+
+
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
+    }
+  };
+
+  const uploadingImage = async () => {
+    setUploading(true);
+    const response = await fetch(image);
+    const blob = await response.blob();
+    const filename = image.substring(image.lastIndexOf("/") + 1);
+    let ref = firebaseDois.storage().ref("eventos/").child(filename).put(blob);
+
+    try {
+      await ref;
+    } catch (error) {
+      console.log(error);
+    }
+    setUploading(false);
+    Alert.alert("photo Uploaded");
+    setImage(null);
+  };
+
+  
+
 
 
 //   useEffect(() => {
@@ -108,6 +150,7 @@ console.log(posts.descricao)
 
       <ScrollView>
         <View style={estilos.container}>
+          {!image && 
           <ImageBackground
             source={fruta}
             resizeMode="cover"
@@ -119,11 +162,28 @@ console.log(posts.descricao)
               
                       <Text style={estilos.endereco}>{posts.email}</Text>
 
-                      
-          
-              
+            <Pressable style={estilos.editCapa} onPress={pickImage}><Text style={{color: "white", fontWeight: "bold", fontSize:18}}>Editar Capa</Text></Pressable>     
             </View>
           </ImageBackground>
+          }
+          {image && 
+           <ImageBackground
+           source={{ uri: image }}
+           resizeMode="cover"
+           style={estilos.imagem}
+         >
+           <View style={estilos.viewFoto}>
+             <Image source={astronauta} style={estilos.foto} />
+             <Text style={estilos.usuario}>{usuarioLogado.displayName}</Text>
+             
+                     <Text style={estilos.endereco}>{posts.email}</Text>
+
+            {!image && 
+           <Pressable style={estilos.editCapa} onPress={pickImage}><Text style={{color: "white", fontWeight: "bold", fontSize:18}}>Editar Capa</Text></Pressable> }    
+            {image && 
+           <Pressable style={estilos.editCapa} onPress={uploadingImage}><Text style={{color: "white", fontWeight: "bold", fontSize:18}}>Salvar Capa</Text></Pressable> }    
+           </View>
+         </ImageBackground>}
 
           <View style={estilos.backgroundCard}>
             <View style={estilos.card}>
@@ -245,5 +305,10 @@ const estilos = StyleSheet.create({
     position: "absolute",
     top: 260,
     left: 250
+  },
+  editCapa: {
+    position: "absolute",
+    bottom: 450,
+    left: 260
   }
 });
