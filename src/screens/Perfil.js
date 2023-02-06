@@ -17,9 +17,25 @@ function Perfil() {
   /* Recuperando os dados do usuário atual (logado) */
   const usuarioLogado = auth.currentUser;
   // console.log(usuarioLogado);
+  const [posts, setPosts] = useState([]);
+
+
+  useEffect(() => {
+    async function getPosts() {
+      try {
+        const resposta = await fetch(`http://10.20.45.35:3000/perfil/${usuarioLogado.email}`);
+        const dados = await resposta.json();
+        setPosts(dados);
+      } catch (error) {
+        console.log("Deu ruim! " + error.message);
+      }
+    }
+    getPosts();
+  }, []);
 
   const [products, setProducts] = useState([]);
   const navigation = useNavigation();
+  console.log(posts)
 
 
 //   useEffect(() => {
@@ -37,54 +53,54 @@ function Perfil() {
 //     getProducts();
 // }, [])
 
-useEffect(() => {
-  async function locaisVisitados() {
-    try {
-      const resposta = await fetch(`https://falanomic-e8ea9-default-rtdb.firebaseio.com/usuario.json`)
+// useEffect(() => {
+//   async function locaisVisitados() {
+//     try {
+//       const resposta = await fetch(`https://falanomic-e8ea9-default-rtdb.firebaseio.com/usuario.json`)
       
-      const dados = await resposta.json();
+//       const dados = await resposta.json();
 
-      let listaDeLoc = [];
-
-
-      for (const loc in dados) {
-          const objetoLoc = {
-            email: dados[loc].email, 
-            descricao: dados[loc].descricao
-          //   descricao: dados[post].descricao, // bla blah
-          //   categoria: dados[post].categoria, // comportamento
-          };
-
-          listaDeLoc.push(objetoLoc);
-
-      }
-
-      setProducts(listaDeLoc);
+//       let listaDeLoc = [];
 
 
-    } catch (error) {
-      console.log("Deu ruim na busca na API: " + error.message);
-    }
-  }
-  locaisVisitados();
+//       for (const loc in dados) {
+//           const objetoLoc = {
+//             email: dados[loc].email, 
+//             descricao: dados[loc].descricao
+//           //   descricao: dados[post].descricao, // bla blah
+//           //   categoria: dados[post].categoria, // comportamento
+//           };
+
+//           listaDeLoc.push(objetoLoc);
+
+//       }
+
+//       setProducts(listaDeLoc);
+
+
+//     } catch (error) {
+//       console.log("Deu ruim na busca na API: " + error.message);
+//     }
+//   }
+//   locaisVisitados();
 
   
-}, []);
+// }, []);
 
-var descricao;
-products.forEach(function(product) {
-  console.log(product)
-  if(product.email == usuarioLogado.email){
-    console.log(product.descricao)
-    descricao = product.descricao
-  } else {
-    // console.log(typeof(product.email))
-    // console.log(typeof(usuarioLogado.email))
-    console.log("errei")
-  }
-});
+// var descricao;
+// products.forEach(function(product) {
+//   console.log(product)
+//   if(product.email == usuarioLogado.email){
+//     console.log(product.descricao)
+//     descricao = product.descricao
+//   } else {
+//     // console.log(typeof(product.email))
+//     // console.log(typeof(usuarioLogado.email))
+//     console.log("errei")
+//   }
+// });
 
-
+console.log(posts.descricao)
    
   return (
     <SafeAreaView style={estilos.viewSafe}>
@@ -100,9 +116,10 @@ products.forEach(function(product) {
             <View style={estilos.viewFoto}>
               <Image source={astronauta} style={estilos.foto} />
               <Text style={estilos.usuario}>{usuarioLogado.displayName}</Text>
-                      <Text style={estilos.endereco}>{descricao}</Text>
-
               
+                      <Text style={estilos.endereco}>{posts.email}</Text>
+
+                      
           
               
             </View>
