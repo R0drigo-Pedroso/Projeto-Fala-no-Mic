@@ -28,7 +28,7 @@ function Perfil() {
   useEffect(() => {
     async function getPosts() {
       try {
-        const resposta = await fetch(`http://10.20.45.35:3000/perfil/${usuarioLogado.email}`);
+        const resposta = await fetch(`192.168.18.60:3000/perfil/${usuarioLogado.email}`);
         const dados = await resposta.json();
         setPosts(dados);
       } catch (error) {
