@@ -13,8 +13,8 @@ import { useFonts } from "expo-font";
 
 function Home() {
   const [fontCarregar] = useFonts({
-    nunitoOne: require("../../assets/fonts/NunitoSans-Regular.ttf"),
-    carterTier: require("../../assets/fonts/CarterOne-Regular.ttf"),
+    nunito: require("../../assets/fonts/NunitoSans-Regular.ttf"),
+    carter: require("../../assets/fonts/CarterOne-Regular.ttf"),
   });
 
   if (!fontCarregar);
@@ -54,7 +54,7 @@ const estilos = StyleSheet.create({
   },
 
   fontTitulo: {
-    fontFamily: "carterTier",
+    fontFamily: "carter",
     fontSize: 24,
   },
 
@@ -67,7 +67,7 @@ const estilos = StyleSheet.create({
   },
 
   textDescricao: {
-    fontFamily: "nunitoOne",
+    fontFamily: "nunito",
     fontSize: 13,
     marginTop: 8,
     marginBottom: 8,
@@ -80,7 +80,7 @@ const estilos = StyleSheet.create({
     padding: 8,
     marginTop: 16,
     marginBottom: 16,
-    fontFamily: "carterTier",
+    fontFamily: "carter",
   },
 
   areaConteudo: {
@@ -102,7 +102,7 @@ const estilos = StyleSheet.create({
   textSaiba: {
     fontSize: 16,
     color: "#E3BC40",
-    fontFamily: "carterTier",
+    fontFamily: "carter",
   },
 
   imageTamanho: {
