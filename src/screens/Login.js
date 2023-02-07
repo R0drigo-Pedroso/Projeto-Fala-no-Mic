@@ -195,6 +195,6 @@ const estilos = StyleSheet.create({
     color: "#372727",
   },
   cadastresess: {
-    color: "blue",
+    fontWeight: "bold",
   },
 });
