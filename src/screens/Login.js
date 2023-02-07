@@ -6,12 +6,12 @@ import {
   View,
   Image,
   Pressable,
-  TextInput,
   Alert,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
 } from "react-native";
-import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useState } from "react";
+import { useState, createRef, useEffect } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import logo from "../../assets/image/logo_fala_no_mic.png";
 import { auth } from "../../firebaseConfig";
@@ -23,21 +23,34 @@ import {
 } from "firebase/auth";
 import Perfil from "./Perfil";
 import Cadastro from "./Cadastro";
+/* Import do component de input */
+import Input from "../components/input/Input";
 
 function Login({ navigation }) {
   const [telaCadastro, setTelaCadastro] = useState(false);
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [validaLogin, setValidaLogin] = useState(false);
+  const emailInput = createRef();
+  const senhaInput = createRef();
+
+  useEffect(() => emailInput.current.resetError(), [email]);
+  useEffect(() => senhaInput.current.resetError(), [senha]);
 
   const cadastro = () => {
     setTelaCadastro(true);
   };
 
   const login = () => {
-    if (!email || !senha) {
-      Alert.alert("Atenção!", "Você deve preencher todos os campos");
-      return; // parar o processo
+    if (email == "") {
+      Alert.alert("E-mail inválido", "Tente novamente!");
+      emailInput.current.focusOnError();
+      return;
+    }
+    if (senha == "") {
+      Alert.alert("Senha inválida", "Tente novamente!");
+      senhaInput.current.focusOnError();
+      return;
     }
 
     signInWithEmailAndPassword(auth, email, senha)
@@ -81,52 +94,56 @@ function Login({ navigation }) {
     return <Perfil />;
   } else {
     return (
-      <SafeAreaView>
+      <KeyboardAvoidingView style={estilos.viewSafe}>
         <StatusBar barStyle="default" />
         <ScrollView>
-          <View style={estilos.container}>
-            <View style={estilos.containerFoto}>
-              <Image source={logo} style={estilos.foto} />
-            </View>
+          <View style={estilos.viewFoto}>
+            <Image source={logo} />
+          </View>
 
-            <View style={estilos.containerTitulo}>
-              <Text style={estilos.titulo}>Acessar conta</Text>
-            </View>
+          <View style={estilos.viewAcessarConta}>
+            <Text style={estilos.titulo}>Acessar conta</Text>
+          </View>
 
-            <View style={estilos.inputs}>
-              <TextInput
-                style={estilos.campoEmail}
-                onChangeText={setEmail}
-                placeholder="email"
-                value={email}
-              />
+          <Input
+            ref={emailInput}
+            iconName={"account-outline"}
+            placeholder="E-mail"
+            autoCapitalize="none"
+            keyboardType="email-address"
+            autoCorrect={false}
+            value={email}
+            onChangeText={setEmail}
+          />
+          <Input
+            ref={senhaInput}
+            iconName={"lock-outline"}
+            secureTextEntry
+            placeholder="Senha"
+            autoCapitalize="none"
+            autoCorrect={false}
+            keyboardType="default"
+            value={senha}
+            onChangeText={setSenha}
+          />
 
-              <TextInput
-                style={estilos.campoSenha}
-                onChangeText={setSenha}
-                placeholder="senha"
-                value={senha}
-              />
-            </View>
+          <View style={estilos.viewBotao}>
+            <Pressable style={estilos.botao} onPress={login}>
+              <Text style={estilos.textoBotao}>Entrar</Text>
+            </Pressable>
+          </View>
 
-            <View style={estilos.containerBotao}>
-              <Pressable style={estilos.botao} onPress={login}>
-                <Text style={estilos.textoBotao}>Entrar</Text>
-              </Pressable>
-            </View>
-
-            <View>
-              <Text style={estilos.lgpd}>
-                Não tem cadastro?
-                <Text style={estilos.cadastrese} onPress={cadastro}>
-                  {" "}
-                  Cadastre-se
-                </Text>
+          <View style={estilos.viewLgpd}>
+            <Text style={estilos.tituloLgpd}>
+              Não tem cadastro?
+              <Text onPress={cadastro}>
+                {" "}
+                <Text style={estilos.cadastresess}>Cadastre-se</Text>
               </Text>
-            </View>
+            </Text>
           </View>
         </ScrollView>
-      </SafeAreaView>
+      </KeyboardAvoidingView>
     );
   }
 }
@@ -134,96 +151,50 @@ function Login({ navigation }) {
 export default Login;
 
 const estilos = StyleSheet.create({
-  container: {
-    marginTop: 8,
+  viewSafe: {
+    flex: 1,
+    justifyContent: "center",
+  },
+  viewFoto: {
+    alignItems: "center",
+  },
+  viewAcessarConta: {
+    marginLeft: 22,
   },
   titulo: {
-    fontSize: 22,
-    marginBottom: 10,
-    marginLeft: 8,
+    fontSize: 24,
+    color: "#372727",
   },
-  campoNome: {
-    fontSize: 16,
-    height: 54,
-    margin: 15,
-    padding: 10,
-    borderRadius: 5,
-    backgroundColor: "white",
-    borderRadius: 10,
-    width: "85%",
-  },
-  campoEmail: {
-    fontSize: 16,
-    height: 54,
-    margin: 20,
-    padding: 10,
-    borderRadius: 5,
-    backgroundColor: "white",
-    borderRadius: 10,
-    width: "85%",
-  },
-  campoSenha: {
-    fontSize: 16,
-    height: 54,
-    margin: 20,
-    padding: 10,
-    borderRadius: 5,
-    backgroundColor: "white",
-    borderRadius: 10,
-    width: "85%",
-  },
-  campoConfirmarSenha: {
-    fontSize: 16,
-    height: 64,
-    margin: 20,
-    padding: 10,
-    borderRadius: 5,
-    backgroundColor: "white",
-    borderRadius: 10,
-  },
-  foto: {
-    textAlign: "center",
-  },
-  containerFoto: {
-    alignItems: "center",
-  },
-  containerTitulo: {
-    paddingHorizontal: 25,
-  },
-  inputs: {
-    alignItems: "center",
+  viewBotao: {
+    padding: 8,
+    marginVertical: 8,
   },
   botao: {
-    backgroundColor: "#322727", //"#322727"
-    fontSize: 16,
-    height: 58,
-    margin: 20,
-    padding: 10,
-    borderRadius: 5,
-    borderRadius: 10,
+    width: "94%",
+    height: 50,
+    backgroundColor: "#322727",
+    borderRadius: 8,
+    marginLeft: 11,
+    justifyContent: "center",
+    shadowColor: "#171717",
+    shadowOffset: { left: -15, right: 15 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
   },
   textoBotao: {
-    fontSize: 20,
+    fontSize: 24,
     color: "#E3BC40",
     textAlign: "center",
-    marginTop: 5,
   },
-  lgpd: {
-    color: "#322727",
-    margin: 10,
-    textAlign: "center",
+  viewLgpd: {
+    alignItems: "center",
+  },
+  tituloLgpd: {
+    padding: 8,
     fontSize: 16,
-    lineHeight: 24,
+    color: "#372727",
   },
-  cadastrese: {
-    fontWeight: "bold",
-    fontSize: 18,
-  },
-  entrar: {
-    color: "#322727",
-    fontSize: 15,
-    textAlign: "center",
-    margin: 10,
-    marginBottom: 30,
+  cadastresess: {
+    color: "blue",
   },
 });
