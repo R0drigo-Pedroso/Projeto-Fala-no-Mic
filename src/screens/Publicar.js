@@ -14,6 +14,8 @@ import { Entypo } from "@expo/vector-icons";
 import { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
 
+import FontLoader from "../components/fonts/useFonts";
+
 function Publicar() {
   const [image, setImage] = useState(null);
 
@@ -36,65 +38,71 @@ function Publicar() {
   return (
     <KeyboardAvoidingView style={estilos.viewSafe}>
       <ScrollView>
-        <View style={estilos.container}>
-          <View style={estilos.backgroundCard}>
-            <Text style={estilos.titulo}>Titulo:</Text>
+        <FontLoader>
+          <View style={estilos.container}>
+            <View style={estilos.backgroundCard}>
+              <Text style={estilos.titulo}>Titulo:</Text>
 
-            <TextInput
-              style={estilos.cardTitulo}
-              placeholder="Digite seu nome"
-            ></TextInput>
-          </View>
-          <View style={estilos.backgroundCard}>
-            <Text style={estilos.titulo}>Descrição:</Text>
-
-            <View style={estilos.cardArea}>
-              <Text style={estilos.texto}>Qual é o seu evento?</Text>
+              <TextInput
+                style={estilos.cardTitulo}
+                placeholder="Digite seu nome"
+              ></TextInput>
             </View>
-          </View>
-          <Pressable onPress={pickImage} style={estilos.backgroundCard}>
-            <Text style={estilos.tituloImagem}>Adicionar imagem:</Text>
-            <View>
-              {image && (
-                <Image
-                  source={{ uri: image }}
-                  style={{ width: "100%", height: 200 }}
-                />
-              )}
-              {!image && (
-                <View style={estilos.cardImage}>
-                  <Entypo
-                    name="image"
-                    size={24}
-                    color="black"
-                    style={estilos.icon}
+            <View style={estilos.backgroundCard}>
+              <Text style={estilos.titulo}>Descrição:</Text>
+
+              <View style={estilos.cardArea}>
+                <Text style={estilos.texto}>Qual é o seu evento?</Text>
+              </View>
+            </View>
+            <Pressable onPress={pickImage} style={estilos.backgroundCard}>
+              <Text style={estilos.tituloImagem}>Adicionar imagem:</Text>
+
+              <View>
+                {image && (
+                  <Image
+                    source={{ uri: image }}
+                    style={{ width: "100%", height: 200 }}
                   />
-                </View>
-              )}
-            </View>
-          </Pressable>
-          <View style={estilos.backgroundCard}>
-            <Text style={estilos.titulo}>Endereço</Text>
-
-            <TextInput style={estilos.input} placeholder="Av, Rua ou estrada" />
-          </View>
-
-          <View style={estilos.backgroundCard}>
-            <Text style={estilos.titulo}>Data</Text>
-            <TextInput style={estilos.input} placeholder="Define uma data" />
-          </View>
-
-          <View style={estilos.backgroundCard}>
-            <Text style={estilos.titulo}>Horário</Text>
-            <TextInput style={estilos.input} placeholder="Define uma data" />
-          </View>
-
-          <View style={estilos.viewbotao}>
-            <Pressable style={estilos.botao}>
-              <Text style={estilos.botaoTexto}>Publicar</Text>
+                )}
+                {!image && (
+                  <View style={estilos.cardImage}>
+                    <Entypo
+                      name="image"
+                      size={24}
+                      color="black"
+                      style={estilos.icon}
+                    />
+                  </View>
+                )}
+              </View>
             </Pressable>
+            <View style={estilos.backgroundCard}>
+              <Text style={estilos.titulo}>Endereço</Text>
+
+              <TextInput
+                style={estilos.input}
+                placeholder="Av, Rua ou estrada"
+              />
+            </View>
+
+            <View style={estilos.backgroundCard}>
+              <Text style={estilos.titulo}>Data</Text>
+              <TextInput style={estilos.input} placeholder="Define uma data" />
+            </View>
+
+            <View style={estilos.backgroundCard}>
+              <Text style={estilos.titulo}>Horário</Text>
+              <TextInput style={estilos.input} placeholder="Define uma data" />
+            </View>
+
+            <View style={estilos.viewbotao}>
+              <Pressable style={estilos.botao}>
+                <Text style={estilos.botaoTexto}>Publicar</Text>
+              </Pressable>
+            </View>
           </View>
-        </View>
+        </FontLoader>
       </ScrollView>
     </KeyboardAvoidingView>
   );
@@ -140,6 +148,13 @@ const estilos = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 3,
     marginVertical: 8,
+
+    backgroundColor: "white",
+    shadowColor: "#171717",
+    shadowOffset: { left: -15, right: 15 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    elevation: 3,
   },
 
   cardTitulo: {
@@ -148,11 +163,13 @@ const estilos = StyleSheet.create({
     padding: 8,
     width: "100%",
     borderRadius: 5,
+
     shadowColor: "#171717",
     shadowOffset: { left: -15, right: 15 },
     shadowOpacity: 0.2,
     shadowRadius: 3,
     marginVertical: 8,
+    elevation: 3,
   },
 
   tituloImagem: {
@@ -173,6 +190,13 @@ const estilos = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 3,
     justifyContent: "center",
+
+    backgroundColor: "white",
+    shadowColor: "#171717",
+    shadowOffset: { left: -15, right: 15 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    elevation: 3,
   },
   texto: {
     padding: 8,
@@ -191,15 +215,17 @@ const estilos = StyleSheet.create({
   input: {
     height: 50,
     padding: 8,
-    backgroundColor: "white",
     borderRadius: 5,
+    marginTop: 8,
+    fontFamily: "nunitoOne",
+
+    /* config box shadow (Para android precisa colocar a propriedade "elevation") */
+    backgroundColor: "white",
     shadowColor: "#171717",
     shadowOffset: { left: -15, right: 15 },
     shadowOpacity: 0.2,
     shadowRadius: 3,
-    marginTop: 8,
-
-    fontFamily: "nunitoOne",
+    elevation: 3,
   },
 
   viewbotao: {

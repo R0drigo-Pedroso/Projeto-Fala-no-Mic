@@ -1,20 +1,15 @@
-import React, { useState, useEffect } from "react";
-import * as Font from "expo-font";
+import { useFonts } from "expo-font";
+import { Text, View } from "react-native";
 
-const FontLoader = ({ carterTier, nunitoOne }) => {
-  const [fontLoaded, setFontLoaded] = useState(false);
+const FontLoader = ({ children }) => {
+  const [carregarFonte] = useFonts({
+    carterOne: require("./CarterOne-Regular.ttf"),
+    nunitoSans: require("./NunitoSans-Regular.ttf"),
+  });
 
-  useEffect(() => {
-    (async () => {
-      await Font.loadAsync({
-        [carterTier]: require(`./CarterOne-Regular.ttf`),
-        [nunitoOne]: require(`./NunitoSans-Regular.ttf`),
-      });
-      setFontLoaded(true);
-    })();
-  }, []);
+  if (!carregarFonte) return <Text>Teste de fonte</Text>;
 
-  return fontLoaded ? <></> : <></>;
+  return <View>{children}</View>;
 };
 
 export default FontLoader;
