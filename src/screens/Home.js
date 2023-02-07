@@ -61,7 +61,7 @@ const estilos = StyleSheet.create({
   },
 
   textDescricao: {
-    fontFamily: "nunitoOne",
+    fontFamily: "nunit'oOne",
     fontSize: 13,
     marginTop: 8,
     marginBottom: 8,

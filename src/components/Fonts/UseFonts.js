@@ -1,13 +1,20 @@
-import { useFonts } from "expo-font";
+import React, { useState, useEffect } from "react";
+import * as Font from "expo-font";
 
-function CarregarFont() {
-  const [FonteCarregada] = useFonts({
-    nunitoOne: require("./assets/fonts/NunitoSans-Regular.ttf"),
-    carterTier: require("./assets/fonts/CarterOne-Regular.ttf"),
-  });
+const FontLoader = ({ carterTier, nunitoOne }) => {
+  const [fontLoaded, setFontLoaded] = useState(false);
 
-  return FonteCarregada;
-  /* Final inserir fontes */
-}
+  useEffect(() => {
+    (async () => {
+      await Font.loadAsync({
+        [carterTier]: require(`./CarterOne-Regular.ttf`),
+        [nunitoOne]: require(`./NunitoSans-Regular.ttf`),
+      });
+      setFontLoaded(true);
+    })();
+  }, []);
 
-export default CarregarFont;
+  return fontLoaded ? <></> : <></>;
+};
+
+export default FontLoader;
