@@ -211,7 +211,7 @@ function Cadastro() {
         />
 
         <View style={estilos.viewBotao}>
-          <Pressable style={estilos.botao} onPress={cadastrar}>
+          <Pressable style={estilos.botao} onPress={salvar}>
             <Text style={estilos.textoBotao}>Cadastrar</Text>
           </Pressable>
         </View>
