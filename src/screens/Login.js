@@ -8,9 +8,7 @@ import {
   Pressable,
   Alert,
   KeyboardAvoidingView,
-  TouchableWithoutFeedback,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { useState, createRef, useEffect } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import logo from "../../assets/image/logo_fala_no_mic.png";
