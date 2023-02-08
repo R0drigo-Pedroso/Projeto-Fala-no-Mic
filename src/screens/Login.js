@@ -16,6 +16,8 @@ import { AntDesign } from "@expo/vector-icons";
 import logo from "../../assets/image/logo_fala_no_mic.png";
 import { auth } from "../../firebaseConfig";
 
+import FontLoader from "../components/useFonts/useFonts";
+
 /* Importamos as funções de autenticação diretamente da lib */
 import {
   signInWithEmailAndPassword,
@@ -83,49 +85,51 @@ function Login({ navigation }) {
     return (
       <SafeAreaView>
         <StatusBar barStyle="default" />
-        <ScrollView>
-          <View style={estilos.container}>
-            <View style={estilos.containerFoto}>
-              <Image source={logo} style={estilos.foto} />
-            </View>
+        <FontLoader>
+          <ScrollView>
+            <View style={estilos.container}>
+              <View style={estilos.containerFoto}>
+                <Image source={logo} style={estilos.foto} />
+              </View>
 
-            <View style={estilos.containerTitulo}>
-              <Text style={estilos.titulo}>Acessar conta</Text>
-            </View>
+              <View style={estilos.containerTitulo}>
+                <Text style={estilos.titulo}>Acessar conta</Text>
+              </View>
 
-            <View style={estilos.inputs}>
-              <TextInput
-                style={estilos.campoEmail}
-                onChangeText={setEmail}
-                placeholder="email"
-                value={email}
-              />
+              <View style={estilos.inputs}>
+                <TextInput
+                  style={estilos.campoEmail}
+                  onChangeText={setEmail}
+                  placeholder="email"
+                  value={email}
+                />
 
-              <TextInput
-                style={estilos.campoSenha}
-                onChangeText={setSenha}
-                placeholder="senha"
-                value={senha}
-              />
-            </View>
+                <TextInput
+                  style={estilos.campoSenha}
+                  onChangeText={setSenha}
+                  placeholder="senha"
+                  value={senha}
+                />
+              </View>
 
-            <View style={estilos.containerBotao}>
-              <Pressable style={estilos.botao} onPress={login}>
-                <Text style={estilos.textoBotao}>Entrar</Text>
-              </Pressable>
-            </View>
+              <View style={estilos.containerBotao}>
+                <Pressable style={estilos.botao} onPress={login}>
+                  <Text style={estilos.textoBotao}>Entrar</Text>
+                </Pressable>
+              </View>
 
-            <View>
-              <Text style={estilos.lgpd}>
-                Não tem cadastro?
-                <Text style={estilos.cadastrese} onPress={cadastro}>
-                  {" "}
-                  Cadastre-se
+              <View>
+                <Text style={estilos.lgpd}>
+                  Não tem cadastro?
+                  <Text style={estilos.cadastrese} onPress={cadastro}>
+                    {" "}
+                    Cadastre-se
+                  </Text>
                 </Text>
-              </Text>
+              </View>
             </View>
-          </View>
-        </ScrollView>
+          </ScrollView>
+        </FontLoader>
       </SafeAreaView>
     );
   }
@@ -141,6 +145,7 @@ const estilos = StyleSheet.create({
     fontSize: 22,
     marginBottom: 10,
     marginLeft: 8,
+    fontFamily: "carterOne",
   },
   campoNome: {
     fontSize: 16,
@@ -161,6 +166,7 @@ const estilos = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 10,
     width: "85%",
+    fontFamily: "nunitoSans",
   },
   campoSenha: {
     fontSize: 16,
@@ -171,6 +177,7 @@ const estilos = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 10,
     width: "85%",
+    fontFamily: "nunitoSans",
   },
   campoConfirmarSenha: {
     fontSize: 16,
@@ -207,6 +214,7 @@ const estilos = StyleSheet.create({
     color: "#E3BC40",
     textAlign: "center",
     marginTop: 5,
+    fontFamily: "carterOne",
   },
   lgpd: {
     color: "#322727",
@@ -214,10 +222,12 @@ const estilos = StyleSheet.create({
     textAlign: "center",
     fontSize: 16,
     lineHeight: 24,
+    fontFamily: "nunitoSans",
   },
   cadastrese: {
     fontWeight: "bold",
     fontSize: 18,
+    fontFamily: "nunitoSans",
   },
   entrar: {
     color: "#322727",

@@ -1,15 +1,25 @@
-import { StatusBar, View, Text, SafeAreaView, StyleSheet, Image, Pressable, Share } from "react-native";
+import {
+  StatusBar,
+  View,
+  Text,
+  SafeAreaView,
+  StyleSheet,
+  Image,
+  Pressable,
+  Share,
+} from "react-native";
 import imageteste from "../../assets/image/festahiphop.jpg";
 import { useFonts } from "expo-font";
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons } from "@expo/vector-icons";
+
+import FontLoader from "../components/useFonts/useFonts";
 
 function Favoritos() {
-
   const onShare = async () => {
     try {
       const result = await Share.share({
         message:
-          'React Native | A framework for building native apps using React',
+          "React Native | A framework for building native apps using React",
       });
       if (result.action === Share.sharedAction) {
         if (result.activityType) {
@@ -47,14 +57,13 @@ function Favoritos() {
             <Pressable style={estilos.botaoSaiba}>
               <Text style={estilos.textSaiba}>Saiba +</Text>
             </Pressable>
-           
-              <Pressable style={estilos.social}  onPress={onShare}>
-                <Ionicons name="share-social" size={24} color="black" />
-              </Pressable>
-              <Pressable style={estilos.delete}>
-                <Ionicons name="trash-bin" size={24} color="black" />
-              </Pressable>
-           
+
+            <Pressable style={estilos.social} onPress={onShare}>
+              <Ionicons name="share-social" size={24} color="black" />
+            </Pressable>
+            <Pressable style={estilos.delete}>
+              <Ionicons name="trash-bin" size={24} color="black" />
+            </Pressable>
           </View>
         </View>
       </View>
@@ -70,7 +79,7 @@ const estilos = StyleSheet.create({
   },
 
   fontTitulo: {
-    fontFamily: "carterTier",
+    fontFamily: "carterOne",
     fontSize: 24,
   },
 
@@ -83,7 +92,7 @@ const estilos = StyleSheet.create({
   },
 
   textDescricao: {
-    fontFamily: "nunitoOne",
+    fontFamily: "nunitoSans",
     fontSize: 13,
     marginTop: 8,
     marginBottom: 8,
@@ -96,7 +105,7 @@ const estilos = StyleSheet.create({
     padding: 8,
     marginTop: 16,
     marginBottom: 16,
-    fontFamily: "carterTier",
+    fontFamily: "carterOne",
   },
 
   areaConteudo: {
@@ -118,7 +127,7 @@ const estilos = StyleSheet.create({
   textSaiba: {
     fontSize: 16,
     color: "#E3BC40",
-    fontFamily: "carterTier",
+    fontFamily: "carterOne",
   },
 
   imageTamanho: {
@@ -132,13 +141,10 @@ const estilos = StyleSheet.create({
   },
   social: {
     marginLeft: 60,
-    paddingTop: 10
+    paddingTop: 10,
   },
   delete: {
     paddingTop: 10,
     marginLeft: 25,
-
-  }
-
+  },
 });
-

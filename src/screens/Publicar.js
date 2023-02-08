@@ -14,7 +14,7 @@ import { Entypo } from "@expo/vector-icons";
 import { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
 
-import FontLoader from "../components/fonts/useFonts";
+import FontLoader from "../components/useFonts/useFonts";
 
 function Publicar() {
   const [image, setImage] = useState(null);
@@ -128,7 +128,7 @@ const estilos = StyleSheet.create({
     paddingLeft: 4,
     fontSize: 24,
     fontWeight: "bold",
-    fontFamily: "carterTier",
+    fontFamily: "CarterOne",
   },
 
   backgroundCard: {
@@ -177,7 +177,7 @@ const estilos = StyleSheet.create({
     marginBottom: 8,
     fontSize: 24,
     fontWeight: "bold",
-    fontFamily: "carterTier",
+    fontFamily: "carterOne",
   },
 
   cardImage: {
@@ -217,7 +217,7 @@ const estilos = StyleSheet.create({
     padding: 8,
     borderRadius: 5,
     marginTop: 8,
-    fontFamily: "nunitoOne",
+    fontFamily: "nunitoSans",
 
     /* config box shadow (Para android precisa colocar a propriedade "elevation") */
     backgroundColor: "white",

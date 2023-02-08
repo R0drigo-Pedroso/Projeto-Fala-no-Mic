@@ -12,30 +12,34 @@ import imageteste from "../../assets/image/festahiphop.jpg";
 import { useFonts } from "expo-font";
 import { useState, useEffect } from "react";
 
+import FontLoader from "../components/useFonts/useFonts";
+
 function Home() {
   return (
     <SafeAreaView style={estilos.corFundo}>
       <StatusBar barStyle="default" />
-      <Text style={estilos.titulo}>Eventos</Text>
+      <FontLoader>
+        <Text style={estilos.titulo}>Eventos</Text>
 
-      <View style={estilos.areaConteudo}>
-        <Image style={estilos.imageTamanho} source={imageteste} />
+        <View style={estilos.areaConteudo}>
+          <Image style={estilos.imageTamanho} source={imageteste} />
 
-        <View style={estilos.descricao}>
-          <View>
-            <Text style={estilos.fontTitulo}>Titulo</Text>
-            <Text style={estilos.textDescricao}>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry, Lorem Ipsum is simply dummy text of the printing and
-              typesetting industry
-            </Text>
+          <View style={estilos.descricao}>
+            <View>
+              <Text style={estilos.fontTitulo}>Titulo</Text>
+              <Text style={estilos.textDescricao}>
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry, Lorem Ipsum is simply dummy text of the printing and
+                typesetting industry
+              </Text>
+            </View>
+
+            <Pressable style={estilos.botaoSaiba}>
+              <Text style={estilos.textSaiba}>Saiba +</Text>
+            </Pressable>
           </View>
-
-          <Pressable style={estilos.botaoSaiba}>
-            <Text style={estilos.textSaiba}>Saiba +</Text>
-          </Pressable>
         </View>
-      </View>
+      </FontLoader>
     </SafeAreaView>
   );
 }
@@ -48,7 +52,7 @@ const estilos = StyleSheet.create({
   },
 
   fontTitulo: {
-    fontFamily: "carterTier",
+    fontFamily: "carterOne",
     fontSize: 24,
   },
 
@@ -61,7 +65,7 @@ const estilos = StyleSheet.create({
   },
 
   textDescricao: {
-    fontFamily: "nunit'oOne",
+    fontFamily: "nunitoSans",
     fontSize: 13,
     marginTop: 8,
     marginBottom: 8,
@@ -74,7 +78,7 @@ const estilos = StyleSheet.create({
     padding: 8,
     marginTop: 16,
     marginBottom: 16,
-    fontFamily: "carterTier",
+    fontFamily: "carterOne",
   },
 
   areaConteudo: {
@@ -96,7 +100,7 @@ const estilos = StyleSheet.create({
   textSaiba: {
     fontSize: 16,
     color: "#E3BC40",
-    fontFamily: "carterTier",
+    fontFamily: "carterOne",
   },
 
   imageTamanho: {
