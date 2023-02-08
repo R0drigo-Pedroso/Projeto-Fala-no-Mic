@@ -1,5 +1,17 @@
-import { ImageBackground, SafeAreaView, StatusBar,StyleSheet,Text,View,Image,ScrollView,Pressable,
-TextInput, Button, Alert} from "react-native";
+import {
+  ImageBackground,
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  ScrollView,
+  Pressable,
+  TextInput,
+  Button,
+  Alert,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import fruta from "../../assets/image/fruta.jpg";
 import astronauta from "../../assets/image/astronauta.jpg";
@@ -12,9 +24,8 @@ import Cadastro from "./Cadastro";
 import { auth } from "../../firebaseConfig";
 import { signOut } from "firebase/auth";
 import { useState, useEffect } from "react";
-import * as ImagePicker from 'expo-image-picker';
-import { firebaseDois } from "../../firebaseConfigDois"
-
+import * as ImagePicker from "expo-image-picker";
+import { firebaseDois } from "../../firebaseConfigDois";
 
 function Perfil() {
   /* Recuperando os dados do usuário atual (logado) */
@@ -24,12 +35,13 @@ function Perfil() {
   const [image, setImage] = useState("");
   const [uploading, setUploading] = useState(false);
 
-
   useEffect(() => {
     async function getPosts() {
       try {
-         // ATENÇÃO: Usem o aqui o IP da sua máquina
-        const resposta = await fetch(`192.168.18.60:3000/perfil/${usuarioLogado.email}`);
+        // ATENÇÃO: Usem o aqui o IP da sua máquina
+        const resposta = await fetch(
+          `10.20.48.26:3000/perfil/${usuarioLogado.email}`
+        );
         const dados = await resposta.json();
         setPosts(dados);
       } catch (error) {
@@ -41,8 +53,7 @@ function Perfil() {
 
   const [products, setProducts] = useState([]);
   const navigation = useNavigation();
-  console.log(posts)
-
+  console.log(posts);
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -77,63 +88,90 @@ function Perfil() {
     setImage(null);
   };
 
+  console.log(posts.descricao);
 
-
-
-
-console.log(posts.descricao)
-   
   return (
     <SafeAreaView style={estilos.viewSafe}>
       <StatusBar barStyle="default" />
 
       <ScrollView>
         <View style={estilos.container}>
-          {!image && 
-          <ImageBackground
-            source={fruta}
-            resizeMode="cover"
-            style={estilos.imagem}
-          >
-            <View style={estilos.viewFoto}>
-              <Image source={astronauta} style={estilos.foto} />
-              <Text style={estilos.usuario}>{usuarioLogado.displayName}</Text>
-              
-                      <Text style={estilos.endereco}>{posts.email}</Text>
+          {!image && (
+            <ImageBackground
+              source={fruta}
+              resizeMode="cover"
+              style={estilos.imagem}
+            >
+              <View style={estilos.viewFoto}>
+                <Image source={astronauta} style={estilos.foto} />
+                <Text style={estilos.usuario}>{usuarioLogado.displayName}</Text>
 
-            <Pressable style={estilos.editCapa} onPress={pickImage}><Text style={{color: "white", fontWeight: "bold", fontSize:18}}>Editar Capa</Text></Pressable>     
-            </View>
-          </ImageBackground>
-          }
-          {image && 
-           <ImageBackground
-           source={{ uri: image }}
-           resizeMode="cover"
-           style={estilos.imagem}
-         >
-           <View style={estilos.viewFoto}>
-             <Image source={astronauta} style={estilos.foto} />
-             <Text style={estilos.usuario}>{usuarioLogado.displayName}</Text>
-             
-                     <Text style={estilos.endereco}>{posts.email}</Text>
+                <Text style={estilos.endereco}>{posts.email}</Text>
 
-            {!image && 
-           <Pressable style={estilos.editCapa} onPress={pickImage}><Text style={{color: "white", fontWeight: "bold", fontSize:18}}>Editar Capa</Text></Pressable> }    
-            {image && 
-           <Pressable style={estilos.editCapa} onPress={uploadingImage}><Text style={{color: "white", fontWeight: "bold", fontSize:18}}>Salvar Capa</Text></Pressable> }    
-           </View>
-         </ImageBackground>}
+                <Pressable style={estilos.editCapa} onPress={pickImage}>
+                  <Text
+                    style={{ color: "white", fontWeight: "bold", fontSize: 18 }}
+                  >
+                    Editar Capa
+                  </Text>
+                </Pressable>
+              </View>
+            </ImageBackground>
+          )}
+          {image && (
+            <ImageBackground
+              source={{ uri: image }}
+              resizeMode="cover"
+              style={estilos.imagem}
+            >
+              <View style={estilos.viewFoto}>
+                <Image source={astronauta} style={estilos.foto} />
+                <Text style={estilos.usuario}>{usuarioLogado.displayName}</Text>
+
+                <Text style={estilos.endereco}>{posts.email}</Text>
+
+                {!image && (
+                  <Pressable style={estilos.editCapa} onPress={pickImage}>
+                    <Text
+                      style={{
+                        color: "white",
+                        fontWeight: "bold",
+                        fontSize: 18,
+                      }}
+                    >
+                      Editar Capa
+                    </Text>
+                  </Pressable>
+                )}
+                {image && (
+                  <Pressable style={estilos.editCapa} onPress={uploadingImage}>
+                    <Text
+                      style={{
+                        color: "white",
+                        fontWeight: "bold",
+                        fontSize: 18,
+                      }}
+                    >
+                      Salvar Capa
+                    </Text>
+                  </Pressable>
+                )}
+              </View>
+            </ImageBackground>
+          )}
 
           <View style={estilos.backgroundCard}>
             <View style={estilos.card}>
               <Text style={estilos.titulo}>Descrição:</Text>
-              <TextInput 
-              style={estilos.texto}
-              value={products.email}
-              />
-               <Pressable style={estilos.editar} onPress={() => {
-                editarPerfil()
-               }}><Text style={{fontWeight:"bold", fontSize: 18}}>Editar</Text></Pressable> 
+              <TextInput style={estilos.texto} value={products.email} />
+              <Pressable
+                style={estilos.editar}
+                onPress={() => {
+                  editarPerfil();
+                }}
+              >
+                <Text style={{ fontWeight: "bold", fontSize: 18 }}>Editar</Text>
+              </Pressable>
             </View>
           </View>
 
@@ -243,11 +281,11 @@ const estilos = StyleSheet.create({
   editar: {
     position: "absolute",
     top: 260,
-    left: 250
+    left: 250,
   },
   editCapa: {
     position: "absolute",
     bottom: 450,
-    left: 260
-  }
+    left: 260,
+  },
 });
