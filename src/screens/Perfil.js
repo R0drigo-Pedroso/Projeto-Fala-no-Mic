@@ -28,6 +28,7 @@ function Perfil() {
   useEffect(() => {
     async function getPosts() {
       try {
+         // ATENÇÃO: Usem o aqui o IP da sua máquina
         const resposta = await fetch(`192.168.18.60:3000/perfil/${usuarioLogado.email}`);
         const dados = await resposta.json();
         setPosts(dados);
@@ -76,71 +77,9 @@ function Perfil() {
     setImage(null);
   };
 
-  
 
 
 
-//   useEffect(() => {
-//     async function getProducts() {
-//         try{
-//             const resposta = await fetch(`https://falanomic-e8ea9-default-rtdb.firebaseio.com/usuario.json`)
-
-//             const dados = await resposta.json();
-//             setProducts(dados);
-//         } catch (error) {
-//             console.log("Deu ruim! " + error.message);
-//         }
-//     }
-
-//     getProducts();
-// }, [])
-
-// useEffect(() => {
-//   async function locaisVisitados() {
-//     try {
-//       const resposta = await fetch(`https://falanomic-e8ea9-default-rtdb.firebaseio.com/usuario.json`)
-      
-//       const dados = await resposta.json();
-
-//       let listaDeLoc = [];
-
-
-//       for (const loc in dados) {
-//           const objetoLoc = {
-//             email: dados[loc].email, 
-//             descricao: dados[loc].descricao
-//           //   descricao: dados[post].descricao, // bla blah
-//           //   categoria: dados[post].categoria, // comportamento
-//           };
-
-//           listaDeLoc.push(objetoLoc);
-
-//       }
-
-//       setProducts(listaDeLoc);
-
-
-//     } catch (error) {
-//       console.log("Deu ruim na busca na API: " + error.message);
-//     }
-//   }
-//   locaisVisitados();
-
-  
-// }, []);
-
-// var descricao;
-// products.forEach(function(product) {
-//   console.log(product)
-//   if(product.email == usuarioLogado.email){
-//     console.log(product.descricao)
-//     descricao = product.descricao
-//   } else {
-//     // console.log(typeof(product.email))
-//     // console.log(typeof(usuarioLogado.email))
-//     console.log("errei")
-//   }
-// });
 
 console.log(posts.descricao)
    

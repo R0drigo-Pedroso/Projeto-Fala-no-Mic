@@ -43,20 +43,7 @@ function Cadastro() {
     return <Perfil />;
   }
 
-  // const salvar = async () => {
-  //   try {
-  //     const resposta = await api.post("/perfil", {
-  //       nome: nome,
-  //       email: email,
-  //       descricao: senha,
-  //     });
-  //     Alert.alert("Deu certo")
-  //     cadastrar();
-  //     // Alert.alert("Salvo com sucesso!!!");
-  //   } catch (error) {
-  //     console.log("Deu ruim na busca da API: " + error.message);
-  //   }
-  // };
+
   const salvar = async (event) => {
     event.preventDefault();
     // console.log(nome, email, mensagem)
@@ -70,6 +57,8 @@ function Cadastro() {
       },
     };
     // Script para envio dos dados para a API
+
+    // ATENÇÃO: Usem o aqui o IP da sua máquina
     try {
       await fetch(`http://10.20.45.35:3000/perfil`, opcoes);
       alert("Dados Enviados")
