@@ -1,5 +1,15 @@
-import { ImageBackground, SafeAreaView, StatusBar,StyleSheet,Text,View,Image,ScrollView,Pressable,
-TextInput} from "react-native";
+import {
+  ImageBackground,
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  ScrollView,
+  Pressable,
+  TextInput,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import fruta from "../../assets/image/fruta.jpg";
 import astronauta from "../../assets/image/astronauta.jpg";
@@ -19,11 +29,12 @@ function Perfil() {
   // console.log(usuarioLogado);
   const [posts, setPosts] = useState([]);
 
-
   useEffect(() => {
     async function getPosts() {
       try {
-        const resposta = await fetch(`http://10.20.45.35:3000/perfil/${usuarioLogado.email}`);
+        const resposta = await fetch(
+          `http://10.20.48.34:3000/perfil/${usuarioLogado.email}`
+        );
         const dados = await resposta.json();
         setPosts(dados);
       } catch (error) {
@@ -35,73 +46,69 @@ function Perfil() {
 
   const [products, setProducts] = useState([]);
   const navigation = useNavigation();
-  console.log(posts)
+  console.log(posts);
 
+  //   useEffect(() => {
+  //     async function getProducts() {
+  //         try{
+  //             const resposta = await fetch(`https://falanomic-e8ea9-default-rtdb.firebaseio.com/usuario.json`)
 
-//   useEffect(() => {
-//     async function getProducts() {
-//         try{
-//             const resposta = await fetch(`https://falanomic-e8ea9-default-rtdb.firebaseio.com/usuario.json`)
+  //             const dados = await resposta.json();
+  //             setProducts(dados);
+  //         } catch (error) {
+  //             console.log("Deu ruim! " + error.message);
+  //         }
+  //     }
 
-//             const dados = await resposta.json();
-//             setProducts(dados);
-//         } catch (error) {
-//             console.log("Deu ruim! " + error.message);
-//         }
-//     }
+  //     getProducts();
+  // }, [])
 
-//     getProducts();
-// }, [])
+  // useEffect(() => {
+  //   async function locaisVisitados() {
+  //     try {
+  //       const resposta = await fetch(`https://falanomic-e8ea9-default-rtdb.firebaseio.com/usuario.json`)
 
-// useEffect(() => {
-//   async function locaisVisitados() {
-//     try {
-//       const resposta = await fetch(`https://falanomic-e8ea9-default-rtdb.firebaseio.com/usuario.json`)
-      
-//       const dados = await resposta.json();
+  //       const dados = await resposta.json();
 
-//       let listaDeLoc = [];
+  //       let listaDeLoc = [];
 
+  //       for (const loc in dados) {
+  //           const objetoLoc = {
+  //             email: dados[loc].email,
+  //             descricao: dados[loc].descricao
+  //           //   descricao: dados[post].descricao, // bla blah
+  //           //   categoria: dados[post].categoria, // comportamento
+  //           };
 
-//       for (const loc in dados) {
-//           const objetoLoc = {
-//             email: dados[loc].email, 
-//             descricao: dados[loc].descricao
-//           //   descricao: dados[post].descricao, // bla blah
-//           //   categoria: dados[post].categoria, // comportamento
-//           };
+  //           listaDeLoc.push(objetoLoc);
 
-//           listaDeLoc.push(objetoLoc);
+  //       }
 
-//       }
+  //       setProducts(listaDeLoc);
 
-//       setProducts(listaDeLoc);
+  //     } catch (error) {
+  //       console.log("Deu ruim na busca na API: " + error.message);
+  //     }
+  //   }
+  //   locaisVisitados();
 
+  // }, []);
 
-//     } catch (error) {
-//       console.log("Deu ruim na busca na API: " + error.message);
-//     }
-//   }
-//   locaisVisitados();
+  // var descricao;
+  // products.forEach(function(product) {
+  //   console.log(product)
+  //   if(product.email == usuarioLogado.email){
+  //     console.log(product.descricao)
+  //     descricao = product.descricao
+  //   } else {
+  //     // console.log(typeof(product.email))
+  //     // console.log(typeof(usuarioLogado.email))
+  //     console.log("errei")
+  //   }
+  // });
 
-  
-// }, []);
+  console.log(posts.descricao);
 
-// var descricao;
-// products.forEach(function(product) {
-//   console.log(product)
-//   if(product.email == usuarioLogado.email){
-//     console.log(product.descricao)
-//     descricao = product.descricao
-//   } else {
-//     // console.log(typeof(product.email))
-//     // console.log(typeof(usuarioLogado.email))
-//     console.log("errei")
-//   }
-// });
-
-console.log(posts.descricao)
-   
   return (
     <SafeAreaView style={estilos.viewSafe}>
       <StatusBar barStyle="default" />
@@ -116,25 +123,23 @@ console.log(posts.descricao)
             <View style={estilos.viewFoto}>
               <Image source={astronauta} style={estilos.foto} />
               <Text style={estilos.usuario}>{usuarioLogado.displayName}</Text>
-              
-                      <Text style={estilos.endereco}>{posts.email}</Text>
 
-                      
-          
-              
+              <Text style={estilos.endereco}>{posts.email}</Text>
             </View>
           </ImageBackground>
 
           <View style={estilos.backgroundCard}>
             <View style={estilos.card}>
               <Text style={estilos.titulo}>Descrição:</Text>
-              <TextInput 
-              style={estilos.texto}
-              value={products.email}
-              />
-               <Pressable style={estilos.editar} onPress={() => {
-                editarPerfil()
-               }}><Text style={{fontWeight:"bold", fontSize: 18}}>Editar</Text></Pressable> 
+              <TextInput style={estilos.texto} value={products.email} />
+              <Pressable
+                style={estilos.editar}
+                onPress={() => {
+                  editarPerfil();
+                }}
+              >
+                <Text style={{ fontWeight: "bold", fontSize: 18 }}>Editar</Text>
+              </Pressable>
             </View>
           </View>
 
@@ -244,6 +249,6 @@ const estilos = StyleSheet.create({
   editar: {
     position: "absolute",
     top: 260,
-    left: 250
-  }
+    left: 250,
+  },
 });

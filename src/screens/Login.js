@@ -8,6 +8,7 @@ import {
   Pressable,
   Alert,
   KeyboardAvoidingView,
+  SafeAreaView,
 } from "react-native";
 import { useState, createRef, useEffect } from "react";
 import { AntDesign } from "@expo/vector-icons";

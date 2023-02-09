@@ -81,7 +81,7 @@ function Cadastro() {
     };
     // Script para envio dos dados para a API
     try {
-      await fetch(`http://10.20.47.68:3000/perfil`, opcoes);
+      await fetch(`http://10.20.48.34:3000/perfil`, opcoes);
       alert("Dados Enviados");
       cadastrar();
     } catch (error) {
