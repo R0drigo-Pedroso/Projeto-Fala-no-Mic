@@ -46,78 +46,74 @@ function Publicar() {
   return (
     <KeyboardAvoidingView style={estilos.viewSafe}>
       <ScrollView>
-        <FontLoader>
-          <View style={estilos.container}>
-            <View style={estilos.backgroundCard}>
+        <View style={estilos.container}>
+          <View style={estilos.backgroundCard}>
+            <FontLoader>
               <Text style={estilos.titulo}>Titulo:</Text>
+            </FontLoader>
+            <TextInput
+              style={estilos.cardTitulo}
+              placeholder="Digite seu nome"
+            ></TextInput>
+          </View>
+          <View style={estilos.backgroundCard}>
+            <Text style={estilos.titulo}>Descrição:</Text>
 
+            <Text>Caracteres: {contadorText.length}</Text>
+            <View style={estilos.cardArea}>
               <TextInput
-                style={estilos.cardTitulo}
-                placeholder="Digite seu nome"
-              ></TextInput>
-            </View>
-            <View style={estilos.backgroundCard}>
-              <Text style={estilos.titulo}>Descrição:</Text>
-
-              <Text>Caracteres: {contadorText.length}</Text>
-              <View style={estilos.cardArea}>
-                <TextInput
-                  style={estilos.texto}
-                  onChangeText={contadorTextChange}
-                  value={contadorText}
-                />
-                {contadorText.length > 250 && <Text>Qual é o seu evento?</Text>}
-              </View>
-            </View>
-
-            <Pressable onPress={pickImage} style={estilos.backgroundCard}>
-              <Text style={estilos.tituloImagem}>Adicionar imagem:</Text>
-
-              <View>
-                {image && (
-                  <Image
-                    source={{ uri: image }}
-                    style={{ width: "100%", height: 200 }}
-                  />
-                )}
-                {!image && (
-                  <View style={estilos.cardImage}>
-                    <Entypo
-                      name="image"
-                      size={24}
-                      color="black"
-                      style={estilos.icon}
-                    />
-                  </View>
-                )}
-              </View>
-            </Pressable>
-            <View style={estilos.backgroundCard}>
-              <Text style={estilos.titulo}>Endereço</Text>
-
-              <TextInput
-                style={estilos.input}
-                placeholder="Av, Rua ou estrada"
+                style={estilos.texto}
+                onChangeText={contadorTextChange}
+                value={contadorText}
               />
-            </View>
-
-            <View style={estilos.backgroundCard}>
-              <Text style={estilos.titulo}>Data</Text>
-              <TextInput style={estilos.input} placeholder="Define uma data" />
-            </View>
-
-            <View style={estilos.backgroundCard}>
-              <Text style={estilos.titulo}>Horário</Text>
-              <TextInput style={estilos.input} placeholder="Define uma data" />
-            </View>
-
-            <View style={estilos.viewbotao}>
-              <Pressable style={estilos.botao}>
-                <Text style={estilos.botaoTexto}>Publicar</Text>
-              </Pressable>
+              {contadorText.length > 250 && <Text>Qual é o seu evento?</Text>}
             </View>
           </View>
-        </FontLoader>
+
+          <Pressable onPress={pickImage} style={estilos.backgroundCard}>
+            <Text style={estilos.tituloImagem}>Adicionar imagem:</Text>
+
+            <View>
+              {image && (
+                <Image
+                  source={{ uri: image }}
+                  style={{ width: "100%", height: 200 }}
+                />
+              )}
+              {!image && (
+                <View style={estilos.cardImage}>
+                  <Entypo
+                    name="image"
+                    size={24}
+                    color="black"
+                    style={estilos.icon}
+                  />
+                </View>
+              )}
+            </View>
+          </Pressable>
+          <View style={estilos.backgroundCard}>
+            <Text style={estilos.titulo}>Endereço</Text>
+
+            <TextInput style={estilos.input} placeholder="Av, Rua ou estrada" />
+          </View>
+
+          <View style={estilos.backgroundCard}>
+            <Text style={estilos.titulo}>Data</Text>
+            <TextInput style={estilos.input} placeholder="Define uma data" />
+          </View>
+
+          <View style={estilos.backgroundCard}>
+            <Text style={estilos.titulo}>Horário</Text>
+            <TextInput style={estilos.input} placeholder="Define uma data" />
+          </View>
+
+          <View style={estilos.viewbotao}>
+            <Pressable style={estilos.botao}>
+              <Text style={estilos.botaoTexto}>Publicar</Text>
+            </Pressable>
+          </View>
+        </View>
       </ScrollView>
     </KeyboardAvoidingView>
   );
@@ -143,7 +139,7 @@ const estilos = StyleSheet.create({
     paddingLeft: 4,
     fontSize: 24,
     fontWeight: "bold",
-    fontFamily: "CarterOne",
+    fontFamily: "carterOne",
   },
 
   backgroundCard: {
