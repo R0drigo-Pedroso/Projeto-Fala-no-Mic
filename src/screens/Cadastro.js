@@ -20,7 +20,7 @@ import { auth, db } from "../../firebaseConfig";
 import api from "../../services/api";
 import Perfil from "./Perfil";
 
-function Cadastro() {
+function Cadastro({navigation}) {
   const [telaLogin, setTelaLogin] = useState(false);
   const [telaPeril, setTelaPerfil] = useState(false);
   const [telaHome, setHome] = useState(false);
@@ -29,19 +29,8 @@ function Cadastro() {
   const [senha, setSenha] = useState("");
   const [descricao, setDescricao] = useState("");
 
-  /* Vai para Login */
-  const login = () => {
-    setTelaLogin(true);
-  };
 
-  if (telaLogin) {
-    return <Login />;
-  }
 
-  /* Vai para perfil */
-  if (telaPeril) {
-    return <Perfil />;
-  }
 
   const salvar = async (event) => {
     event.preventDefault();
@@ -59,7 +48,11 @@ function Cadastro() {
 
     // ATENÇÃO: Usem o aqui o IP da sua máquina
     try {
+<<<<<<< HEAD
       await fetch(`http://10.20.47.68:3000/perfil`, opcoes);
+=======
+      await fetch(`http://10.20.48.31:3000/perfil`, opcoes);
+>>>>>>> 5e7890ca25772a213e9d5c608f67eb5d10d8150b
       alert("Dados Enviados");
       cadastrar();
     } catch (error) {
@@ -96,7 +89,7 @@ function Cadastro() {
           {
             text: "Sim, bora lá!",
             onPress: () => {
-              setTelaPerfil(true);
+             navigation.replace("Perfil")
             },
             style: "default",
           },
@@ -178,7 +171,11 @@ function Cadastro() {
             </Text>
             <Text style={estilos.entrar}>
               Já tem cadastro?{" "}
+<<<<<<< HEAD
               <Text style={estilos.vaiLogin} onPress={salvar}>
+=======
+              <Text style={estilos.vaiLogin}>
+>>>>>>> 5e7890ca25772a213e9d5c608f67eb5d10d8150b
                 Entrar
               </Text>
             </Text>
