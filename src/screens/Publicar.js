@@ -7,27 +7,45 @@ import {
   TextInput,
   ScrollView,
   Pressable,
-  Image
+  Image,
 } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import { useState } from "react";
-import * as ImagePicker from 'expo-image-picker';
+import * as ImagePicker from "expo-image-picker";
 import { storage } from "../../firebaseConfig";
-import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
 
+const salvarEvento = async (event) => {
+  event.preventDefault();
+  // console.log(nome, email, mensagem)
 
+  const opcoes = {
+    method: "POST",
+    body: JSON.stringify({ descricao, email }),
+    headers: {
+      // Configurando cabeçalhos para requisições
+      "Content-type": "application/json; charset=utf-8",
+    },
+  };
+  // Script para envio dos dados para a API
 
-
-
-
+  // ATENÇÃO: Usem o aqui o IP da sua máquina
+  try {
+    await fetch(`http://10.20.47.68:3000/evento`, opcoes);
+    alert("Dados Enviados");
+    cadastrar();
+  } catch (error) {
+    console.log("Deu ruim".error.message);
+  }
+};
 
 function Publicar() {
-
   const [image, setImage] = useState(null);
-
-
-
-
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -44,9 +62,6 @@ function Publicar() {
       setImage(result.assets[0].uri);
     }
   };
-
-  
-
 
   return (
     <SafeAreaView style={estilos.viewSafe}>
@@ -68,16 +83,22 @@ function Publicar() {
 
           <Pressable onPress={pickImage}>
             <View style={estilos.backgroundCard}>
-            {image && <Image source={{ uri: image }} style={{ width: "100%", height: 200 }} />}
-            {!image &&
-              <View style={estilos.cardImage}>
-                <Entypo
-                  name="image"
-                  size={24}
-                  color="black"
-                  style={estilos.icon}
+              {image && (
+                <Image
+                  source={{ uri: image }}
+                  style={{ width: "100%", height: 200 }}
                 />
-              </View>}
+              )}
+              {!image && (
+                <View style={estilos.cardImage}>
+                  <Entypo
+                    name="image"
+                    size={24}
+                    color="black"
+                    style={estilos.icon}
+                  />
+                </View>
+              )}
             </View>
           </Pressable>
 

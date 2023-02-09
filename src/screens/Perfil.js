@@ -40,7 +40,7 @@ function Perfil() {
       try {
         // ATENÇÃO: Usem o aqui o IP da sua máquina
         const resposta = await fetch(
-          `10.20.48.26:3000/perfil/${usuarioLogado.email}`
+          `10.20.47.68:3000/perfil/${usuarioLogado.email}`
         );
         const dados = await resposta.json();
         setPosts(dados);

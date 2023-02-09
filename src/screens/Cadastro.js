@@ -59,7 +59,7 @@ function Cadastro() {
 
     // ATENÇÃO: Usem o aqui o IP da sua máquina
     try {
-      await fetch(`http://10.20.48.26:3000/perfil`, opcoes);
+      await fetch(`http://10.20.47.68:3000/perfil`, opcoes);
       alert("Dados Enviados");
       cadastrar();
     } catch (error) {
@@ -165,7 +165,7 @@ function Cadastro() {
 
           <View style={estilos.containerBotao}>
             <Pressable style={estilos.botao}>
-              <Text style={estilos.textoBotao} onPress={cadastrar}>
+              <Text style={estilos.textoBotao} onPress={salvar}>
                 Cadastrar
               </Text>
             </Pressable>
@@ -178,7 +178,7 @@ function Cadastro() {
             </Text>
             <Text style={estilos.entrar}>
               Já tem cadastro?{" "}
-              <Text style={estilos.vaiLogin} onPress={login}>
+              <Text style={estilos.vaiLogin} onPress={salvar}>
                 Entrar
               </Text>
             </Text>
