@@ -7,12 +7,11 @@ import {
   Pressable,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-
 import imageteste from "../../assets/image/festahiphop.jpg";
 import { useFonts } from "expo-font";
 import { useState, useEffect } from "react";
 
-function Home() {
+function Home({navigation}) {
   const [fontCarregar] = useFonts({
     nunitoOne: require("../../assets/fonts/NunitoSans-Regular.ttf"),
     carterTier: require("../../assets/fonts/CarterOne-Regular.ttf"),
@@ -40,7 +39,7 @@ function Home() {
             </Text>
           </View>
 
-          <Pressable style={estilos.botaoSaiba}>
+          <Pressable style={estilos.botaoSaiba} onPress={()=>{navigation.navigate("DetalhesStack")}}>
             <Text style={estilos.textSaiba}>Saiba +</Text>
           </Pressable>
         </View>
