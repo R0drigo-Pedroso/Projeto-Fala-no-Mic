@@ -1,6 +1,6 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useState } from "react";
-import { NavegacaoHome,NavegacaoFavoritos,NavegacaoPublicar,NavegacaoPerfil } from "./Stack";
+import { NavegacaoHome,NavegacaoFavoritos,NavegacaoPublicar,NavegacaoPerfil, NavegacaoLogin, NavegacaoCadastro } from "./Stack";
 import Login from "../screens/Login";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
@@ -94,7 +94,7 @@ function Routes() {
         
         <Tab.Screen
           name="LoginTab"
-          component={Login}
+          component={NavegacaoLogin}
           options={{
             headerShown: false,
             tabBarIcon: ({ color, size, focused }) => {
