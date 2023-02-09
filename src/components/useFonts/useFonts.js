@@ -7,7 +7,7 @@ const FontLoader = ({ children }) => {
     nunitoSans: require("../../../assets/font/NunitoSans-Regular.ttf"),
   });
 
-  if (!carregarFonte) return <Text>Teste de fonte</Text>;
+  if (!carregarFonte) return <Text>Carregar fonte</Text>;
 
   return <SafeAreaView>{children}</SafeAreaView>;
 };
