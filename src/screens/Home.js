@@ -20,8 +20,6 @@ function Home() {
 
   if (!fontCarregar);
 
-   
-
   return (
     <SafeAreaView style={estilos.corFundo}>
       <StatusBar barStyle="default" />
