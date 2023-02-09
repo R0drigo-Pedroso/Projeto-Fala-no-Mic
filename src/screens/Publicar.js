@@ -46,74 +46,78 @@ function Publicar() {
   return (
     <KeyboardAvoidingView style={estilos.viewSafe}>
       <ScrollView>
-        <View style={estilos.container}>
-          <View style={estilos.backgroundCard}>
-            <FontLoader>
+        <FontLoader>
+          <View style={estilos.container}>
+            <View style={estilos.backgroundCard}>
               <Text style={estilos.titulo}>Titulo:</Text>
-            </FontLoader>
-            <TextInput
-              style={estilos.cardTitulo}
-              placeholder="Digite seu nome"
-            ></TextInput>
-          </View>
-          <View style={estilos.backgroundCard}>
-            <Text style={estilos.titulo}>Descrição:</Text>
-
-            <Text>Caracteres: {contadorText.length}</Text>
-            <View style={estilos.cardArea}>
               <TextInput
-                style={estilos.texto}
-                onChangeText={contadorTextChange}
-                value={contadorText}
-              />
-              {contadorText.length > 250 && <Text>Qual é o seu evento?</Text>}
+                style={estilos.cardTitulo}
+                placeholder="Digite seu nome"
+              ></TextInput>
             </View>
-          </View>
+            <View style={estilos.backgroundCard}>
+              <Text style={estilos.titulo}>Descrição:</Text>
 
-          <Pressable onPress={pickImage} style={estilos.backgroundCard}>
-            <Text style={estilos.tituloImagem}>Adicionar imagem:</Text>
-
-            <View>
-              {image && (
-                <Image
-                  source={{ uri: image }}
-                  style={{ width: "100%", height: 200 }}
+              <Text>Caracteres: {contadorText.length}</Text>
+              <View style={estilos.cardArea}>
+                <TextInput
+                  style={estilos.texto}
+                  placeholder="Digite sua mensagem"
+                  onChangeText={contadorTextChange}
+                  value={contadorText}
                 />
-              )}
-              {!image && (
-                <View style={estilos.cardImage}>
-                  <Entypo
-                    name="image"
-                    size={24}
-                    color="black"
-                    style={estilos.icon}
-                  />
-                </View>
-              )}
+                {contadorText.length > 250 && <Text>Qual é o seu evento?</Text>}
+              </View>
             </View>
-          </Pressable>
-          <View style={estilos.backgroundCard}>
-            <Text style={estilos.titulo}>Endereço</Text>
 
-            <TextInput style={estilos.input} placeholder="Av, Rua ou estrada" />
-          </View>
+            <Pressable onPress={pickImage} style={estilos.backgroundCard}>
+              <Text style={estilos.tituloImagem}>Adicionar imagem:</Text>
 
-          <View style={estilos.backgroundCard}>
-            <Text style={estilos.titulo}>Data</Text>
-            <TextInput style={estilos.input} placeholder="Define uma data" />
-          </View>
-
-          <View style={estilos.backgroundCard}>
-            <Text style={estilos.titulo}>Horário</Text>
-            <TextInput style={estilos.input} placeholder="Define uma data" />
-          </View>
-
-          <View style={estilos.viewbotao}>
-            <Pressable style={estilos.botao}>
-              <Text style={estilos.botaoTexto}>Publicar</Text>
+              <View>
+                {image && (
+                  <Image
+                    source={{ uri: image }}
+                    style={{ width: "100%", height: 200 }}
+                  />
+                )}
+                {!image && (
+                  <View style={estilos.cardImage}>
+                    <Entypo
+                      name="image"
+                      size={24}
+                      color="black"
+                      style={estilos.icon}
+                    />
+                  </View>
+                )}
+              </View>
             </Pressable>
+            <View style={estilos.backgroundCard}>
+              <Text style={estilos.titulo}>Endereço</Text>
+
+              <TextInput
+                style={estilos.input}
+                placeholder="Av. Rua ou estrada"
+              />
+            </View>
+
+            <View style={estilos.backgroundCard}>
+              <Text style={estilos.titulo}>Data</Text>
+              <TextInput style={estilos.input} placeholder="Define uma data" />
+            </View>
+
+            <View style={estilos.backgroundCard}>
+              <Text style={estilos.titulo}>Horário</Text>
+              <TextInput style={estilos.input} placeholder="Define uma data" />
+            </View>
+
+            <View style={estilos.viewbotao}>
+              <Pressable style={estilos.botao}>
+                <Text style={estilos.botaoTexto}>Publicar</Text>
+              </Pressable>
+            </View>
           </View>
-        </View>
+        </FontLoader>
       </ScrollView>
     </KeyboardAvoidingView>
   );
@@ -136,10 +140,9 @@ const estilos = StyleSheet.create({
   },
 
   titulo: {
-    paddingLeft: 4,
-    fontSize: 24,
-    fontWeight: "bold",
     fontFamily: "carterOne",
+    fontSize: 24,
+    padding: 4,
   },
 
   backgroundCard: {
@@ -181,13 +184,14 @@ const estilos = StyleSheet.create({
     shadowRadius: 3,
     marginVertical: 8,
     elevation: 3,
+
+    fontFamily: "nunitoSans",
   },
 
   tituloImagem: {
     paddingLeft: 4,
     marginBottom: 8,
     fontSize: 24,
-    fontWeight: "bold",
     fontFamily: "carterOne",
   },
 
@@ -210,7 +214,7 @@ const estilos = StyleSheet.create({
     elevation: 3,
   },
   texto: {
-    padding: 8,
+    padding: 4,
     color: "#372727",
     opacity: 0.5,
   },
@@ -229,7 +233,6 @@ const estilos = StyleSheet.create({
     borderRadius: 5,
     marginTop: 8,
     fontFamily: "nunitoSans",
-
     /* config box shadow (Para android precisa colocar a propriedade "elevation") */
     backgroundColor: "white",
     shadowColor: "#171717",
@@ -253,8 +256,8 @@ const estilos = StyleSheet.create({
   },
   botaoTexto: {
     fontSize: 24,
-    fontWeight: "bold",
     color: "#E3BC40",
     textAlign: "center",
+    fontFamily: "carterOne",
   },
 });
