@@ -19,6 +19,14 @@ import FontLoader from "../components/useFonts/useFonts";
 function Publicar() {
   const [image, setImage] = useState(null);
 
+  const [contadorText, setContadorText] = useState("");
+
+  const contadorTextChange = (inputText) => {
+    if (inputText.length <= 250) {
+      setContadorText(inputText);
+    }
+  };
+
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -51,10 +59,17 @@ function Publicar() {
             <View style={estilos.backgroundCard}>
               <Text style={estilos.titulo}>Descrição:</Text>
 
+              <Text>Caracteres: {contadorText.length}</Text>
               <View style={estilos.cardArea}>
-                <Text style={estilos.texto}>Qual é o seu evento?</Text>
+                <TextInput
+                  style={estilos.texto}
+                  onChangeText={contadorTextChange}
+                  value={contadorText}
+                />
+                {contadorText.length > 250 && <Text>Qual é o seu evento?</Text>}
               </View>
             </View>
+
             <Pressable onPress={pickImage} style={estilos.backgroundCard}>
               <Text style={estilos.tituloImagem}>Adicionar imagem:</Text>
 
