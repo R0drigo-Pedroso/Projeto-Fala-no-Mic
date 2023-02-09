@@ -24,15 +24,13 @@ import {
 import Perfil from "./Perfil";
 import Cadastro from "./Cadastro";
 
-function Login({ navigation }) {
+function Login({navigation}) {
   const [telaCadastro, setTelaCadastro] = useState(false);
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [validaLogin, setValidaLogin] = useState(false);
 
-  const cadastro = () => {
-    setTelaCadastro(true);
-  };
+
 
   const login = () => {
     if (!email || !senha) {
@@ -44,6 +42,7 @@ function Login({ navigation }) {
       .then(() => {
         setValidaLogin(true);
         Alert.alert("Você foi logado");
+        
       })
       .catch((error) => {
         console.log(error);
@@ -72,14 +71,8 @@ function Login({ navigation }) {
       .catch((error) => console.log(error));
   };
 
-  /* Vai para tela de Cadastro */
-  if (telaCadastro) {
-    return <Cadastro />;
-  }
-
-  if (validaLogin) {
-    return <Perfil />;
-  } else {
+  
+ 
     return (
       <SafeAreaView>
         <StatusBar barStyle="default" />
@@ -118,7 +111,7 @@ function Login({ navigation }) {
             <View>
               <Text style={estilos.lgpd}>
                 Não tem cadastro?
-                <Text style={estilos.cadastrese} onPress={cadastro}>
+                <Text style={estilos.cadastrese} >
                   {" "}
                   Cadastre-se
                 </Text>
@@ -129,7 +122,6 @@ function Login({ navigation }) {
       </SafeAreaView>
     );
   }
-}
 
 export default Login;
 

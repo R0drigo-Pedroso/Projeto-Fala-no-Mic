@@ -4,14 +4,10 @@ import { NavigationContainer, useScrollToTop } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import Home from "./src/screens/Home";
-import Favoritos from "./src/screens/Favoritos";
-import Publicar from "./src/screens/Publicar";
-import Perfil from "./src/screens/Perfil";
-import Login from "./src/screens/Login";
-import Cadastro from "./src/screens/Cadastro";
+
 
 import { useState } from "react";
+import Routes from "./src/navegacoes/Routes";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -21,7 +17,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Tab.Navigator
+    {/*   <Tab.Navigator
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
@@ -67,7 +63,8 @@ export default function App() {
             </>
           )}
         </>
-      </Tab.Navigator>
+      </Tab.Navigator> */}
+      <Routes/>
     </NavigationContainer>
   );
 }
