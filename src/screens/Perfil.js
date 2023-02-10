@@ -36,6 +36,7 @@ function Perfil() {
   const [uploading, setUploading] = useState(false);
   const [loading, setLoading] = useState(false);
   const [urlFoto, setUrlFoto] = useState(null);
+  
 
 
 
@@ -77,6 +78,7 @@ function Perfil() {
 
   const uploadingImage = async () => {
     setUploading(true);
+    setUrlFoto(null)
     const response = await fetch(image);
     const blob = await response.blob();
     const filename = image.substring(image.lastIndexOf("/") + 1);
@@ -89,10 +91,8 @@ function Perfil() {
     });
 
 
-
     try {
       await upload;
-      salvarCapa();
     } catch (error) {
       console.log(error);
     }
@@ -103,6 +103,7 @@ function Perfil() {
 
   console.log(posts.descricao);
   console.log(urlFoto);
+  console.log(image)
 
   const logout = () => {
     setLoading(true);
@@ -117,12 +118,34 @@ function Perfil() {
   };
 
   const salvarCapa = async (event) => {
+    setUploading(true);
+    const response = await fetch(image);
+    const blob = await response.blob();
+    const filename = image.substring(image.lastIndexOf("/") + 1);
+    let upload = firebaseDois.storage().ref("capa/").child(filename).put(blob);
+
+    upload.on("state_changed", function () {
+      upload.snapshot.ref.getDownloadURL().then(function (url_imagem) {
+        setUrlFoto(url_imagem);
+      });
+    });
+
+
+    try {
+      await upload;
+    } catch (error) {
+      console.log(error);
+    }
+
+    setUploading(false);
+    Alert.alert("photo Uploaded");
+    setImage(null);
     event.preventDefault();
     // console.log(nome, email, mensagem)
 
     const opcoes = {
       method: "PATCH",
-      body: JSON.stringify({ capa }),
+      body: JSON.stringify({ capa: urlFoto }),
       headers: {
         // Configurando cabeçalhos para requisições
         "Content-type": "application/json; charset=utf-8",
@@ -130,21 +153,16 @@ function Perfil() {
     };
     // Script para envio dos dados para a API
 
-    // ATENÇÃO: Usem o aqui o IP da sua máquina
-    if (urlFoto == null) {
-      Alert.alert("Atenção", "Você deve preencher nome, e-mail e senha");
-      nomeInput.current.focusOnError();
-      return;
-    }
-    
-
     try {
       await fetch(`http://10.20.48.31:3000/perfil/${posts.id}`, opcoes);
       alert("Dados Enviados");
+      cadastrar();
     } catch (error) {
       console.log("Deu ruim".error.message);
     }
   };
+
+  console.log(urlFoto);
 
   return (
     <SafeAreaView style={estilos.viewSafe}>
@@ -184,7 +202,7 @@ function Perfil() {
             {!image && 
            <Pressable style={estilos.editCapa} onPress={pickImage}><Text style={{color: "white", fontWeight: "bold", fontSize:18}}>Editar Capa</Text></Pressable> }    
             {image && 
-           <Pressable style={estilos.editCapa} onPress={uploadingImage}><Text style={{color: "white", fontWeight: "bold", fontSize:18}}>Salvar Capa</Text></Pressable> }    
+           <Pressable style={estilos.editCapa} onPress={salvarCapa}><Text style={{color: "white", fontWeight: "bold", fontSize:18}}>Salvar Capa</Text></Pressable> }    
            
            </View>
          </ImageBackground>}

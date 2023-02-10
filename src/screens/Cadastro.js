@@ -124,6 +124,7 @@ function Cadastro({ navigation }) {
       .finally(() => setLoading(false));
   };
 
+  
   return (
     <KeyboardAvoidingView 
     behavior="position"
