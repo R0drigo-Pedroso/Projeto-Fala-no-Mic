@@ -35,7 +35,7 @@ function Perfil() {
   const [image, setImage] = useState("");
   const [uploading, setUploading] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  const [urlFoto, setUrlFoto] = useState(null);
 
   useEffect(() => {
     async function getPosts() {
@@ -78,10 +78,17 @@ function Perfil() {
     const response = await fetch(image);
     const blob = await response.blob();
     const filename = image.substring(image.lastIndexOf("/") + 1);
-    let ref = firebaseDois.storage().ref("eventos/").child(filename).put(blob);
+    let upload = firebaseDois.storage().ref("capa/").child(filename).put(blob);
+
+    upload.on("state_changed", function () {
+      upload.snapshot.ref.getDownloadURL().then(function (url_imagem) {
+        setUrlFoto(url_imagem);
+      });
+    });
 
     try {
-      await ref;
+      await upload;
+      salvarCapa();
     } catch (error) {
       console.log(error);
     }
@@ -91,6 +98,7 @@ function Perfil() {
   };
 
   console.log(posts.descricao);
+  console.log(urlFoto);
 
   const logout = () => {
     setLoading(true);
@@ -104,59 +112,124 @@ function Perfil() {
       .finally(() => setLoading(false));
   };
 
+  const salvarCapa = async (event) => {
+    event.preventDefault();
+    // console.log(nome, email, mensagem)
+
+    const opcoes = {
+      method: "PATCH",
+      body: JSON.stringify({ capa }),
+      headers: {
+        // Configurando cabeçalhos para requisições
+        "Content-type": "application/json; charset=utf-8",
+      },
+    };
+    // Script para envio dos dados para a API
+
+    // ATENÇÃO: Usem o aqui o IP da sua máquina
+    if (urlFoto == null) {
+      Alert.alert("Atenção", "Você deve preencher nome, e-mail e senha");
+      nomeInput.current.focusOnError();
+      return;
+    }
+
+    try {
+      await fetch(`http://10.20.48.31:3000/perfil/${posts.id}`, opcoes);
+      alert("Dados Enviados");
+    } catch (error) {
+      console.log("Deu ruim".error.message);
+    }
+  };
+
   return (
     <SafeAreaView style={estilos.viewSafe}>
       <StatusBar barStyle="default" />
 
       <ScrollView>
         <View style={estilos.container}>
-          {!image && 
-          <ImageBackground
-            source={fruta}
-            resizeMode="cover"
-            style={estilos.imagem}
-          >
-            <View style={estilos.viewFoto}>
-              <Image source={astronauta} style={estilos.foto} />
-              <Text style={estilos.usuario}></Text>
-              
-                      <Text style={estilos.endereco}>{posts.email}</Text>
+          {!image && (
+            <ImageBackground
+              source={fruta}
+              resizeMode="cover"
+              style={estilos.imagem}
+            >
+              <View style={estilos.viewFoto}>
+                <Image source={astronauta} style={estilos.foto} />
+                <Text style={estilos.usuario}></Text>
 
-            <Pressable style={estilos.editCapa} onPress={pickImage}><Text style={{color: "white", fontWeight: "bold", fontSize:18}}>Editar Capa</Text></Pressable>   
-            <Pressable style={estilos.Sair} onPress={logout}><Text style={{color: "white", fontWeight: "bold", fontSize:18}}>Sair</Text></Pressable>   
-            </View>
-          </ImageBackground>
-          }
-          {image && 
-           <ImageBackground
-           source={{ uri: image }}
-           resizeMode="cover"
-           style={estilos.imagem}
-         >
-           <View style={estilos.viewFoto}>
-             <Image source={astronauta} style={estilos.foto} />
-             <Text style={estilos.usuario}>{usuarioLogado.displayName}</Text>
-             
-                     <Text style={estilos.endereco}>{posts.email}</Text>
+                <Text style={estilos.endereco}>{posts.email}</Text>
 
-            {!image && 
-           <Pressable style={estilos.editCapa} onPress={pickImage}><Text style={{color: "white", fontWeight: "bold", fontSize:18}}>Editar Capa</Text></Pressable> }    
-            {image && 
-           <Pressable style={estilos.editCapa} onPress={uploadingImage}><Text style={{color: "white", fontWeight: "bold", fontSize:18}}>Salvar Capa</Text></Pressable> }    
-           
-           </View>
-         </ImageBackground>}
+                <Pressable style={estilos.editCapa} onPress={pickImage}>
+                  <Text
+                    style={{ color: "white", fontWeight: "bold", fontSize: 18 }}
+                  >
+                    Editar Capa
+                  </Text>
+                </Pressable>
+                <Pressable style={estilos.Sair} onPress={logout}>
+                  <Text
+                    style={{ color: "white", fontWeight: "bold", fontSize: 18 }}
+                  >
+                    Sair
+                  </Text>
+                </Pressable>
+              </View>
+            </ImageBackground>
+          )}
+          {image && (
+            <ImageBackground
+              source={{ uri: image }}
+              resizeMode="cover"
+              style={estilos.imagem}
+            >
+              <View style={estilos.viewFoto}>
+                <Image source={astronauta} style={estilos.foto} />
+                <Text style={estilos.usuario}>{usuarioLogado.displayName}</Text>
+
+                <Text style={estilos.endereco}>{posts.email}</Text>
+
+                {!image && (
+                  <Pressable style={estilos.editCapa} onPress={pickImage}>
+                    <Text
+                      style={{
+                        color: "white",
+                        fontWeight: "bold",
+                        fontSize: 18,
+                      }}
+                    >
+                      Editar Capa
+                    </Text>
+                  </Pressable>
+                )}
+                {image && (
+                  <Pressable style={estilos.editCapa} onPress={uploadingImage}>
+                    <Text
+                      style={{
+                        color: "white",
+                        fontWeight: "bold",
+                        fontSize: 18,
+                      }}
+                    >
+                      Salvar Capa
+                    </Text>
+                  </Pressable>
+                )}
+              </View>
+            </ImageBackground>
+          )}
 
           <View style={estilos.backgroundCard}>
             <View style={estilos.card}>
               <Text style={estilos.titulo}>Descrição:</Text>
-              <TextInput 
-              style={estilos.texto}
-              value={products.email}
-              />
-               <Pressable style={estilos.editar} onPress={() => {
-                editarPerfil()
-               }}><Text style={{fontWeight:"bold", fontSize: 18}}>Editar</Text></Pressable> 
+              <TextInput style={estilos.texto} value={products.email} />
+              <Pressable
+                style={estilos.editar}
+                onPress={() => {
+                  editarPerfil();
+                }}
+              >
+                <Text style={{ fontWeight: "bold", fontSize: 18 }}>Editar</Text>
+              </Pressable>
             </View>
           </View>
 
@@ -266,16 +339,16 @@ const estilos = StyleSheet.create({
   editar: {
     position: "absolute",
     top: 260,
-    left: 250
+    left: 250,
   },
   editCapa: {
     position: "absolute",
     bottom: 450,
     left: 30,
   },
-  Sair:{
+  Sair: {
     position: "absolute",
     bottom: 450,
     left: 320,
-  }
+  },
 });
