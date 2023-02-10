@@ -1,24 +1,12 @@
-import {
-  StatusBar,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  Pressable,
-  TextInput,
-  Alert,
-} from "react-native";
-import React from "react";
+import {StatusBar, ScrollView, StyleSheet, Text, View, Image,Pressable, TextInput, Alert, KeyboardAvoidingView} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useState } from "react";
+import { useState, useEffect, createRef } from "react";
+import Input from "../components/Input/Input";
 import { AntDesign } from "@expo/vector-icons";
 import logo from "../../assets/image/logo_fala_no_mic.png";
-import Login from "./Login";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, db } from "../../firebaseConfig";
-import api from "../../services/api";
-import Perfil from "./Perfil";
+
 
 function Cadastro({ navigation }) {
   const [telaLogin, setTelaLogin] = useState(false);
@@ -28,6 +16,13 @@ function Cadastro({ navigation }) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [descricao, setDescricao] = useState("");
+  const nomeInput = createRef();
+  const emailInput = createRef();
+  const senhaInput = createRef();
+
+  useEffect(() => nomeInput.current.resetError(), [nome]);
+  useEffect(() => emailInput.current.resetError(), [email]);
+  useEffect(() => senhaInput.current.resetError(), [senha]);
 
   const salvar = async (event) => {
     event.preventDefault();
@@ -44,8 +39,24 @@ function Cadastro({ navigation }) {
     // Script para envio dos dados para a API
 
     // ATENÇÃO: Usem o aqui o IP da sua máquina
+    if (nome == "") {
+      Alert.alert("Atenção", "Você deve preencher nome, e-mail e senha");
+      nomeInput.current.focusOnError();
+      return;
+    }
+    if (email == "") {
+      Alert.alert("Atenção", "Você deve preencher nome, e-mail e senha");
+      emailInput.current.focusOnError();
+      return;
+    }
+    if (senha == "") {
+      Alert.alert("Atenção", "Você deve preencher nome, e-mail e senha");
+      senhaInput.current.focusOnError();
+      return;
+    }
+
     try {
-      await fetch(`http://192.168.18.60:3000/perfil`, opcoes);
+      await fetch(`http://10.20.48.31:3000/perfil`, opcoes);
       alert("Dados Enviados");
       cadastrar();
     } catch (error) {
@@ -114,143 +125,113 @@ function Cadastro({ navigation }) {
   };
 
   return (
-    <SafeAreaView>
+    <KeyboardAvoidingView 
+    behavior="position"
+    style={estilos.viewSafe}>
       <StatusBar barStyle="default" />
       <ScrollView>
-        <View style={estilos.container}>
-          <View style={estilos.containerFoto}>
-            <Image source={logo} style={estilos.foto} />
-          </View>
+        <View style={estilos.viewFoto}>
+          <Image source={logo} />
+        </View>
 
-          <View style={estilos.containerTitulo}>
-            <Text style={estilos.titulo}>Cadastro</Text>
-          </View>
+        <View style={estilos.viewCadastrar}>
+          <Text style={estilos.titulo}>Cadastro</Text>
+        </View>
 
-          <View style={estilos.inputs}>
-            <TextInput
-              style={estilos.campoNome}
-              onChangeText={setNome}
-              placeholder="nome"
-              value={nome}
-            />
+        <Input
+          ref={nomeInput}
+          iconName={"account-outline"}
+          placeholder="Nome"
+          autoCapitalize="none"
+          keyboardType="email-address"
+          autoCorrect={false}
+          value={nome}
+          onChangeText={setNome}
+        />
 
-            <TextInput
-              style={estilos.campoEmail}
-              onChangeText={setEmail}
-              placeholder="exemplo@exemplo.com"
-              value={email}
-            />
+        <Input
+          ref={emailInput}
+          iconName={"email-outline"}
+          placeholder="E-mail"
+          autoCapitalize="none"
+          keyboardType="email-address"
+          autoCorrect={false}
+          value={email}
+          onChangeText={setEmail}
+        />
+        <Input
+          ref={senhaInput}
+          iconName={"lock-outline"}
+          secureTextEntry
+          placeholder="Senha"
+          autoCapitalize="none"
+          autoCorrect={false}
+          keyboardType="default"
+          value={senha}
+          onChangeText={setSenha}
+        />
 
-            <TextInput
-              style={estilos.campoSenha}
-              onChangeText={setSenha}
-              placeholder="senha"
-              value={senha}
-            />
-          </View>
+        <View style={estilos.viewBotao}>
+          <Pressable style={estilos.botao} onPress={salvar}>
+            <Text style={estilos.textoBotao}>Cadastrar</Text>
+          </Pressable>
+        </View>
 
-          <View style={estilos.containerBotao}>
-            <Pressable style={estilos.botao}>
-              <Text style={estilos.textoBotao} onPress={salvar}>
-                Cadastrar
-              </Text>
-            </Pressable>
-          </View>
+        <View style={estilos.viewLgpd}>
+          <Text style={estilos.tituloLgpd}>
+            Ao criar o seu cadastro, você concorda com a nossa Política de
+            Privacidade
+          </Text>
 
-          <View>
-            <Text style={estilos.lgpd}>
-              Ao criar o seu cadastro, você concorda com a nossa Política de
-              Privacidade
+          <Text style={estilos.entrar}>
+            Já tem cadastro?{" "}
+            <Text style={estilos.textEntrar} >
+              Entrar.
             </Text>
-            <Text style={estilos.entrar}>
-              Já tem cadastro?{" "}
-              <Text style={estilos.vaiLogin} onPress={salvar}>
-                Entrar
-              </Text>
-            </Text>
-          </View>
+          </Text>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 }
 
 export default Cadastro;
 
 const estilos = StyleSheet.create({
-  container: {
-    marginTop: 8,
+  viewSafe: {
+    flex: 1,
+    justifyContent: "center",
+  },
+  viewFoto: {
+    alignItems: "center",
+  },
+  viewCadastrar: {
+    marginLeft: 22,
   },
   titulo: {
-    fontSize: 22,
-    marginBottom: 10,
-    marginLeft: 8,
+    fontSize: 24,
+    color: "#372727",
   },
-  campoNome: {
-    fontSize: 16,
-    height: 54,
-    margin: 15,
-    padding: 10,
-    borderRadius: 5,
-    backgroundColor: "white",
-    borderRadius: 10,
-    width: "85%",
-  },
-  campoEmail: {
-    fontSize: 16,
-    height: 54,
-    margin: 20,
-    padding: 10,
-    borderRadius: 5,
-    backgroundColor: "white",
-    borderRadius: 10,
-    width: "85%",
-  },
-  campoSenha: {
-    fontSize: 16,
-    height: 54,
-    margin: 20,
-    padding: 10,
-    borderRadius: 5,
-    backgroundColor: "white",
-    borderRadius: 10,
-    width: "85%",
-  },
-  campoConfirmarSenha: {
-    fontSize: 16,
-    height: 64,
-    margin: 20,
-    padding: 10,
-    borderRadius: 5,
-    backgroundColor: "white",
-    borderRadius: 10,
-  },
-  foto: {
-    textAlign: "center",
-  },
-  containerFoto: {
-    alignItems: "center",
-  },
-  containerTitulo: {
-    paddingHorizontal: 25,
-  },
-  inputs: {
-    alignItems: "center",
+  viewBotao: {
+    padding: 8,
+    marginVertical: 8,
   },
   botao: {
-    backgroundColor: "#322727", //"#322727"
-    fontSize: 16,
-    height: 58,
-    margin: 20,
-    padding: 10,
-    borderRadius: 5,
-    borderRadius: 10,
+    width: "94%",
+    height: 50,
+    backgroundColor: "#322727",
+    borderRadius: 8,
+    marginLeft: 11,
+    justifyContent: "center",
+    shadowColor: "#171717",
+    shadowOffset: { left: -15, right: 15 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
   },
   textoBotao: {
-    fontSize: 20,
+    fontSize: 24,
     color: "#E3BC40",
     textAlign: "center",
-    marginTop: 5,
   },
   lgpd: {
     color: "#322727",
@@ -259,15 +240,20 @@ const estilos = StyleSheet.create({
     fontSize: 15,
     lineHeight: 24,
   },
+  viewLgpd: {
+    alignItems: "center",
+  },
+  tituloLgpd: {
+    padding: 8,
+    marginVertical: 8,
+    fontSize: 16,
+    color: "#372727",
+  },
   entrar: {
     color: "#322727",
     fontSize: 16,
-    textAlign: "center",
-    margin: 10,
-    marginBottom: 30,
   },
-  vaiLogin: {
+  textEntrar: {
     fontWeight: "bold",
-    fontSize: 18,
   },
 });

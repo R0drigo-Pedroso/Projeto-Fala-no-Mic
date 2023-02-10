@@ -13,16 +13,36 @@ function Routes() {
   
     return (
       <Tab.Navigator
-        screenOptions={{
-          unmountOnBlur: true,
-          tabBarShowLabel: false,
-          tabBarStyle: {
-            position: "absolute",
-            backgroundColor: `rgb(255, 109, 56)`,
-            borderTopLeftRadius: 10,
-            borderTopRightRadius: 10,
-          },
-        }}
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+
+          switch (route.name) {
+            case "Favoritos":
+              iconName = focused ? "heart-sharp" : "heart-outline";
+              break;
+
+            case "Publicar":
+              iconName = focused ? "add-circle" : "add-circle-outline";
+              break;
+
+            case "Login":
+              iconName = focused
+                ? "person-circle-sharp"
+                : "person-circle-outline";
+              break;
+
+            default:
+              iconName = focused ? "home" : "home-outline";
+              break;
+          }
+
+          // You can return any component that you like here!
+          return <Ionicons name={iconName} size={size} color={color} />;
+        },
+        tabBarActiveTintColor: "#372727 ",
+        tabBarInactiveTintColor: "black",
+      })}
       >
         <Tab.Screen
           name="HomeTab"
@@ -31,10 +51,11 @@ function Routes() {
             headerShown: false,
             tabBarIcon: ({ color, size, focused }) => {
               if (focused) {
-                return <Ionicons name="home" size={size} color={"white"} />;
+                return <Ionicons name="home" size={size} color={"black"} />;
               }
               return <Ionicons name="home-outline" size={size} color={"black"} />;
             },
+            title: "Home"
           }}
         />
         <Tab.Screen
@@ -44,12 +65,13 @@ function Routes() {
             headerShown: false,
             tabBarIcon: ({ color, size, focused }) => {
               if (focused) {
-                return <Ionicons name="search" size={size} color={"white"} />;
+                return <Ionicons name="heart-sharp" size={size} color={"black"} />;
               }
               return (
-                <Ionicons name="search-outline" size={size} color={"black"} />
+                <Ionicons name="heart-outline" size={size} color={"black"} />
               );
             },
+            title: "Favoritos"
           }}
         />
         <Tab.Screen
@@ -59,10 +81,11 @@ function Routes() {
             headerShown: false,
             tabBarIcon: ({ color, size, focused }) => {
               if (focused) {
-                return <Ionicons name="cart" size={size} color={"white"} />;
+                return <Ionicons name="add-circle" size={size} color={"black"} />;
               }
-              return <Ionicons name="cart-outline" size={size} color={"black"} />;
+              return <Ionicons name="add-circle-outline" size={size} color={"black"} />;
             },
+            title: "Publicar"
           }}
         />
         {/* <Tab.Screen
@@ -103,7 +126,7 @@ function Routes() {
                   <Ionicons
                     name="ios-person-circle"
                     size={size}
-                    color={"white"}
+                    color={"black"}
                   />
                 );
               }
@@ -116,6 +139,7 @@ function Routes() {
                 />
               );
             },
+            title: "Login"
           }}
         />
         

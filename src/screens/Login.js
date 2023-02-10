@@ -94,8 +94,10 @@ function Login({navigation}) {
   
  
     return (
-      <KeyboardAvoidingView style={estilos.viewSafe}>
-      <StatusBar barStyle="default" />
+      <KeyboardAvoidingView 
+      behavior="position"
+      style={estilos.viewSafe}>
+      <StatusBar barStyle="dark" />
       <ScrollView>
         <View style={estilos.viewFoto}>
           <Image source={logo} />
