@@ -53,6 +53,7 @@ export function NavegacaoLogin() {
   return (
     <Stack.Navigator>
       <Stack.Screen name="Perfil" component={Perfil} options={{ title: "Perfil" }}/>
+      <Stack.Screen name="LoginStack" component={Login} options={{title: "Login"}}/>
     </Stack.Navigator>
   );
  }

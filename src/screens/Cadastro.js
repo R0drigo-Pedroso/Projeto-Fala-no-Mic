@@ -45,7 +45,7 @@ function Cadastro({ navigation }) {
 
     // ATENÇÃO: Usem o aqui o IP da sua máquina
     try {
-      await fetch(`http://10.20.47.68:3000/perfil`, opcoes);
+      await fetch(`http://192.168.18.60:3000/perfil`, opcoes);
       alert("Dados Enviados");
       cadastrar();
     } catch (error) {
