@@ -67,7 +67,7 @@ function Publicar() {
                   onChangeText={contadorTextChange}
                   value={contadorText}
                 />
-                {contadorText.length > 250 && <Text>Qual é o seu evento?</Text>}
+                {contadorText.length == 250 ||  contadorText.length < 250 && <Text>Limite máximo alcançado</Text>}
               </View>
             </View>
 
