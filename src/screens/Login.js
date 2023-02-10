@@ -8,7 +8,8 @@ import {
   Pressable,
   TextInput,
   Alert,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  Platform
 } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -95,7 +96,7 @@ function Login({navigation}) {
  
     return (
       <KeyboardAvoidingView 
-      behavior="position"
+      behavior={Platform.OS === "ios" ? "padding" : null}
       style={estilos.viewSafe}>
       <StatusBar barStyle="dark" />
       <ScrollView>

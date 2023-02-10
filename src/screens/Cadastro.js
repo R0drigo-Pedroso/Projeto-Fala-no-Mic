@@ -1,4 +1,4 @@
-import {StatusBar, ScrollView, StyleSheet, Text, View, Image,Pressable, TextInput, Alert, KeyboardAvoidingView} from "react-native";
+import {StatusBar, ScrollView, StyleSheet, Text, View, Image,Pressable, TextInput, Alert, KeyboardAvoidingView, Platform} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useState, useEffect, createRef } from "react";
 import Input from "../components/Input/Input";
@@ -127,7 +127,7 @@ function Cadastro({ navigation }) {
   
   return (
     <KeyboardAvoidingView 
-    behavior="position"
+    behavior={Platform.OS === "ios" ? "padding" : null}
     style={estilos.viewSafe}>
       <StatusBar barStyle="default" />
       <ScrollView>
