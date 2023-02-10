@@ -61,14 +61,17 @@ function Publicar() {
               <Text>Caracteres: {contadorText.length}</Text>
               <View style={estilos.cardArea}>
                 <TextInput
-                editable={true}
-                multiline
+                  editable={true}
+                  multiline
                   style={estilos.texto}
                   placeholder="Digite sua mensagem"
                   onChangeText={contadorTextChange}
                   value={contadorText}
                 />
-                {contadorText.length == 250 ||  contadorText.length < 250 && <Text>Limite máximo alcançado</Text>}
+                {contadorText.length == 250 ||
+                  (contadorText.length < 250 && (
+                    <Text>Limite máximo alcançado</Text>
+                  ))}
               </View>
             </View>
 

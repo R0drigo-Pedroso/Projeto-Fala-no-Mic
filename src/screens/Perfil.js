@@ -11,6 +11,8 @@ import {
   TextInput,
   Button,
   Alert,
+  Linking,
+  TouchableOpacity,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import fruta from "../../assets/image/fruta.jpg";
@@ -27,6 +29,9 @@ import { useState, useEffect } from "react";
 import * as ImagePicker from "expo-image-picker";
 import { firebaseDois } from "../../firebaseConfigDois";
 
+import FontLoader from "../components/useFonts/useFont";
+import Modal from "react-native-modal";
+
 function Perfil() {
   /* Recuperando os dados do usuário atual (logado) */
   const usuarioLogado = auth.currentUser;
@@ -36,8 +41,6 @@ function Perfil() {
   const [uploading, setUploading] = useState(false);
   const [loading, setLoading] = useState(false);
   const [urlFoto, setUrlFoto] = useState(null);
-
-
 
   useEffect(() => {
     async function getPosts() {
@@ -88,8 +91,6 @@ function Perfil() {
       });
     });
 
-
-
     try {
       await upload;
       salvarCapa();
@@ -136,7 +137,6 @@ function Perfil() {
       nomeInput.current.focusOnError();
       return;
     }
-    
 
     try {
       await fetch(`http://10.20.48.31:3000/perfil/${posts.id}`, opcoes);
@@ -146,89 +146,171 @@ function Perfil() {
     }
   };
 
+  const [url, setUrl] = useState("https://");
+
+  const handlePress = () => {
+    Alert.prompt(
+      "Editar link da rede social",
+      "Insira o link da rede social:",
+      [
+        {
+          text: "Cancelar",
+          style: "cancel",
+        },
+        {
+          text: "OK",
+          onPress: (link) => handleSubmit(link),
+        },
+      ],
+      "plain-text",
+      url,
+      {
+        onChangeText: (text) => setUrl(text),
+      }
+    );
+  };
+
+  const handleSubmit = (link) => {
+    setUrl(link);
+    Linking.openURL(link);
+  };
+
   return (
     <SafeAreaView style={estilos.viewSafe}>
       <StatusBar barStyle="default" />
 
       <ScrollView>
-        <View style={estilos.container}>
-          {!image && 
-          <ImageBackground
-            source={fruta}
-            resizeMode="cover"
-            style={estilos.imagem}
-          >
-            <View style={estilos.viewFoto}>
-              <Image source={astronauta} style={estilos.foto} />
-              <Text style={estilos.usuario}></Text>
-              
-                      <Text style={estilos.endereco}>{posts.email}</Text>
+        <FontLoader>
+          <View style={estilos.container}>
+            {!image && (
+              <ImageBackground
+                source={fruta}
+                resizeMode="cover"
+                style={estilos.imagem}
+              >
+                <View style={estilos.viewFoto}>
+                  <Image source={astronauta} style={estilos.foto} />
+                  <Text style={estilos.usuario}></Text>
 
-            <Pressable style={estilos.editCapa} onPress={pickImage}><Text style={{color: "white", fontWeight: "bold", fontSize:18}}>Editar Capa</Text></Pressable>   
-            <Pressable style={estilos.Sair} onPress={logout}><Text style={{color: "white", fontWeight: "bold", fontSize:18}}>Sair</Text></Pressable>   
+                  <Text style={estilos.endereco}>{posts.email}</Text>
+
+                  <Pressable style={estilos.editCapa} onPress={pickImage}>
+                    <Text
+                      style={{
+                        color: "white",
+                        fontWeight: "bold",
+                        fontSize: 18,
+                      }}
+                    >
+                      Editar Capa
+                    </Text>
+                  </Pressable>
+                  <Pressable style={estilos.Sair} onPress={logout}>
+                    <Text
+                      style={{
+                        color: "white",
+                        fontWeight: "bold",
+                        fontSize: 18,
+                      }}
+                    >
+                      Sair
+                    </Text>
+                  </Pressable>
+                </View>
+              </ImageBackground>
+            )}
+            {image && (
+              <ImageBackground
+                source={{ uri: image }}
+                resizeMode="cover"
+                style={estilos.imagem}
+              >
+                <View style={estilos.viewFoto}>
+                  <Image source={astronauta} style={estilos.foto} />
+                  <Text style={estilos.usuario}>
+                    {usuarioLogado.displayName}
+                  </Text>
+
+                  <Text style={estilos.endereco}>{posts.email}</Text>
+
+                  {!image && (
+                    <Pressable style={estilos.editCapa} onPress={pickImage}>
+                      <Text
+                        style={{
+                          color: "white",
+                          fontWeight: "bold",
+                          fontSize: 18,
+                        }}
+                      >
+                        Editar Capa
+                      </Text>
+                    </Pressable>
+                  )}
+                  {image && (
+                    <Pressable
+                      style={estilos.editCapa}
+                      onPress={uploadingImage}
+                    >
+                      <Text
+                        style={{
+                          color: "white",
+                          fontWeight: "bold",
+                          fontSize: 18,
+                        }}
+                      >
+                        Salvar Capa
+                      </Text>
+                    </Pressable>
+                  )}
+                </View>
+              </ImageBackground>
+            )}
+
+            <View style={estilos.backgroundCard}>
+              <View style={estilos.card}>
+                <Text style={estilos.titulo}>Descrição:</Text>
+                <TextInput style={estilos.texto} value={products.email} />
+                <Pressable
+                  style={estilos.editar}
+                  onPress={() => {
+                    editarPerfil();
+                  }}
+                >
+                  <Text style={{ fontWeight: "bold", fontSize: 18 }}>
+                    Editar
+                  </Text>
+                </Pressable>
+              </View>
             </View>
-          </ImageBackground>
-          }
-          {image && 
-           <ImageBackground
-           source={{ uri: image }}
-           resizeMode="cover"
-           style={estilos.imagem}
-         >
-           <View style={estilos.viewFoto}>
-             <Image source={astronauta} style={estilos.foto} />
-             <Text style={estilos.usuario}>{usuarioLogado.displayName}</Text>
-             
-                     <Text style={estilos.endereco}>{posts.email}</Text>
 
-            {!image && 
-           <Pressable style={estilos.editCapa} onPress={pickImage}><Text style={{color: "white", fontWeight: "bold", fontSize:18}}>Editar Capa</Text></Pressable> }    
-            {image && 
-           <Pressable style={estilos.editCapa} onPress={uploadingImage}><Text style={{color: "white", fontWeight: "bold", fontSize:18}}>Salvar Capa</Text></Pressable> }    
-           
-           </View>
-         </ImageBackground>}
+            <View style={estilos.redes}>
+              <View style={estilos.nomeRede}>
+                <FontAwesome5 name="deezer" size={32} color="black" />
+                <Text style={estilos.textIcon}>deezer</Text>
+              </View>
 
-          <View style={estilos.backgroundCard}>
-            <View style={estilos.card}>
-              <Text style={estilos.titulo}>Descrição:</Text>
-              <TextInput 
-              style={estilos.texto}
-              value={products.email}
-              />
-               <Pressable style={estilos.editar} onPress={() => {
-                editarPerfil()
-               }}><Text style={{fontWeight:"bold", fontSize: 18}}>Editar</Text></Pressable> 
+              <View style={estilos.nomeRede}>
+                <FontAwesome5 name="youtube" size={32} color="black" />
+                <Text style={estilos.textIcon}>youtube</Text>
+              </View>
+
+              <View style={estilos.nomeRede}>
+                <FontAwesome5 name="spotify" size={32} color="black" />
+                <Text style={estilos.textIcon}>spotify</Text>
+              </View>
+
+              <View style={estilos.nomeRede}>
+                <FontAwesome5 name="soundcloud" size={32} color="black" />
+                <Text style={estilos.textIcon}>soundcloud</Text>
+              </View>
+
+              <Pressable style={estilos.nomeRede} onPress={handlePress}>
+                <FontAwesome5 name="instagram" size={32} color="black" />
+                <Text style={estilos.textIcon}>instagram</Text>
+              </Pressable>
             </View>
           </View>
-
-          <View style={estilos.redes}>
-            <View style={estilos.nomeRede}>
-              <FontAwesome5 name="deezer" size={32} color="black" />
-              <Text style={estilos.textIcon}>deezer</Text>
-            </View>
-
-            <View style={estilos.nomeRede}>
-              <FontAwesome5 name="youtube" size={32} color="black" />
-              <Text style={estilos.textIcon}>youtube</Text>
-            </View>
-
-            <View style={estilos.nomeRede}>
-              <FontAwesome5 name="spotify" size={32} color="black" />
-              <Text style={estilos.textIcon}>spotify</Text>
-            </View>
-
-            <View style={estilos.nomeRede}>
-              <FontAwesome5 name="soundcloud" size={32} color="black" />
-              <Text style={estilos.textIcon}>soundcloud</Text>
-            </View>
-
-            <View style={estilos.nomeRede}>
-              <FontAwesome5 name="instagram" size={32} color="black" />
-              <Text style={estilos.textIcon}>instagram</Text>
-            </View>
-          </View>
-        </View>
+        </FontLoader>
       </ScrollView>
     </SafeAreaView>
   );
@@ -241,6 +323,11 @@ const estilos = StyleSheet.create({
   imagem: {
     height: 500,
   },
+
+  modalTeste: {
+    color: "white",
+  },
+
   user: {
     height: "50%",
     borderRadius: "50%",
@@ -308,16 +395,16 @@ const estilos = StyleSheet.create({
   editar: {
     position: "absolute",
     top: 260,
-    left: 250
+    left: 250,
   },
   editCapa: {
     position: "absolute",
     bottom: 450,
     left: 30,
   },
-  Sair:{
+  Sair: {
     position: "absolute",
     bottom: 450,
     left: 320,
-  }
+  },
 });

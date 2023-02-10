@@ -8,7 +8,7 @@ import {
   Pressable,
   TextInput,
   Alert,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
 } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -25,7 +25,9 @@ import {
 import Perfil from "./Perfil";
 import Cadastro from "./Cadastro";
 
-function Login({navigation}) {
+import FontLoader from "../components/useFonts/useFont";
+
+function Login({ navigation }) {
   const [telaCadastro, setTelaCadastro] = useState(false);
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
@@ -36,11 +38,6 @@ function Login({navigation}) {
 
   useEffect(() => emailInput.current.resetError(), [email]);
   useEffect(() => senhaInput.current.resetError(), [senha]);
-
-
- 
-
-
 
   const login = () => {
     if (email == "") {
@@ -58,7 +55,6 @@ function Login({navigation}) {
         setValidaLogin(true);
         Alert.alert("Você foi logado");
         navigation.replace("Perfil");
-        
       })
       .catch((error) => {
         console.log(error);
@@ -88,15 +84,11 @@ function Login({navigation}) {
   };
 
   const irParaoCadastro = () => {
-    navigation.navigate("CadastroStack")
-  }
+    navigation.navigate("CadastroStack");
+  };
 
-  
- 
-    return (
-      <KeyboardAvoidingView 
-      behavior="position"
-      style={estilos.viewSafe}>
+  return (
+    <KeyboardAvoidingView behavior="position" style={estilos.viewSafe}>
       <StatusBar barStyle="dark" />
       <ScrollView>
         <View style={estilos.viewFoto}>
@@ -138,8 +130,7 @@ function Login({navigation}) {
         <View style={estilos.viewLgpd}>
           <Text style={estilos.tituloLgpd}>
             Não tem cadastro?
-            <Text >
-              {" "}
+            <Text>
               <Pressable onPress={irParaoCadastro}>
                 <Text style={estilos.cadastresess}>Cadastre-se</Text>
               </Pressable>
@@ -148,8 +139,8 @@ function Login({navigation}) {
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
-    );
-  }
+  );
+}
 
 export default Login;
 
@@ -167,6 +158,7 @@ const estilos = StyleSheet.create({
   titulo: {
     fontSize: 24,
     color: "#372727",
+    fontFamily: "carterOne",
   },
   viewBotao: {
     padding: 8,
@@ -199,6 +191,6 @@ const estilos = StyleSheet.create({
     color: "#372727",
   },
   cadastresess: {
-    fontWeight: "bold",
+    fontFamily: "carterOne",
   },
 });
