@@ -18,9 +18,6 @@ import astronauta from "../../assets/image/astronauta.jpg";
 /* Import dos ícones */
 import { FontAwesome5 } from "@expo/vector-icons";
 
-import Login from "./Login";
-import Cadastro from "./Cadastro";
-
 import { auth } from "../../firebaseConfig";
 import { signOut } from "firebase/auth";
 import { useState, useEffect } from "react";
@@ -33,6 +30,7 @@ function Perfil() {
   // console.log(usuarioLogado);
   const [posts, setPosts] = useState([]);
   const [image, setImage] = useState("");
+  const [imagePerfil, setImagePerfil] = useState("");
   const [uploading, setUploading] = useState(false);
   const [loading, setLoading] = useState(false);
   const [urlFoto, setUrlFoto] = useState(null);
@@ -70,6 +68,22 @@ function Perfil() {
 
     if (!result.canceled) {
       setImage(result.assets[0].uri);
+    }
+  };
+
+  const pickImagePerfil = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.canceled) {
+      setImagePerfil(result.assets[0].uri);
     }
   };
 
@@ -154,7 +168,18 @@ function Perfil() {
               style={estilos.imagem}
             >
               <View style={estilos.viewFoto}>
-                <Image source={astronauta} style={estilos.foto} />
+                {!imagePerfil && (
+                  <Pressable onPress={pickImagePerfil}>
+                    <Image source={astronauta} style={estilos.foto} />
+                  </Pressable>
+                )}
+
+                {imagePerfil && (
+                  <Pressable onPress={pickImagePerfil}>
+                    <Image source={{ uri: imagePerfil }} style={estilos.foto} />
+                  </Pressable>
+                )}
+
                 <Text style={estilos.usuario}></Text>
 
                 <Text style={estilos.endereco}>{posts.email}</Text>
