@@ -35,6 +35,8 @@ function Perfil() {
   const [image, setImage] = useState("");
   const [uploading, setUploading] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [urlFoto, setUrlFoto] = useState(null);
+
 
 
   useEffect(() => {
@@ -78,10 +80,19 @@ function Perfil() {
     const response = await fetch(image);
     const blob = await response.blob();
     const filename = image.substring(image.lastIndexOf("/") + 1);
-    let ref = firebaseDois.storage().ref("eventos/").child(filename).put(blob);
+    let upload = firebaseDois.storage().ref("capa/").child(filename).put(blob);
+
+    upload.on("state_changed", function () {
+      upload.snapshot.ref.getDownloadURL().then(function (url_imagem) {
+        setUrlFoto(url_imagem);
+      });
+    });
+
+
 
     try {
-      await ref;
+      await upload;
+      salvarCapa();
     } catch (error) {
       console.log(error);
     }
@@ -91,6 +102,7 @@ function Perfil() {
   };
 
   console.log(posts.descricao);
+  console.log(urlFoto);
 
   const logout = () => {
     setLoading(true);
@@ -102,6 +114,36 @@ function Perfil() {
         console.log(error);
       })
       .finally(() => setLoading(false));
+  };
+
+  const salvarCapa = async (event) => {
+    event.preventDefault();
+    // console.log(nome, email, mensagem)
+
+    const opcoes = {
+      method: "PATCH",
+      body: JSON.stringify({ capa }),
+      headers: {
+        // Configurando cabeçalhos para requisições
+        "Content-type": "application/json; charset=utf-8",
+      },
+    };
+    // Script para envio dos dados para a API
+
+    // ATENÇÃO: Usem o aqui o IP da sua máquina
+    if (urlFoto == null) {
+      Alert.alert("Atenção", "Você deve preencher nome, e-mail e senha");
+      nomeInput.current.focusOnError();
+      return;
+    }
+    
+
+    try {
+      await fetch(`http://10.20.48.31:3000/perfil/${posts.id}`, opcoes);
+      alert("Dados Enviados");
+    } catch (error) {
+      console.log("Deu ruim".error.message);
+    }
   };
 
   return (

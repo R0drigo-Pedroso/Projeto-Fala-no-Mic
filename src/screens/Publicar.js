@@ -61,6 +61,7 @@ function Publicar() {
               <Text>Caracteres: {contadorText.length}</Text>
               <View style={estilos.cardArea}>
                 <TextInput
+                editable={true}
                 multiline
                   style={estilos.texto}
                   placeholder="Digite sua mensagem"
