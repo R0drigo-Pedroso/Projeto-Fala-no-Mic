@@ -133,7 +133,7 @@ const salvarEvento = async (event) => {
       };
 
       try {
-        await fetch(`http://192.168.18.60:3000/evento`, opcoes);
+        await fetch(`https://mobile-api-8gey.onrender.com/evento`, opcoes);
         alert("Dados Enviados");
         setUploadInProgress(false);
       } catch (error) {

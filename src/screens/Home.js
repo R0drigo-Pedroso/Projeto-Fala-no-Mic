@@ -28,7 +28,7 @@ function Home({navigation}) {
       try {
         // ATENÇÃO: Usem o aqui o IP da sua máquina
         const resposta = await fetch(
-          `http://192.168.18.60:3000/evento/`
+          `https://mobile-api-8gey.onrender.com/evento/`
         );
         const dados = await resposta.json();
         setPosts(dados);

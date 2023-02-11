@@ -49,7 +49,7 @@ function Perfil() {
       try {
         // ATENÇÃO: Usem o aqui o IP da sua máquina
         const resposta = await fetch(
-          `http://192.168.18.60:3000/perfil/${usuarioLogado.email}`
+          `https://mobile-api-8gey.onrender.com/perfil/${usuarioLogado.email}`
         );
         const dados = await resposta.json();
         setPosts(dados);
@@ -151,7 +151,7 @@ console.log(image)
       // Script para envio dos dados para a API
   
       try {
-        await fetch(`http://192.168.18.60:3000/perfil/${posts.id}`, opcoes);
+        await fetch(`https://mobile-api-8gey.onrender.com/perfil/${posts.id}`, opcoes);
         alert("Dados Enviados");
         setImage("")
         setUploadInProgress(false);
@@ -184,7 +184,7 @@ const salvarDescricao = async (event) => {
     // Script para envio dos dados para a API
 
     try {
-      await fetch(`http://192.168.18.60:3000/perfil/${posts.id}`, opcoes);
+      await fetch(`https://mobile-api-8gey.onrender.com/perfil/${posts.id}`, opcoes);
       alert("Dados Enviados");
       setEditar("alterada");
     } catch (error) {
