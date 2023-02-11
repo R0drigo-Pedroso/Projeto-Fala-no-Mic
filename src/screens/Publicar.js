@@ -9,15 +9,59 @@ import {
   Pressable,
   Image,
   KeyboardAvoidingView,
+  Alert,
 } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
-
+import { useEffect } from "react";
 import FontLoader from "../components/useFonts/useFont";
+import { auth } from "../../firebaseConfig";
+import { firebaseDois } from "../../firebaseConfigDois";
 
-function Publicar() {
-  const [image, setImage] = useState(null);
+
+function Publicar({navigation}) {
+
+  const [titulo, setTitulo] = useState("")
+  const [descricao, setDescricao] = useState("")
+  const [capaEvento, setcapaEvento] = useState("")
+  const [endereco, setEndereco] = useState("")
+  const [dia, setDia] = useState("")
+  const [horario, setHorario] = useState("")
+  const [posts, setPosts] = useState([]);
+  const [image, setImage] = useState("");
+
+  // const [perfilId, setperfilid] = useState(null)
+
+
+
+
+
+
+  const usuarioLogado = auth.currentUser;
+
+  if(!usuarioLogado) {
+    Alert.alert("Atenção", "Você precisa estar logado para postar um evento", [
+      {
+        text: "Cadastrar",
+        onPress: () => {
+          // setEmail("");
+          // setSenha("");
+          // return false;
+          navigation.replace("CadastroStack");
+        },
+        style: "cancel",
+      },
+      {
+        text: "Efetuar Login",
+        onPress: () => {
+          navigation.replace("LoginStack");
+        },
+        style: "default",
+      },
+    ]);
+  }
+
 
   const [contadorText, setContadorText] = useState("");
 
@@ -43,6 +87,64 @@ function Publicar() {
     }
   };
 
+  useEffect(() => {
+    async function getPosts() {
+      try {
+        // ATENÇÃO: Usem o aqui o IP da sua máquina
+        const resposta = await fetch(
+          `http://192.168.18.60:3000/perfil/${usuarioLogado.email}`
+        );
+        const dados = await resposta.json();
+        setPosts(dados);
+      } catch (error) {
+        console.log("Deu ruim! " + error.message);
+      }
+    }
+    getPosts();
+  }, []);
+
+  console.log(posts.id)
+
+  const [uploadInProgress, setUploadInProgress] = useState(false);
+
+const salvarEvento = async (event) => {
+  event.preventDefault();
+
+  if (!uploadInProgress) {
+    setUploadInProgress(true);
+
+    const response = await fetch(image);
+    const blob = await response.blob();
+    const filename = image.substring(image.lastIndexOf("/") + 1);
+    let upload = firebaseDois.storage().ref("eventos/").child(filename).put(blob);
+
+    upload.on("state_changed", async function () {
+      const url_imagem = await upload.snapshot.ref.getDownloadURL();
+      var capaevento = url_imagem;
+
+      const perfilId = posts.id
+
+      const opcoes = {
+        method: "POST",
+        body: JSON.stringify({ titulo, descricao, capaevento, endereco, dia, perfilId }),
+        headers: {
+          "Content-type": "application/json; charset=utf-8",
+        },
+      };
+
+      try {
+        await fetch(`http://192.168.18.60:3000/evento`, opcoes);
+        alert("Dados Enviados");
+        setUploadInProgress(false);
+      } catch (error) {
+        console.log("Deu ruim".error.message);
+        setUploadInProgress(false);
+      }
+    });
+  }
+};
+
+
   return (
     <KeyboardAvoidingView style={estilos.viewSafe}>
       <ScrollView>
@@ -53,6 +155,8 @@ function Publicar() {
               <TextInput
                 style={estilos.cardTitulo}
                 placeholder="Digite seu nome"
+                value={titulo}
+                onChangeText={setTitulo}
               ></TextInput>
             </View>
             <View style={estilos.backgroundCard}>
@@ -60,13 +164,22 @@ function Publicar() {
 
               <Text>Caracteres: {contadorText.length}</Text>
               <View style={estilos.cardArea}>
-                <TextInput
+                {/* <TextInput
                 editable={true}
                 multiline
                   style={estilos.texto}
                   placeholder="Digite sua mensagem"
                   onChangeText={contadorTextChange}
                   value={contadorText}
+                />
+                {contadorText.length == 250 ||  contadorText.length < 250 && <Text>Limite máximo alcançado</Text>} */}
+                <TextInput
+                editable={true}
+                multiline
+                  style={estilos.texto}
+                  placeholder="Digite sua mensagem"
+                  onChangeText={setDescricao}
+                  value={descricao}
                 />
                 {contadorText.length == 250 ||  contadorText.length < 250 && <Text>Limite máximo alcançado</Text>}
               </View>
@@ -100,21 +213,28 @@ function Publicar() {
               <TextInput
                 style={estilos.input}
                 placeholder="Av. Rua ou estrada"
+                onChangeText={setEndereco}
+                value={endereco}
               />
             </View>
 
             <View style={estilos.backgroundCard}>
               <Text style={estilos.titulo}>Data</Text>
-              <TextInput style={estilos.input} placeholder="Define uma data" />
+              <TextInput style={estilos.input} placeholder="Define uma data" 
+              onChangeText={setDia}
+              value={dia}/>
             </View>
 
             <View style={estilos.backgroundCard}>
               <Text style={estilos.titulo}>Horário</Text>
-              <TextInput style={estilos.input} placeholder="Define uma data" />
+              <TextInput style={estilos.input} placeholder="Define uma data" 
+              onChangeText={setHorario}
+              value={horario}/>
+
             </View>
 
             <View style={estilos.viewbotao}>
-              <Pressable style={estilos.botao}>
+              <Pressable style={estilos.botao} onPress={salvarEvento}>
                 <Text style={estilos.botaoTexto}>Publicar</Text>
               </Pressable>
             </View>

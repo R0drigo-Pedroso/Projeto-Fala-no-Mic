@@ -32,11 +32,23 @@ export function NavegacaoFavoritos() {
   );
 }
 export function NavegacaoPublicar() {
+  const usuarioLogado = auth.currentUser;
+  if(!usuarioLogado){
   return (
     <Stack.Navigator>
-      <Stack.Screen name="PublicarStack" component={Publicar} />
+      <Stack.Screen name="PublicarStack" component={Publicar} options={{title: "Publicar"}}/>
+      <Stack.Screen name="LoginStack" component={Login} options={{title: "Login"}}/>
+      <Stack.Screen name="CadastroStack" component={Cadastro} options={{title: "Cadastro"}}/>
+      <Stack.Screen name="Perfil" component={Perfil} options={{ title: "Perfil" }}/>
     </Stack.Navigator>
   );
+  } else {
+    return (
+      <Stack.Navigator>
+        <Stack.Screen name="PublicarStack" component={Publicar} options={{title: "Publicar"}}/>
+      </Stack.Navigator>
+    );
+  }
 }
 
 export function NavegacaoLogin() {

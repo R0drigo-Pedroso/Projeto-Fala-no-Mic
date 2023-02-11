@@ -9,9 +9,6 @@ import { auth, db } from "../../firebaseConfig";
 
 
 function Cadastro({ navigation }) {
-  const [telaLogin, setTelaLogin] = useState(false);
-  const [telaPeril, setTelaPerfil] = useState(false);
-  const [telaHome, setHome] = useState(false);
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
@@ -56,7 +53,7 @@ function Cadastro({ navigation }) {
     }
 
     try {
-      await fetch(`http://10.20.48.31:3000/perfil`, opcoes);
+      await fetch(`http://192.168.18.60:3000/perfil`, opcoes);
       alert("Dados Enviados");
       cadastrar();
     } catch (error) {

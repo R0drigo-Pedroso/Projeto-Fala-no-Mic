@@ -5,10 +5,12 @@ import {
   View,
   Image,
   Pressable,
+  ScrollView
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import imageteste from "../../assets/image/festahiphop.jpg";
 import { useFonts } from "expo-font";
+
 import { useState, useEffect } from "react";
 
 function Home({navigation}) {
@@ -16,9 +18,26 @@ function Home({navigation}) {
     nunitoOne: require("../../assets/fonts/NunitoSans-Regular.ttf"),
     carterTier: require("../../assets/fonts/CarterOne-Regular.ttf"),
   });
+  const [posts, setPosts] = useState([]);
+
 
   if (!fontCarregar);
 
+  useEffect(() => {
+    async function getPosts() {
+      try {
+        // ATENÇÃO: Usem o aqui o IP da sua máquina
+        const resposta = await fetch(
+          `http://192.168.18.60:3000/evento/`
+        );
+        const dados = await resposta.json();
+        setPosts(dados);
+      } catch (error) {
+        console.log("Deu ruim! " + error.message);
+      }
+    }
+    getPosts();
+  }, []);
    
 
   return (
@@ -26,24 +45,30 @@ function Home({navigation}) {
       <StatusBar barStyle="default" />
       <Text style={estilos.titulo}>Eventos</Text>
 
+      <ScrollView >
+      {posts.map(({id, titulo, descricao, capaevento}) => (
+
       <View style={estilos.areaConteudo}>
-        <Image style={estilos.imageTamanho} source={imageteste} />
+     
+        <Image style={estilos.imageTamanho} source={{uri: capaevento}} />
 
         <View style={estilos.descricao}>
           <View>
-            <Text style={estilos.fontTitulo}>Titulo</Text>
+            <Text style={estilos.fontTitulo}>{titulo}</Text>
             <Text style={estilos.textDescricao}>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry, Lorem Ipsum is simply dummy text of the printing and
-              typesetting industry
+              {descricao}
             </Text>
           </View>
-
+         
           <Pressable style={estilos.botaoSaiba} onPress={()=>{navigation.navigate("DetalhesStack")}}>
             <Text style={estilos.textSaiba}>Saiba +</Text>
           </Pressable>
         </View>
+        
       </View>
+      ))}
+      </ScrollView>
+
     </SafeAreaView>
   );
 }

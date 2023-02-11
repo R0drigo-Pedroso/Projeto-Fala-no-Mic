@@ -33,10 +33,14 @@ function Perfil() {
   // console.log(usuarioLogado);
   const [posts, setPosts] = useState([]);
   const [image, setImage] = useState("");
+  const [perfil, setperfil] = useState("");
   const [uploading, setUploading] = useState(false);
   const [loading, setLoading] = useState(false);
   const [urlFoto, setUrlFoto] = useState(null);
-  
+  const [editar, setEditar] = useState("api");
+  const [descricao, setDescricao] = useState("");
+
+
 
 
 
@@ -45,7 +49,7 @@ function Perfil() {
       try {
         // ATENÇÃO: Usem o aqui o IP da sua máquina
         const resposta = await fetch(
-          `http://10.20.48.31:3000/perfil/${usuarioLogado.email}`
+          `http://192.168.18.60:3000/perfil/${usuarioLogado.email}`
         );
         const dados = await resposta.json();
         setPosts(dados);
@@ -76,34 +80,23 @@ function Perfil() {
     }
   };
 
-  const uploadingImage = async () => {
-    setUploading(true);
-    setUrlFoto(null)
-    const response = await fetch(image);
-    const blob = await response.blob();
-    const filename = image.substring(image.lastIndexOf("/") + 1);
-    let upload = firebaseDois.storage().ref("capa/").child(filename).put(blob);
-
-    upload.on("state_changed", function () {
-      upload.snapshot.ref.getDownloadURL().then(function (url_imagem) {
-        setUrlFoto(url_imagem);
-      });
+  const alterarPerfil = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
     });
 
+    console.log(result);
 
-    try {
-      await upload;
-    } catch (error) {
-      console.log(error);
+    if (!result.canceled) {
+      setperfil(result.assets[0].uri);
     }
-    setUploading(false);
-    Alert.alert("photo Uploaded");
-    setImage(null);
   };
 
-  console.log(posts.descricao);
-  console.log(urlFoto);
-  console.log(image)
+console.log(image)
 
   const logout = () => {
     setLoading(true);
@@ -117,35 +110,72 @@ function Perfil() {
       .finally(() => setLoading(false));
   };
 
-  const salvarCapa = async (event) => {
-    setUploading(true);
+  const [uploadInProgress, setUploadInProgress] = useState(false);
+
+  const salvarCapa = async () => {
     const response = await fetch(image);
     const blob = await response.blob();
     const filename = image.substring(image.lastIndexOf("/") + 1);
-    let upload = firebaseDois.storage().ref("capa/").child(filename).put(blob);
+    let upload = firebaseDois.storage().ref("eventos/").child(filename).put(blob);
 
-    upload.on("state_changed", function () {
-      upload.snapshot.ref.getDownloadURL().then(function (url_imagem) {
-        setUrlFoto(url_imagem);
-      });
-    });
+    upload.on("state_changed", async function () {
+      const url_imagem = await upload.snapshot.ref.getDownloadURL();
+      var imagemCapa = url_imagem;
+    
+    
 
 
-    try {
-      await upload;
-    } catch (error) {
-      console.log(error);
-    }
+    // try {
+    //   await upload;
+    // } catch (error) {
+    //   console.log(error);
+    // }
+    
 
+    
     setUploading(false);
-    Alert.alert("photo Uploaded");
-    setImage(null);
-    event.preventDefault();
+    // setImage(null);
+      // event.preventDefault();
     // console.log(nome, email, mensagem)
+    console.log(urlFoto)
+
+
+      const opcoes = {
+        method: "PATCH",
+        body: JSON.stringify({ capa: imagemCapa}),
+        headers: {
+          // Configurando cabeçalhos para requisições
+          "Content-type": "application/json; charset=utf-8",
+        },
+      };
+      // Script para envio dos dados para a API
+  
+      try {
+        await fetch(`http://192.168.18.60:3000/perfil/${posts.id}`, opcoes);
+        alert("Dados Enviados");
+        setImage("")
+        setUploadInProgress(false);
+      } catch (error) {
+        console.log("Deu ruim".error.message);
+        setUploadInProgress(false);
+
+      }
+    
+    
+    });
+    
+    
+  };
+
+ const editarPerfil = () => {
+    setEditar("alterar");
+  }
+
+const salvarDescricao = async (event) => {
 
     const opcoes = {
       method: "PATCH",
-      body: JSON.stringify({ capa: urlFoto }),
+      body: JSON.stringify({descricao}),
       headers: {
         // Configurando cabeçalhos para requisições
         "Content-type": "application/json; charset=utf-8",
@@ -154,13 +184,14 @@ function Perfil() {
     // Script para envio dos dados para a API
 
     try {
-      await fetch(`http://10.20.48.31:3000/perfil/${posts.id}`, opcoes);
+      await fetch(`http://192.168.18.60:3000/perfil/${posts.id}`, opcoes);
       alert("Dados Enviados");
-      cadastrar();
+      setEditar("alterada");
     } catch (error) {
       console.log("Deu ruim".error.message);
     }
-  };
+}
+
 
   console.log(urlFoto);
 
@@ -172,15 +203,22 @@ function Perfil() {
         <View style={estilos.container}>
           {!image && 
           <ImageBackground
-            source={fruta}
+            source={{uri: posts.capa}}
             resizeMode="cover"
             style={estilos.imagem}
           >
             <View style={estilos.viewFoto}>
-              <Image source={astronauta} style={estilos.foto} />
-              <Text style={estilos.usuario}></Text>
+              <Pressable onPress={alterarPerfil}>
+                {perfil && 
+                  <Image source={{uri: perfil}} style={estilos.foto} />
+                }
+                 {!perfil && 
+                    <Image source={astronauta} style={estilos.foto} />
+              }
+              </Pressable>
+              <Text style={estilos.usuario}>{usuarioLogado.displayName}</Text>
               
-                      <Text style={estilos.endereco}>{posts.email}</Text>
+                     
 
             <Pressable style={estilos.editCapa} onPress={pickImage}><Text style={{color: "white", fontWeight: "bold", fontSize:18}}>Editar Capa</Text></Pressable>   
             <Pressable style={estilos.Sair} onPress={logout}><Text style={{color: "white", fontWeight: "bold", fontSize:18}}>Sair</Text></Pressable>   
@@ -197,12 +235,13 @@ function Perfil() {
              <Image source={astronauta} style={estilos.foto} />
              <Text style={estilos.usuario}>{usuarioLogado.displayName}</Text>
              
-                     <Text style={estilos.endereco}>{posts.email}</Text>
+                     <Text style={estilos.endereco}></Text>
 
             {!image && 
            <Pressable style={estilos.editCapa} onPress={pickImage}><Text style={{color: "white", fontWeight: "bold", fontSize:18}}>Editar Capa</Text></Pressable> }    
             {image && 
-           <Pressable style={estilos.editCapa} onPress={salvarCapa}><Text style={{color: "white", fontWeight: "bold", fontSize:18}}>Salvar Capa</Text></Pressable> }    
+           <Pressable style={estilos.editCapa} onPress={salvarCapa}><Text style={{color: "white", fontWeight: "bold", fontSize:18}}>Salvar Capa</Text></Pressable> }   
+            <Pressable style={estilos.Sair} onPress={logout}><Text style={{color: "white", fontWeight: "bold", fontSize:18}}>Sair</Text></Pressable>    
            
            </View>
          </ImageBackground>}
@@ -210,13 +249,29 @@ function Perfil() {
           <View style={estilos.backgroundCard}>
             <View style={estilos.card}>
               <Text style={estilos.titulo}>Descrição:</Text>
+              {editar == "api" && 
+              <Text style={estilos.texto}>{posts.descricao}</Text>}
+               {editar == "alterada" && 
+              <Text style={estilos.texto}>{descricao}</Text>}
+              {editar == "alterar" && 
               <TextInput 
               style={estilos.texto}
-              value={products.email}
-              />
+              value={descricao}
+              onChangeText={setDescricao}
+              />}
+
+              {editar == "alterar" && 
+               <Pressable style={estilos.editar} onPress={() => {
+                salvarDescricao()
+               }}><Text style={{fontWeight:"bold", fontSize: 18}}>Salvar</Text></Pressable> }
+               {editar == "api" && 
                <Pressable style={estilos.editar} onPress={() => {
                 editarPerfil()
-               }}><Text style={{fontWeight:"bold", fontSize: 18}}>Editar</Text></Pressable> 
+               }}><Text style={{fontWeight:"bold", fontSize: 18}}>Editar</Text></Pressable>}
+                {editar == "alterada" && 
+               <Pressable style={estilos.editar} onPress={() => {
+                editarPerfil()
+               }}><Text style={{fontWeight:"bold", fontSize: 18}}>Editar</Text></Pressable>}
             </View>
           </View>
 

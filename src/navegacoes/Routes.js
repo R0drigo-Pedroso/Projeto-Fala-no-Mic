@@ -3,6 +3,7 @@ import { useState } from "react";
 import { NavegacaoHome,NavegacaoFavoritos,NavegacaoPublicar,NavegacaoPerfil, NavegacaoLogin, NavegacaoCadastro } from "./Stack";
 import Login from "../screens/Login";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import {auth} from "../../firebaseConfig"
 
 const Tab = createBottomTabNavigator();
 
@@ -10,10 +11,12 @@ const Tab = createBottomTabNavigator();
 
 function Routes() {
     const [logado, setLogado] = useState(false);
+    const usuarioLogado = auth.currentUser
   
     return (
       <Tab.Navigator
       screenOptions={({ route }) => ({
+        unmountOnBlur: true,
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
 
@@ -42,6 +45,8 @@ function Routes() {
         },
         tabBarActiveTintColor: "#372727 ",
         tabBarInactiveTintColor: "black",
+        unmountOnBlur: true,
+
       })}
       >
         <Tab.Screen
@@ -74,6 +79,8 @@ function Routes() {
             title: "Favoritos"
           }}
         />
+
+
         <Tab.Screen
           name="PublicarTab"
           component={NavegacaoPublicar}
