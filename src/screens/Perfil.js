@@ -11,6 +11,7 @@ import {
   TextInput,
   Button,
   Alert,
+  Linking
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import fruta from "../../assets/image/fruta.jpg";
@@ -34,6 +35,8 @@ function Perfil() {
   const usuarioLogado = auth.currentUser;
   // console.log(usuarioLogado);
   const [posts, setPosts] = useState([]);
+  const [rede, setRede] = useState([]);
+
   const [image, setImage] = useState("");
   const [perfil, setperfil] = useState("");
   const [uploading, setUploading] = useState(false);
@@ -56,6 +59,22 @@ function Perfil() {
       }
     }
     getPosts();
+  }, []);
+
+  useEffect(() => {
+    async function getRede() {
+      try {
+        // ATENÇÃO: Usem o aqui o IP da sua máquina
+        const resposta = await fetch(
+          `https://mobile-api-8gey.onrender.com/rede/${posts.id}`
+        );
+        const dados = await resposta.json();
+        setRede(dados);
+      } catch (error) {
+        console.log("Deu ruim! " + error.message);
+      }
+    }
+    getRede();
   }, []);
 
   const [products, setProducts] = useState([]);
@@ -191,7 +210,7 @@ function Perfil() {
   console.log(urlFoto);
 
   const editarRede = () => {
-    navigation.navigate("EditarRede");
+    navigation.navigate("EditarRede", {paramKey: posts.id});
   };
 
   return (
@@ -377,8 +396,10 @@ function Perfil() {
 
               <View style={estilos.redes}>
                 <View style={estilos.nomeRede}>
+                <Pressable onPress={() => {Linking.openURL( rede.deezer)}}>
                   <FontAwesome5 name="deezer" size={32} color="black" />
                   <Text style={estilos.textIcon}>deezer</Text>
+                  </Pressable>
                 </View>
 
                 <View style={estilos.nomeRede}>

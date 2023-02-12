@@ -11,11 +11,37 @@ import {
   KeyboardAvoidingView,
   Alert,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 
 import FontLoader from "../components/useFonts/useFont";
 
-const EditarRedeSocial = () => {
+const EditarRedeSocial = ({route}) => {
+
+  const [deezer, setDeezer] = useState("");
+  const [youtube, setYoutube] = useState("");
+  const [spotify, setSpotity] = useState("");
+  const [soundcloud, setSoundcloud] = useState("");
+  const [instagram, setInstagram] = useState("");
+
+  const salvarRedes = async(event) => {
+  event.preventDefault();
+  let perfilId = route.params.paramKey;
+  const opcoes = {
+    method: "POST",
+    body: JSON.stringify({ deezer, perfilId }),
+    headers: {
+      "Content-type": "application/json; charset=utf-8",
+    },
+  };
+
+  try {
+    await fetch(`https://mobile-api-8gey.onrender.com/rede`, opcoes);
+    alert("Dados Enviados");
+  } catch (error) {
+    console.error("Deu ruim", error.message);
+    setUploadInProgress(false);
+  }
+}
   return (
     <KeyboardAvoidingView style={estilos.viewSafe}>
       <ScrollView>
@@ -27,6 +53,8 @@ const EditarRedeSocial = () => {
               <TextInput
                 style={estilos.input}
                 placeholder="Digite ou cole o link"
+                value={deezer}
+                onChangeText={setDeezer}
               />
             </View>
 
@@ -35,6 +63,8 @@ const EditarRedeSocial = () => {
               <TextInput
                 style={estilos.input}
                 placeholder="Digite ou cole o link"
+                value={youtube}
+                onChangeText={setYoutube}
               />
             </View>
 
@@ -43,6 +73,8 @@ const EditarRedeSocial = () => {
               <TextInput
                 style={estilos.input}
                 placeholder="Digite ou cole o link"
+                value={spotify}
+                onChangeText={setSpotity}
               />
             </View>
 
@@ -52,6 +84,8 @@ const EditarRedeSocial = () => {
               <TextInput
                 style={estilos.input}
                 placeholder="Digite ou cole o link"
+                value={soundcloud}
+                onChangeText={setSoundcloud}
               />
             </View>
 
@@ -60,11 +94,13 @@ const EditarRedeSocial = () => {
               <TextInput
                 style={estilos.input}
                 placeholder="Digite ou cole o link"
+                value={instagram}
+                onChangeText={setInstagram}
               />
             </View>
 
             <View style={estilos.viewbotao}>
-              <Pressable style={estilos.botao}>
+              <Pressable style={estilos.botao} onPress={salvarRedes}>
                 <Text style={estilos.botaoTexto}>Salvar</Text>
               </Pressable>
             </View>
