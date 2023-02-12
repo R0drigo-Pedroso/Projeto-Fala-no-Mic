@@ -3,6 +3,7 @@ import React from 'react'
 import { useState } from "react";
 import { Entypo } from "@expo/vector-icons";
 import FontLoader from "../components/useFonts/useFont";
+import { FontAwesome } from '@expo/vector-icons';
 
 const Detalhes = () => {
 
@@ -34,6 +35,9 @@ const Detalhes = () => {
               <Pressable>
                 <Text style={estilos.visualizarPerfil}>Visualizar Perfil</Text>
               </Pressable>
+              <View>
+              <FontAwesome style={estilos.iconePerfil} name="user-circle-o" size={50} color="black" />
+              </View>
             </View>
 
             <View style={estilos.cardTitulo}>
@@ -43,12 +47,12 @@ const Detalhes = () => {
 
             <View style={estilos.descricao}>
               <Text style={estilos.tituloDescricao}>Descrição:</Text>
-              <Text style={estilos.descricaoEvento}>id venenatis a condimentum vitae sapien pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas sed tempus urna et pharetra pharetra massa massa ultricies mi quis hendrerit dolor magna eget est lorem ipsum dolor sit amet consectetur adipiscing elit pellentesque habitant morbi tristique senectus et netus et malesuada.</Text>
+              <Text style={estilos.descricaoEvento}>id venenatis a condimentum vitae sapien pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas sed tempus urna et pharetra pharetra massa massa ultricies mi quis hendrerit dolor magna eget est lorem ipsum dolor sit amet consectetur adipiscing elit pellentesque habitant morbi tristique senectus et netus et malesuada. </Text>
             </View>
 
             <View style={estilos.local}>
               <Text style={estilos.tituloLocalizacao}>Localização:</Text>
-              <Text style={estilos.endereco}>AV. Lorem Ipsum is simply dummy, 200 - Bairro </Text>
+              <Text style={estilos.endereco}>AV. Lorem Ipsum is simply dummy, 200 - Bairro Cidade Líder </Text>
             </View>
 
           </View>
