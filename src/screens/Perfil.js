@@ -199,69 +199,95 @@ function Perfil() {
       <StatusBar barStyle="default" />
 
       <ScrollView>
-        <View style={estilos.container}>
-          {!image && (
-            <ImageBackground
-              source={{ uri: posts.capa }}
-              resizeMode="cover"
-              style={estilos.imagem}
-            >
-              <View style={estilos.viewFoto}>
-                <Pressable onPress={alterarPerfil}>
-                  {perfil && (
-                    <Image source={{ uri: perfil }} style={estilos.foto} />
-                  )}
-                  {!perfil && (
-                    <Image source={astronauta} style={estilos.foto} />
-                  )}
-                </Pressable>
-                <Text style={estilos.usuario}>{usuarioLogado.displayName}</Text>
-
-                <Pressable style={estilos.editCapa} onPress={pickImage}>
-                  <Text
-                    style={{ color: "white", fontWeight: "bold", fontSize: 18 }}
-                  >
-                    Editar Capa
+        <FontLoader>
+          <View style={estilos.container}>
+            {!image && (
+              <ImageBackground
+                source={{ uri: posts.capa }}
+                resizeMode="cover"
+                style={estilos.imagem}
+              >
+                <View style={estilos.viewFoto}>
+                  <Pressable onPress={alterarPerfil}>
+                    {perfil && (
+                      <Image source={{ uri: perfil }} style={estilos.foto} />
+                    )}
+                    {!perfil && (
+                      <Image source={astronauta} style={estilos.foto} />
+                    )}
+                  </Pressable>
+                  <Text style={estilos.usuario}>
+                    {usuarioLogado.displayName}
                   </Text>
-                </Pressable>
-                <Pressable style={estilos.Sair} onPress={logout}>
-                  <Text
-                    style={{ color: "white", fontWeight: "bold", fontSize: 18 }}
-                  >
-                    Sair
-                  </Text>
-                </Pressable>
-              </View>
-            </ImageBackground>
-          )}
-          {image && (
-            <ImageBackground
-              source={{ uri: image }}
-              resizeMode="cover"
-              style={estilos.imagem}
-            >
-              <View style={estilos.viewFoto}>
-                <Image source={astronauta} style={estilos.foto} />
-                <Text style={estilos.usuario}>{usuarioLogado.displayName}</Text>
 
-                <Text style={estilos.endereco}></Text>
-
-                {!image && (
                   <Pressable style={estilos.editCapa} onPress={pickImage}>
                     <Text
                       style={{
                         color: "white",
                         fontWeight: "bold",
                         fontSize: 18,
-                        fontFamily: "nunitoSans",
                       }}
                     >
                       Editar Capa
                     </Text>
                   </Pressable>
-                )}
-                {image && (
-                  <Pressable style={estilos.editCapa} onPress={salvarCapa}>
+                  <Pressable style={estilos.Sair} onPress={logout}>
+                    <Text
+                      style={{
+                        color: "white",
+                        fontWeight: "bold",
+                        fontSize: 18,
+                      }}
+                    >
+                      Sair
+                    </Text>
+                  </Pressable>
+                </View>
+              </ImageBackground>
+            )}
+            {image && (
+              <ImageBackground
+                source={{ uri: image }}
+                resizeMode="cover"
+                style={estilos.imagem}
+              >
+                <View style={estilos.viewFoto}>
+                  <Image source={astronauta} style={estilos.foto} />
+                  <Text style={estilos.usuario}>
+                    {usuarioLogado.displayName}
+                  </Text>
+
+                  <Text style={estilos.endereco}></Text>
+
+                  {!image && (
+                    <Pressable style={estilos.editCapa} onPress={pickImage}>
+                      <Text
+                        style={{
+                          color: "white",
+                          fontWeight: "bold",
+                          fontSize: 18,
+                          fontFamily: "nunitoSans",
+                        }}
+                      >
+                        Editar Capa
+                      </Text>
+                    </Pressable>
+                  )}
+                  {image && (
+                    <Pressable style={estilos.editCapa} onPress={salvarCapa}>
+                      <Text
+                        style={{
+                          color: "white",
+                          fontWeight: "bold",
+                          fontSize: 18,
+                          fontFamily: "nunitoSans",
+                        }}
+                      >
+                        Salvar Capa
+                      </Text>
+                    </Pressable>
+                  )}
+                  <Pressable style={estilos.Sair} onPress={logout}>
                     <Text
                       style={{
                         color: "white",
@@ -270,147 +296,114 @@ function Perfil() {
                         fontFamily: "nunitoSans",
                       }}
                     >
-                      Salvar Capa
+                      Sair
                     </Text>
                   </Pressable>
+                </View>
+              </ImageBackground>
+            )}
+
+            <View style={estilos.backgroundCard}>
+              <View style={estilos.card}>
+                <Text style={estilos.titulo}>Descrição:</Text>
+                {editar == "api" && (
+                  <Text style={estilos.texto}>{posts.descricao}</Text>
                 )}
-                <Pressable style={estilos.Sair} onPress={logout}>
-                  <Text
-                    style={{
-                      color: "white",
-                      fontWeight: "bold",
-                      fontSize: 18,
-                      fontFamily: "nunitoSans",
+                {editar == "alterada" && (
+                  <Text style={estilos.texto}>{descricao}</Text>
+                )}
+
+                {editar == "alterar" && (
+                  <TextInput
+                    style={estilos.texto}
+                    value={descricao}
+                    onChangeText={setDescricao}
+                  />
+                )}
+
+                {editar == "alterar" && (
+                  <Pressable
+                    style={estilos.editar}
+                    onPress={() => {
+                      salvarDescricao();
                     }}
                   >
-                    Sair
-                  </Text>
-                </Pressable>
+                    <Text style={estilos.btnEditarDescricao}>Salvar</Text>
+                  </Pressable>
+                )}
+
+                {editar == "api" && (
+                  <Pressable
+                    style={estilos.editar}
+                    onPress={() => {
+                      editarPerfil();
+                    }}
+                  >
+                    <Text style={estilos.btnEditarDescricao}>Editar</Text>
+                  </Pressable>
+                )}
+
+                {editar == "alterada" && (
+                  <Pressable
+                    style={estilos.editar}
+                    onPress={() => {
+                      editarPerfil();
+                    }}
+                  >
+                    <Text style={estilos.btnEditarDescricao}>Editar</Text>
+                  </Pressable>
+                )}
               </View>
-            </ImageBackground>
-          )}
-
-          <View style={estilos.backgroundCard}>
-            <View style={estilos.card}>
-              <Text style={estilos.titulo}>Descrição:</Text>
-              {editar == "api" && (
-                <Text style={estilos.texto}>{posts.descricao}</Text>
-              )}
-              {editar == "alterada" && (
-                <Text style={estilos.texto}>{descricao}</Text>
-              )}
-              {editar == "alterar" && (
-                <TextInput
-                  style={estilos.texto}
-                  value={descricao}
-                  onChangeText={setDescricao}
-                />
-              )}
-
-              {editar == "alterar" && (
-                <Pressable
-                  style={estilos.editar}
-                  onPress={() => {
-                    salvarDescricao();
-                  }}
-                >
-                  <Text
-                    style={{
-                      fontWeight: "bold",
-                      fontSize: 18,
-                      fontFamily: "nunitoSans",
-                    }}
-                  >
-                    Salvar
-                  </Text>
-                </Pressable>
-              )}
-              {editar == "api" && (
-                <Pressable
-                  style={estilos.editar}
-                  onPress={() => {
-                    editarPerfil();
-                  }}
-                >
-                  <Text
-                    style={{
-                      fontWeight: "bold",
-                      fontSize: 18,
-                      fontFamily: "nunitoSans",
-                    }}
-                  >
-                    Editar
-                  </Text>
-                </Pressable>
-              )}
-              {editar == "alterada" && (
-                <Pressable
-                  style={estilos.editar}
-                  onPress={() => {
-                    editarPerfil();
-                  }}
-                >
-                  <Text
-                    style={{
-                      fontWeight: "bold",
-                      fontSize: 18,
-                      fontFamily: "nunitoSans",
-                    }}
-                  >
-                    Editar
-                  </Text>
-                </Pressable>
-              )}
             </View>
-          </View>
 
-          <View>
-            <Pressable>
-              <Text
-                style={{
-                  fontWeight: "bold",
-                  fontSize: 18,
-                  textAlign: "right",
-                  marginRight: 22,
-                  marginTop: 16,
-                  fontFamily: "nunitoSans",
-                }}
-                onPress={() => {
-                  editarRede();
-                }}
-              >
-                Editar Redes
-              </Text>
-            </Pressable>
+            <View>
+              <Pressable>
+                <Text
+                  style={{
+                    fontWeight: "bold",
+                    fontSize: 18,
+                    textAlign: "right",
+                    marginRight: 22,
+                    marginTop: 16,
+                    fontFamily: "nunitoSans",
+                  }}
+                  onPress={() => {
+                    editarRede();
+                  }}
+                >
+                  Editar Redes
+                </Text>
+              </Pressable>
 
-            <View style={estilos.redes}>
-              <View style={estilos.nomeRede}>
-                <FontAwesome5 name="deezer" size={32} color="black" />
-                <Text style={estilos.textIcon}>deezer</Text>
-              </View>
+              <View style={estilos.redes}>
+                <View style={estilos.nomeRede}>
+                  <FontAwesome5 name="deezer" size={32} color="black" />
+                  <Text style={estilos.textIcon}>deezer</Text>
+                </View>
 
-              <View style={estilos.nomeRede}>
-                <FontAwesome5 name="youtube" size={32} color="black" />
-                <Text style={estilos.textIcon}>youtube</Text>
-              </View>
+                <View style={estilos.nomeRede}>
+                  <FontAwesome5 name="youtube" size={32} color="black" />
+                  <Text style={estilos.textIcon}>youtube</Text>
+                </View>
 
-              <View style={estilos.nomeRede}>
-                <FontAwesome5 name="spotify" size={32} color="black" />
-                <Text style={estilos.textIcon}>spotify</Text>
-              </View>
+                <View style={estilos.nomeRede}>
+                  <FontAwesome5 name="spotify" size={32} color="black" />
+                  <Text style={estilos.textIcon}>spotify</Text>
+                </View>
 
-              <View style={estilos.nomeRede}>
-                <FontAwesome5 name="soundcloud" size={32} color="black" />
-                <Text style={estilos.textIcon}>soundcloud</Text>
-              </View>
+                <View style={estilos.nomeRede}>
+                  <FontAwesome5 name="soundcloud" size={32} color="black" />
+                  <Text style={estilos.textIcon}>soundcloud</Text>
+                </View>
 
-              <View style={estilos.nomeRede}>
-                <FontAwesome5 name="instagram" size={32} color="black" />
-                <Text style={estilos.textIcon}>instagram</Text>
+                <View style={estilos.nomeRede}>
+                  <FontAwesome5 name="instagram" size={32} color="black" />
+                  <Text style={estilos.textIcon}>instagram</Text>
+                </View>
               </View>
             </View>
           </View>
-        </View>
+        </FontLoader>
       </ScrollView>
     </SafeAreaView>
   );
@@ -447,6 +440,13 @@ const estilos = StyleSheet.create({
     fontSize: 18,
     marginVertical: 10,
     fontWeight: "bold",
+    fontFamily: "nunitoSans",
+  },
+
+  btnEditarDescricao: {
+    fontWeight: "bold",
+    fontSize: 18,
+    fontFamily: "nunitoSans",
   },
 
   endereco: {
@@ -472,6 +472,7 @@ const estilos = StyleSheet.create({
     color: "black",
     fontSize: 24,
     fontWeight: "bold",
+    fontFamily: "nunitoSans",
     padding: 8,
   },
 
