@@ -53,7 +53,7 @@ function Cadastro({ navigation }) {
     }
 
     try {
-      await fetch(`https://mobile-api-8gey.onrender.com/perfil`, opcoes);
+      await fetch(`http://192.168.18.60:3000/perfil`, opcoes);
       alert("Dados Enviados");
       cadastrar();
     } catch (error) {

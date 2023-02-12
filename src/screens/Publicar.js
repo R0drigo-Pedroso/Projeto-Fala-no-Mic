@@ -139,7 +139,7 @@ function Publicar({navigation}) {
         };
   
         try {
-          await fetch(`https://mobile-api-8gey.onrender.com/evento`, opcoes);
+          await fetch(`http://192.168.18.60:3000/evento`, opcoes);
           alert("Dados Enviados");
           setUploadInProgress(false);
         } catch (error) {

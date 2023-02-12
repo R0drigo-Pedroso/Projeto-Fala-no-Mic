@@ -35,7 +35,7 @@ const EditarRedeSocial = ({route}) => {
   };
 
   try {
-    await fetch(`https://mobile-api-8gey.onrender.com/rede`, opcoes);
+    await fetch(`http://192.168.18.60:3000/rede`, opcoes);
     alert("Dados Enviados");
   } catch (error) {
     console.error("Deu ruim", error.message);
