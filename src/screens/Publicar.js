@@ -10,7 +10,7 @@ import {
   Image,
   KeyboardAvoidingView,
   Alert,
-} from "react-native";
+  ActivityIndicator } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
@@ -106,43 +106,50 @@ function Publicar({navigation}) {
   console.log(posts.id)
 
   const [uploadInProgress, setUploadInProgress] = useState(false);
-
-const salvarEvento = async (event) => {
-  event.preventDefault();
-
-  if (!uploadInProgress) {
-    setUploadInProgress(true);
-
-    const response = await fetch(image);
-    const blob = await response.blob();
-    const filename = image.substring(image.lastIndexOf("/") + 1);
-    let upload = firebaseDois.storage().ref("eventos/").child(filename).put(blob);
-
-    upload.on("state_changed", async function () {
-      const url_imagem = await upload.snapshot.ref.getDownloadURL();
-      var capaevento = url_imagem;
-
-      const perfilId = posts.id
-
-      const opcoes = {
-        method: "POST",
-        body: JSON.stringify({ titulo, descricao, capaevento, endereco, dia, perfilId }),
-        headers: {
-          "Content-type": "application/json; charset=utf-8",
-        },
-      };
-
-      try {
-        await fetch(`https://mobile-api-8gey.onrender.com/evento`, opcoes);
-        alert("Dados Enviados");
-        setUploadInProgress(false);
-      } catch (error) {
-        console.log("Deu ruim".error.message);
-        setUploadInProgress(false);
-      }
-    });
-  }
-};
+  const [progressPercentage, setProgressPercentage] = useState(0);
+  
+  
+  const salvarEvento = async (event) => {
+    event.preventDefault();
+  
+    if (!uploadInProgress) {
+      setUploadInProgress(true);
+  
+      const response = await fetch(image);
+      const blob = await response.blob();
+      const filename = image.substring(image.lastIndexOf("/") + 1);
+      let upload = firebaseDois.storage().ref("eventos/").child(filename).put(blob);
+  
+      upload.on("state_changed", (snapshot) => {
+        setProgress((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+      }, (error) => {
+        console.error(error.message);
+      }, async () => {
+        const url_imagem = await upload.snapshot.ref.getDownloadURL();
+        var capaevento = url_imagem;
+  
+        const perfilId = posts.id
+  
+        const opcoes = {
+          method: "POST",
+          body: JSON.stringify({ titulo, descricao, capaevento, endereco, dia, perfilId }),
+          headers: {
+            "Content-type": "application/json; charset=utf-8",
+          },
+        };
+  
+        try {
+          await fetch(`https://mobile-api-8gey.onrender.com/evento`, opcoes);
+          alert("Dados Enviados");
+          setUploadInProgress(false);
+        } catch (error) {
+          console.error("Deu ruim", error.message);
+          setUploadInProgress(false);
+        }
+      });
+    }
+  };
+  
 
 
   return (
@@ -162,7 +169,6 @@ const salvarEvento = async (event) => {
             <View style={estilos.backgroundCard}>
               <Text style={estilos.titulo}>Descrição:</Text>
 
-              <Text>Caracteres: {contadorText.length}</Text>
               <View style={estilos.cardArea}>
                 {/* <TextInput
                 editable={true}
@@ -181,7 +187,7 @@ const salvarEvento = async (event) => {
                   onChangeText={setDescricao}
                   value={descricao}
                 />
-                {contadorText.length == 250 ||  contadorText.length < 250 && <Text>Limite máximo alcançado</Text>}
+               
               </View>
             </View>
 
@@ -207,6 +213,11 @@ const salvarEvento = async (event) => {
                 )}
               </View>
             </Pressable>
+            {uploadInProgress && (
+  <ActivityIndicator size="large" color="5451a6" />
+)}
+
+
             <View style={estilos.backgroundCard}>
               <Text style={estilos.titulo}>Endereço</Text>
 

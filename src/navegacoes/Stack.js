@@ -14,9 +14,9 @@ const Stack = createNativeStackNavigator();
 
 export function NavegacaoHome() {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="HomeStack" component={Home} />
-      <Stack.Screen name="DetalhesStack" component={Detalhes} />
+    <Stack.Navigator >
+      <Stack.Screen name="HomeStack" component={Home} options={{title: "Home"}}/>
+      <Stack.Screen name="DetalhesStack" component={Detalhes} options={{ title: "Detalhes do Evento" }}/>
     </Stack.Navigator>
   );
 }

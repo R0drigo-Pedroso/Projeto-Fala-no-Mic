@@ -5,7 +5,8 @@ import {
   View,
   Image,
   Pressable,
-  ScrollView
+  ScrollView,
+  
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import imageteste from "../../assets/image/festahiphop.jpg";
@@ -60,7 +61,8 @@ function Home({navigation}) {
             </Text>
           </View>
          
-          <Pressable style={estilos.botaoSaiba} onPress={()=>{navigation.navigate("DetalhesStack")}}>
+          <Pressable style={estilos.botaoSaiba} onPress={()=>{navigation.navigate("DetalhesStack",   
+          {paramKey: id} )}}>
             <Text style={estilos.textSaiba}>Saiba +</Text>
           </Pressable>
         </View>

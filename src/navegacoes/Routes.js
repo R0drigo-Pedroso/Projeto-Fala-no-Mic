@@ -67,7 +67,7 @@ function Routes() {
           name="FavoritosTab"
           component={NavegacaoFavoritos}
           options={{
-            headerShown: false,
+            title: "Favoritos",
             tabBarIcon: ({ color, size, focused }) => {
               if (focused) {
                 return <Ionicons name="heart-sharp" size={size} color={"black"} />;
