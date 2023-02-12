@@ -6,7 +6,8 @@ import Publicar from "../screens/Publicar";
 import Perfil from "../screens/Perfil";
 import Login from "../screens/Login";
 import Cadastro from "../screens/Cadastro";
-import Detalhes from "../screens/Detalhes"
+import Detalhes from "../screens/Detalhes";
+import EditarRedeSocial from "../screens/EditarRedeSocial";
 
 import { auth } from "../../firebaseConfig";
 
@@ -33,19 +34,39 @@ export function NavegacaoFavoritos() {
 }
 export function NavegacaoPublicar() {
   const usuarioLogado = auth.currentUser;
-  if(!usuarioLogado){
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name="PublicarStack" component={Publicar} options={{title: "Publicar"}}/>
-      <Stack.Screen name="LoginStack" component={Login} options={{title: "Login"}}/>
-      <Stack.Screen name="CadastroStack" component={Cadastro} options={{title: "Cadastro"}}/>
-      <Stack.Screen name="Perfil" component={Perfil} options={{ title: "Perfil" }}/>
-    </Stack.Navigator>
-  );
+  if (!usuarioLogado) {
+    return (
+      <Stack.Navigator>
+        <Stack.Screen
+          name="PublicarStack"
+          component={Publicar}
+          options={{ title: "Publicar" }}
+        />
+        <Stack.Screen
+          name="LoginStack"
+          component={Login}
+          options={{ title: "Login" }}
+        />
+        <Stack.Screen
+          name="CadastroStack"
+          component={Cadastro}
+          options={{ title: "Cadastro" }}
+        />
+        <Stack.Screen
+          name="Perfil"
+          component={Perfil}
+          options={{ title: "Perfil" }}
+        />
+      </Stack.Navigator>
+    );
   } else {
     return (
       <Stack.Navigator>
-        <Stack.Screen name="PublicarStack" component={Publicar} options={{title: "Publicar"}}/>
+        <Stack.Screen
+          name="PublicarStack"
+          component={Publicar}
+          options={{ title: "Publicar" }}
+        />
       </Stack.Navigator>
     );
   }
@@ -54,31 +75,49 @@ export function NavegacaoPublicar() {
 export function NavegacaoLogin() {
   const usuarioLogado = auth.currentUser;
 
- if(!usuarioLogado){
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name="LoginStack" component={Login} options={{title: "Login"}}/>
-      <Stack.Screen name="CadastroStack" component={Cadastro} options={{title: "Cadastro"}}/>
-      <Stack.Screen name="Perfil" component={Perfil} options={{ title: "Perfil" }}/>
-    </Stack.Navigator>)
- } else {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name="Perfil" component={Perfil} options={{ title: "Perfil" }}/>
-      <Stack.Screen name="LoginStack" component={Login} options={{title: "Login"}}/>
-    </Stack.Navigator>
-  );
- }
-
+  if (!usuarioLogado) {
+    return (
+      <Stack.Navigator>
+        <Stack.Screen
+          name="LoginStack"
+          component={Login}
+          options={{ title: "Login" }}
+        />
+        <Stack.Screen
+          name="CadastroStack"
+          component={Cadastro}
+          options={{ title: "Cadastro" }}
+        />
+        <Stack.Screen
+          name="Perfil"
+          component={Perfil}
+          options={{ title: "Perfil" }}
+        />
+      </Stack.Navigator>
+    );
+  } else {
+    return (
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Perfil"
+          component={Perfil}
+          options={{ title: "Perfil" }}
+        />
+        <Stack.Screen
+          name="LoginStack"
+          component={Login}
+          options={{ title: "Login" }}
+        />
+        <Stack.Screen
+          name="EditarRede"
+          component={EditarRedeSocial}
+          options={{ title: "Editar Rede" }}
+        />
+      </Stack.Navigator>
+    );
+  }
 }
 
-
-
 export function NavegacaoPerfil() {
-
-      <Stack.Navigator>
-       
-      
-      </Stack.Navigator>
-    
+  <Stack.Navigator></Stack.Navigator>;
 }
