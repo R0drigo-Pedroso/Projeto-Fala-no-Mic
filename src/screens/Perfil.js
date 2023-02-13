@@ -11,7 +11,8 @@ import {
   TextInput,
   Button,
   Alert,
-  Linking
+  Linking,
+  ActivityIndicator
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import fruta from "../../assets/image/fruta.jpg";
@@ -128,34 +129,82 @@ function Perfil() {
       .finally(() => setLoading(false));
   };
 
+
+  // const salvarCapa = async () => {
+  //   const response = await fetch(image);
+  //   const blob = await response.blob();
+  //   const filename = image.substring(image.lastIndexOf("/") + 1);
+  //   let upload = firebaseDois
+  //     .storage()
+  //     .ref("eventos/")
+  //     .child(filename)
+  //     .put(blob);
+
+  //   upload.on("state_changed", async function () {
+  //     const url_imagem = await upload.snapshot.ref.getDownloadURL();
+  //     var imagemCapa = url_imagem;
+
+  //     // try {
+  //     //   await upload;
+  //     // } catch (error) {
+  //     //   console.log(error);
+  //     // }
+
+  //     setUploading(false);
+  //     // setImage(null);
+  //     // event.preventDefault();
+  //     // console.log(nome, email, mensagem)
+  //     console.log(urlFoto);
+
+  //     const opcoes = {
+  //       method: "PATCH",
+  //       body: JSON.stringify({ capa: imagemCapa }),
+  //       headers: {
+  //         // Configurando cabeçalhos para requisições
+  //         "Content-type": "application/json; charset=utf-8",
+  //       },
+  //     };
+  //     // Script para envio dos dados para a API
+
+  //     try {
+  //       await fetch(
+  //         `http://192.168.18.60:3000/perfil/${posts.id}`,
+  //         opcoes
+  //       );
+  //       alert("Dados Enviados");
+  //       setImage("");
+  //       setUploadInProgress(false);
+  //     } catch (error) {
+  //       console.log("Deu ruim".error.message);
+  //       setUploadInProgress(false);
+  //     }
+  //   });
+  // };
+
   const [uploadInProgress, setUploadInProgress] = useState(false);
+  const [progressPercentage, setProgressPercentage] = useState(0);
 
-  const salvarCapa = async () => {
-    const response = await fetch(image);
-    const blob = await response.blob();
-    const filename = image.substring(image.lastIndexOf("/") + 1);
-    let upload = firebaseDois
-      .storage()
-      .ref("eventos/")
-      .child(filename)
-      .put(blob);
-
-    upload.on("state_changed", async function () {
-      const url_imagem = await upload.snapshot.ref.getDownloadURL();
-      var imagemCapa = url_imagem;
-
-      // try {
-      //   await upload;
-      // } catch (error) {
-      //   console.log(error);
-      // }
-
-      setUploading(false);
-      // setImage(null);
-      // event.preventDefault();
-      // console.log(nome, email, mensagem)
-      console.log(urlFoto);
-
+  const salvarCapa = async (event) => {
+    event.preventDefault();
+  
+    if (!uploadInProgress) {
+      setUploadInProgress(true);
+  
+      const response = await fetch(image);
+      const blob = await response.blob();
+      const filename = image.substring(image.lastIndexOf("/") + 1);
+      let upload = firebaseDois.storage().ref("capa/").child(filename).put(blob);
+  
+      upload.on("state_changed", (snapshot) => {
+        setProgress((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+      }, (error) => {
+        console.error(error.message);
+      }, async () => {
+        const url_imagem = await upload.snapshot.ref.getDownloadURL();
+        var imagemCapa = url_imagem;
+  
+  
+       
       const opcoes = {
         method: "PATCH",
         body: JSON.stringify({ capa: imagemCapa }),
@@ -172,13 +221,15 @@ function Perfil() {
           opcoes
         );
         alert("Dados Enviados");
-        setImage("");
+        setImage(imagemCapa);
         setUploadInProgress(false);
+        navigation.navigate("Perfil")
       } catch (error) {
         console.log("Deu ruim".error.message);
         setUploadInProgress(false);
       }
     });
+    }
   };
 
   const editarPerfil = () => {
@@ -277,7 +328,9 @@ function Perfil() {
                   <Text style={estilos.usuario}>
                     {usuarioLogado.displayName}
                   </Text>
-
+                  {uploadInProgress && (
+  <ActivityIndicator size="large" color="5451a6" />
+)}
                   <Text style={estilos.endereco}></Text>
 
                   {!image && (
