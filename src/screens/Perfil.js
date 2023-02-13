@@ -36,7 +36,7 @@ function Perfil() {
   const usuarioLogado = auth.currentUser;
   // console.log(usuarioLogado);
   const [posts, setPosts] = useState([]);
-  const [rede, setRede] = useState([]);
+  const [redes, setRedes] = useState([]);
 
   const [image, setImage] = useState("");
   const [perfil, setperfil] = useState("");
@@ -71,7 +71,7 @@ function Perfil() {
            `http:192.168.18.60:3000/rede`
          );
          const dados = await resposta.json();
-         setRede(dados);
+         setRedes(dados);
        } catch (error) {
          console.log("Deu ruim! " + error.message);
        }
@@ -265,6 +265,25 @@ function Perfil() {
     navigation.navigate("EditarRede", {paramKey: posts.id});
   };
 
+  let deezer;
+  let youtube;
+  let spotify;
+  let soundcloud;
+  let instagram;
+
+ redes.forEach(function(rede) {
+   console.log(rede)
+   if(rede.perfilId == posts.id){
+     console.log(rede.perfilId)
+    deezer = rede.deezer
+   } else {
+      console.log(typeof(rede.perfilId))
+      // console.log(typeof(usuarioLogado.email))
+     console.log("errei")
+   }
+
+ });
+
 
   return (
     <SafeAreaView style={estilos.viewSafe}>
@@ -451,7 +470,7 @@ function Perfil() {
 
               <View style={estilos.redes}>
                 <View style={estilos.nomeRede}>
-                <Pressable onPress={() => {Linking.openURL( {uri: rede.deezer})}}>
+                <Pressable onPress={() => {Linking.openURL(deezer)}}>
                   <FontAwesome5 name="deezer" size={32} color="black" />
                   <Text style={estilos.textIcon}>deezer</Text>
                   </Pressable>
