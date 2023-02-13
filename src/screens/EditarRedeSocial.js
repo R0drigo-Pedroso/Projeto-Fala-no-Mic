@@ -11,7 +11,7 @@ import {
   KeyboardAvoidingView,
   Alert,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import FontLoader from "../components/useFonts/useFont";
 
@@ -22,25 +22,69 @@ const EditarRedeSocial = ({route}) => {
   const [spotify, setSpotity] = useState("");
   const [soundcloud, setSoundcloud] = useState("");
   const [instagram, setInstagram] = useState("");
+  const [redes, setRedes] = useState("");
+
+  useEffect(() => {
+    async function getRede() {
+      try {
+         // ATENÇÃO: Usem o aqui o IP da sua máquina
+        const resposta = await fetch(
+          `http:10.20.48.31:3000/rede/${route.params.paramKey}`
+        );
+        const dados = await resposta.json();
+        setRedes(dados);
+      } catch (error) {
+        console.log("Deu ruim! " + error.message);
+      }
+    }
+    getRede();
+  }, []);
 
   const salvarRedes = async(event) => {
   event.preventDefault();
   let perfilId = route.params.paramKey;
-  const opcoes = {
-    method: "POST",
-    body: JSON.stringify({ deezer, perfilId }),
-    headers: {
-      "Content-type": "application/json; charset=utf-8",
-    },
-  };
 
-  try {
-    await fetch(`http://10.20.48.31:3000/rede`, opcoes);
-    alert("Dados Enviados");
-  } catch (error) {
-    console.error("Deu ruim", error.message);
-    setUploadInProgress(false);
+  if(!redes) {
+    const opcoes = {
+      method: "POST",
+      body: JSON.stringify({ soundcloud, instagram, spotify, youtube, deezer, perfilId }),
+      headers: {
+        "Content-type": "application/json; charset=utf-8",
+      },
+    };
+  
+    try {
+      await fetch(`http://10.20.48.31:3000/rede`, opcoes);
+      alert("Dados Enviados");
+    } catch (error) {
+      console.error("Deu ruim", error.message);
+      setUploadInProgress(false);
+    }
+  } else {
+     
+    const opcoes = {
+      method: "PATCH",
+      body: JSON.stringify({ Deezer: deezer, youtube: youtube, spotify: spotify, soundcloud: soundcloud, instagram: instagram }),
+      headers: {
+        // Configurando cabeçalhos para requisições
+        "Content-type": "application/json; charset=utf-8",
+      },
+    };
+    // Script para envio dos dados para a API
+
+    try {
+      await fetch(
+        `http://10.20.48.31:3000/rede/${perfilId}`,
+        opcoes
+      );
+      alert("Atualizar rede");
+     
+    } catch (error) {
+      console.log("Deu ruim".error.message);
+      setUploadInProgress(false);
+    }
   }
+  
 }
   return (
     <KeyboardAvoidingView style={estilos.viewSafe}>
@@ -49,33 +93,59 @@ const EditarRedeSocial = ({route}) => {
           <View style={estilos.container}>
             <View style={estilos.backgroundCard}>
               <Text style={estilos.titulo}>Deezer</Text>
-
+              {redes && 
               <TextInput
+                style={estilos.input}
+                placeholder={redes.deezer}
+                value={deezer}
+                onChangeText={setDeezer}
+              />}
+              {!redes &&
+                <TextInput
                 style={estilos.input}
                 placeholder="Digite ou cole o link"
                 value={deezer}
                 onChangeText={setDeezer}
               />
+              }
             </View>
 
             <View style={estilos.backgroundCard}>
+         
               <Text style={estilos.titulo}>Youtube</Text>
+              {redes && 
+              <TextInput
+                style={estilos.input}
+                placeholder={redes.youtube}
+                value={youtube}
+                onChangeText={setYoutube}
+              />}
+
+               {!redes && 
               <TextInput
                 style={estilos.input}
                 placeholder="Digite ou cole o link"
-                value={youtube}
+                value={redes.youtube}
                 onChangeText={setYoutube}
-              />
+              />}
             </View>
 
             <View style={estilos.backgroundCard}>
               <Text style={estilos.titulo}>Spotify</Text>
+              {redes && 
+              <TextInput
+                style={estilos.input}
+                placeholder={redes.spotify}
+                value={spotify}
+                onChangeText={setSpotity}
+              />}
+              {!redes && 
               <TextInput
                 style={estilos.input}
                 placeholder="Digite ou cole o link"
                 value={spotify}
                 onChangeText={setSpotity}
-              />
+              />}
             </View>
 
             <View style={estilos.backgroundCard}>

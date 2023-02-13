@@ -276,6 +276,14 @@ function Perfil() {
    if(rede.perfilId == posts.id){
      console.log(rede.perfilId)
     deezer = rede.deezer
+    spotify = rede.spotify
+    youtube = rede.youtube
+    soundcloud = rede.soundcloud
+    instagram = rede.instagram
+
+
+
+
    } else {
       console.log(typeof(rede.perfilId))
       // console.log(typeof(usuarioLogado.email))
@@ -476,10 +484,10 @@ function Perfil() {
                   </Pressable>
                 </View>
 
-                <View style={estilos.nomeRede}>
+                <Pressable onPress={() => {Linking.openURL(youtube)}}>
                   <FontAwesome5 name="youtube" size={32} color="black" />
                   <Text style={estilos.textIcon}>youtube</Text>
-                </View>
+                </Pressable>
 
                 <View style={estilos.nomeRede}>
                   <FontAwesome5 name="spotify" size={32} color="black" />
