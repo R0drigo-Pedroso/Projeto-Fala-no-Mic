@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image,   KeyboardAvoidingView, ScrollView, Pressable } from 'react-native'
+import { StyleSheet, Text, View, Image, KeyboardAvoidingView, ScrollView, Pressable, Alert } from 'react-native'
 import React from 'react'
 import { useState } from "react";
 import { Entypo } from "@expo/vector-icons";
@@ -8,6 +8,9 @@ import { FontAwesome } from '@expo/vector-icons';
 const Detalhes = () => {
 
   const [image, setImage] = useState("");
+  teste = () => {
+    Alert.alert("Testando", "Isso ai!")
+  }
 
   return (
     <KeyboardAvoidingView style={estilos.viewSafe}>
@@ -30,13 +33,15 @@ const Detalhes = () => {
                   />
                 </View>
                 )}
+
             <View style={estilos.cardUsuario}>
+            <Pressable onPress={teste}>
               <Text style={estilos.donoPost}>Nome do usuário</Text>
-              <Pressable>
                 <Text style={estilos.visualizarPerfil}>Visualizar Perfil</Text>
               </Pressable>
-              <View>
-              <FontAwesome style={estilos.iconePerfil} name="user-circle-o" size={50} color="black" />
+
+              <View style={estilos.iconePerfil}>
+                <FontAwesome name="user-circle-o" size={50} color="black" />
               </View>
             </View>
 
@@ -98,11 +103,15 @@ const estilos = StyleSheet.create({
   donoPost: {
     fontFamily: "carterOne",
     fontSize: 22,
-    marginLeft: 10
+    marginLeft: 80,
+    marginTop: 20
   },
   visualizarPerfil: {
-    marginLeft: 10
+    marginLeft: 80
   },
+  // iconePerfil: {
+  //   marginTop:
+  // },
   cardTitulo: {
     marginTop: 10,
     backgroundColor: "#FFFFFF",
