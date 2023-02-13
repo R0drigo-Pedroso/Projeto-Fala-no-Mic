@@ -19,28 +19,21 @@ import FontLoader from "../components/useFonts/useFont";
 import { auth } from "../../firebaseConfig";
 import { firebaseDois } from "../../firebaseConfigDois";
 
-
-function Publicar({navigation}) {
-
-  const [titulo, setTitulo] = useState("")
-  const [descricao, setDescricao] = useState("")
-  const [capaEvento, setcapaEvento] = useState("")
-  const [endereco, setEndereco] = useState("")
-  const [dia, setDia] = useState("")
-  const [horario, setHorario] = useState("")
+function Publicar({ navigation }) {
+  const [titulo, setTitulo] = useState("");
+  const [descricao, setDescricao] = useState("");
+  const [capaEvento, setcapaEvento] = useState("");
+  const [endereco, setEndereco] = useState("");
+  const [dia, setDia] = useState("");
+  const [horario, setHorario] = useState("");
   const [posts, setPosts] = useState([]);
   const [image, setImage] = useState("");
 
   // const [perfilId, setperfilid] = useState(null)
 
-
-
-
-
-
   const usuarioLogado = auth.currentUser;
 
-  if(!usuarioLogado) {
+  if (!usuarioLogado) {
     Alert.alert("Atenção", "Você precisa estar logado para postar um evento", [
       {
         text: "Cadastrar",
@@ -61,7 +54,6 @@ function Publicar({navigation}) {
       },
     ]);
   }
-
 
   const [contadorText, setContadorText] = useState("");
 
@@ -103,47 +95,57 @@ function Publicar({navigation}) {
     getPosts();
   }, []);
 
-  console.log(posts.id)
+  console.log(posts.id);
 
   const [uploadInProgress, setUploadInProgress] = useState(false);
 
-const salvarEvento = async (event) => {
-  event.preventDefault();
+  const salvarEvento = async (event) => {
+    event.preventDefault();
 
-  if (!uploadInProgress) {
-    setUploadInProgress(true);
+    if (!uploadInProgress) {
+      setUploadInProgress(true);
 
-    const response = await fetch(image);
-    const blob = await response.blob();
-    const filename = image.substring(image.lastIndexOf("/") + 1);
-    let upload = firebaseDois.storage().ref("eventos/").child(filename).put(blob);
+      const response = await fetch(image);
+      const blob = await response.blob();
+      const filename = image.substring(image.lastIndexOf("/") + 1);
+      let upload = firebaseDois
+        .storage()
+        .ref("eventos/")
+        .child(filename)
+        .put(blob);
 
-    upload.on("state_changed", async function () {
-      const url_imagem = await upload.snapshot.ref.getDownloadURL();
-      var capaevento = url_imagem;
+      upload.on("state_changed", async function () {
+        const url_imagem = await upload.snapshot.ref.getDownloadURL();
+        var capaevento = url_imagem;
 
-      const perfilId = posts.id
+        const perfilId = posts.id;
 
-      const opcoes = {
-        method: "POST",
-        body: JSON.stringify({ titulo, descricao, capaevento, endereco, dia, perfilId }),
-        headers: {
-          "Content-type": "application/json; charset=utf-8",
-        },
-      };
+        const opcoes = {
+          method: "POST",
+          body: JSON.stringify({
+            titulo,
+            descricao,
+            capaevento,
+            endereco,
+            dia,
+            perfilId,
+          }),
+          headers: {
+            "Content-type": "application/json; charset=utf-8",
+          },
+        };
 
-      try {
-        await fetch(`https://mobile-api-8gey.onrender.com/evento`, opcoes);
-        alert("Dados Enviados");
-        setUploadInProgress(false);
-      } catch (error) {
-        console.log("Deu ruim".error.message);
-        setUploadInProgress(false);
-      }
-    });
-  }
-};
-
+        try {
+          await fetch(`https://mobile-api-8gey.onrender.com/evento`, opcoes);
+          alert("Dados Enviados");
+          setUploadInProgress(false);
+        } catch (error) {
+          console.log("Deu ruim".error.message);
+          setUploadInProgress(false);
+        }
+      });
+    }
+  };
 
   return (
     <KeyboardAvoidingView style={estilos.viewSafe}>
@@ -174,14 +176,17 @@ const salvarEvento = async (event) => {
                 />
                 {contadorText.length == 250 ||  contadorText.length < 250 && <Text>Limite máximo alcançado</Text>} */}
                 <TextInput
-                editable={true}
-                multiline
+                  editable={true}
+                  multiline
                   style={estilos.texto}
                   placeholder="Digite sua mensagem"
                   onChangeText={setDescricao}
                   value={descricao}
                 />
-                {contadorText.length == 250 ||  contadorText.length < 250 && <Text>Limite máximo alcançado</Text>}
+                {contadorText.length == 250 ||
+                  (contadorText.length < 250 && (
+                    <Text>Limite máximo alcançado</Text>
+                  ))}
               </View>
             </View>
 
@@ -220,17 +225,22 @@ const salvarEvento = async (event) => {
 
             <View style={estilos.backgroundCard}>
               <Text style={estilos.titulo}>Data</Text>
-              <TextInput style={estilos.input} placeholder="Define uma data" 
-              onChangeText={setDia}
-              value={dia}/>
+              <TextInput
+                style={estilos.input}
+                placeholder="Define uma data"
+                onChangeText={setDia}
+                value={dia}
+              />
             </View>
 
             <View style={estilos.backgroundCard}>
               <Text style={estilos.titulo}>Horário</Text>
-              <TextInput style={estilos.input} placeholder="Define uma data" 
-              onChangeText={setHorario}
-              value={horario}/>
-
+              <TextInput
+                style={estilos.input}
+                placeholder="Define uma data"
+                onChangeText={setHorario}
+                value={horario}
+              />
             </View>
 
             <View style={estilos.viewbotao}>
