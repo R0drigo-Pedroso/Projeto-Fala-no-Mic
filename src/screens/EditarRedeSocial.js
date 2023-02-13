@@ -35,7 +35,7 @@ const EditarRedeSocial = ({route}) => {
   };
 
   try {
-    await fetch(`http://192.168.18.60:3000/rede`, opcoes);
+    await fetch(`http://10.20.48.31:3000/rede`, opcoes);
     alert("Dados Enviados");
   } catch (error) {
     console.error("Deu ruim", error.message);

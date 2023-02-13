@@ -51,7 +51,7 @@ function Perfil() {
       try {
         // ATENÇÃO: Usem o aqui o IP da sua máquina
         const resposta = await fetch(
-          `http://192.168.18.60:3000/perfil/${usuarioLogado.email}`
+          `http://10.20.48.31:3000/perfil/${usuarioLogado.email}`
         );
         const dados = await resposta.json();
         setPosts(dados);
@@ -68,7 +68,7 @@ function Perfil() {
        try {
           // ATENÇÃO: Usem o aqui o IP da sua máquina
          const resposta = await fetch(
-           `http:192.168.18.60:3000/rede`
+           `http:10.20.48.31:3000/rede`
          );
          const dados = await resposta.json();
          setRedes(dados);
@@ -217,7 +217,7 @@ function Perfil() {
 
       try {
         await fetch(
-          `http://192.168.18.60:3000/perfil/${posts.id}`,
+          `http://10.20.48.31:3000/perfil/${posts.id}`,
           opcoes
         );
         alert("Dados Enviados");
@@ -249,7 +249,7 @@ function Perfil() {
 
     try {
       await fetch(
-        `http://192.168.18.60:3000/perfil/${posts.id}`,
+        `http://10.20.48.31:3000/perfil/${posts.id}`,
         opcoes
       );
       alert("Dados Enviados");
