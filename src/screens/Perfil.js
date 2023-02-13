@@ -60,26 +60,27 @@ function Perfil() {
     }
     getPosts();
   }, []);
+  
 
-  useEffect(() => {
-    async function getRede() {
-      try {
-        // ATENÇÃO: Usem o aqui o IP da sua máquina
-        const resposta = await fetch(
-          `http://192.168.18.60:3000/rede/${posts.id}`
-        );
-        const dados = await resposta.json();
-        setRede(dados);
-      } catch (error) {
-        console.log("Deu ruim! " + error.message);
-      }
-    }
-    getRede();
-  }, []);
+   useEffect(() => {
+     async function getRede() {
+       try {
+          // ATENÇÃO: Usem o aqui o IP da sua máquina
+         const resposta = await fetch(
+           `http:192.168.18.60:3000/rede`
+         );
+         const dados = await resposta.json();
+         setRede(dados);
+       } catch (error) {
+         console.log("Deu ruim! " + error.message);
+       }
+     }
+     getRede();
+   }, []);
 
-  const [products, setProducts] = useState([]);
   const navigation = useNavigation();
   console.log(posts);
+  // console.log(rede)
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -212,6 +213,7 @@ function Perfil() {
   const editarRede = () => {
     navigation.navigate("EditarRede", {paramKey: posts.id});
   };
+
 
   return (
     <SafeAreaView style={estilos.viewSafe}>
@@ -396,7 +398,7 @@ function Perfil() {
 
               <View style={estilos.redes}>
                 <View style={estilos.nomeRede}>
-                <Pressable onPress={() => {Linking.openURL( rede.deezer)}}>
+                <Pressable onPress={() => {Linking.openURL( {uri: rede.deezer})}}>
                   <FontAwesome5 name="deezer" size={32} color="black" />
                   <Text style={estilos.textIcon}>deezer</Text>
                   </Pressable>
