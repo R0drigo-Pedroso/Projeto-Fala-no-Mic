@@ -177,14 +177,16 @@ function Cadastro({ navigation }) {
 
         <View style={estilos.viewLgpd}>
           <Text style={estilos.tituloLgpd}>
-            Ao criar o seu cadastro, você concorda com a nossa Política de
-            Privacidade
+            Ao criar o seu cadastro, você concorda com a nossa <Text style={{fontWeight: "bold"}}>
+              Política de
+              Privacidade
+            </Text>
           </Text>
 
           <Text style={estilos.entrar}>
             Já tem cadastro?{" "}
             <Text style={estilos.textEntrar} >
-              Entrar.
+              Entrar
             </Text>
           </Text>
         </View>
@@ -242,7 +244,8 @@ const estilos = StyleSheet.create({
     alignItems: "center",
   },
   tituloLgpd: {
-    padding: 8,
+    paddingLeft: 22,
+    paddingRight: 22,
     marginVertical: 8,
     fontSize: 16,
     color: "#372727",

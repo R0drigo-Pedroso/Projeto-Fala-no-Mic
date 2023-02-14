@@ -10,9 +10,7 @@ const Detalhes = ({route}) => {
 
   console.log(evento)
   const [image, setImage] = useState("");
-  teste = () => {
-    Alert.alert("Testando", "Isso ai!")
-  }
+ 
 
   const [posts, setPosts] = useState([]);
 
@@ -47,7 +45,7 @@ const Detalhes = ({route}) => {
              
 
             <View style={estilos.cardUsuario}>
-            <Pressable onPress={teste} style={{flexDirection: "row", alignItems:"center"}}>
+            <Pressable  style={{flexDirection: "row", alignItems:"center"}}>
             <View style={estilos.imagemPerfil}>
               {/* <FontAwesome name="user-circle-o" size={50} color="black" /> */}
               <Image source={{uri: posts.fotoperfil}} style={estilos.foto} />
@@ -65,7 +63,8 @@ const Detalhes = ({route}) => {
 
             <View style={estilos.cardTitulo}>
               <Text style={estilos.nomeEvento}>{posts.titulo}</Text>
-              <Text style={estilos.dataEvento}>Seg, 25 Ago - 10:00hs  às 13:00hs </Text>
+              <Text style={estilos.dataEvento}>{posts.dia}</Text> 
+              <Text>10:00hs  às 13:00hs </Text>
             </View>
 
             <View style={estilos.descricao}>
