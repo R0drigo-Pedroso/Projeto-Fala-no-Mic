@@ -1,17 +1,9 @@
-import {
-  StatusBar,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  Pressable,
-  ScrollView,
-  
-} from "react-native";
+import {StatusBar,StyleSheet,Text,View,Image,Pressable,ScrollView, Alert} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import imageteste from "../../assets/image/festahiphop.jpg";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFonts } from "expo-font";
-
+import Ionicons from "react-native-vector-icons/Ionicons";
 import { useState, useEffect } from "react";
 
 function Home({navigation}) {
@@ -39,6 +31,29 @@ function Home({navigation}) {
     }
     getPosts();
   }, []);
+
+
+  const favoritar = async (id, titulo, descricao, capaevento) => {
+    
+    const eventosFavoritos = await AsyncStorage.getItem("@favoritos")
+    // 2) Havendo storage prévio, transformamos os dados de filme em objeto e os guardamos numa lista (array)
+    let listaDeEventos = JSON.parse(eventosFavoritos)
+    // console.log(listaDeFilmes)
+
+    // 3) Se a lista não for indefinada, vamos iniciá-la com um array vazio
+    if(!listaDeEventos){
+      listaDeEventos = [];
+    }
+
+    // 4) Adicionamos os dados do filme na lista (array)
+    listaDeEventos.push(id, titulo, descricao, capaevento)
+    // 5) Finalmente, salvamos no storage dos dispositivos
+    await AsyncStorage.setItem("@favoritos", JSON.stringify(listaDeEventos));
+
+    Alert.alert("Favoritos", "Evento salvo com sucesso!")
+    // console.log(listaDeFilmes)
+  }
+
    
 
   return (
@@ -61,10 +76,16 @@ function Home({navigation}) {
             </Text>
           </View>
          
-          <Pressable style={estilos.botaoSaiba} onPress={()=>{navigation.navigate("DetalhesStack",   
-          {paramKey: id} )}}>
-            <Text style={estilos.textSaiba}>Saiba +</Text>
-          </Pressable>
+          <View style={{flexDirection: "row", alignItems: "center"}}>
+            <Pressable style={estilos.botaoSaiba} onPress={()=>{navigation.navigate("DetalhesStack",
+            {paramKey: id} )}}>
+              <Text style={estilos.textSaiba}>Saiba +</Text>
+            </Pressable>
+
+            <Pressable style={{marginLeft: 85, marginTop: 10}} onPress={() => favoritar(id, titulo, descricao, capaevento)}>
+              <Ionicons name="heart-sharp" size={35} color={"black"} />
+              </Pressable>
+          </View>
         </View>
         
       </View>

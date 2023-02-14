@@ -1,9 +1,15 @@
 import { StatusBar, View, Text, SafeAreaView, StyleSheet, Image, Pressable, Share } from "react-native";
 import imageteste from "../../assets/image/festahiphop.jpg";
 import { useFonts } from "expo-font";
+import { useState, useEffect } from "react";
 import { Ionicons } from '@expo/vector-icons';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 function Favoritos() {
+
+  const [listaFavoritos, setListaFavoritos] = useState([]);
+
 
   const onShare = async () => {
     try {
@@ -25,17 +31,41 @@ function Favoritos() {
     }
   };
 
+  useEffect(() => {
+    async function carregarFavoritos() {
+      try {
+        // Acessar o storage @favoritos e tentar carregar os dados existentes
+        const dados = await AsyncStorage.getItem("@favoritos");
+
+        // Havendo dados, transformamos eles em array de objetos
+        const eventos = JSON.parse(dados);
+
+        // Se realmente tem dados (ou seja, não é null), atualizamos o componente
+        if (dados != null) {
+          setListaFavoritos(eventos); // state de dados do componente
+        }
+      } catch (error) {
+        console.log("Deu ruim no carregamento: " + error.message);
+      }
+    }
+
+    carregarFavoritos();
+  }, []);
+
+  console.log(listaFavoritos)
+
   return (
     <SafeAreaView style={estilos.corFundo}>
       <StatusBar barStyle="default" />
       <Text style={estilos.titulo}>Meus Favoritos</Text>
+      {listaFavoritos.map(({titulo}) => {
 
       <View style={estilos.areaConteudo}>
         <Image style={estilos.imageTamanho} source={imageteste} />
 
         <View style={estilos.descricao}>
           <View>
-            <Text style={estilos.fontTitulo}>Titulo</Text>
+            <Text style={estilos.fontTitulo}>{titulo}</Text>
             <Text style={estilos.textDescricao}>
               Lorem Ipsum is simply dummy text of the printing and typesetting
               industry, Lorem Ipsum is simply dummy text of the printing and
@@ -57,7 +87,7 @@ function Favoritos() {
            
           </View>
         </View>
-      </View>
+      </View>})}
     </SafeAreaView>
   );
 }

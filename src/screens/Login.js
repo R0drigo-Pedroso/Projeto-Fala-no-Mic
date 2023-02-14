@@ -137,15 +137,15 @@ function Login({navigation}) {
         </View>
 
         <View style={estilos.viewLgpd}>
-          <Text style={estilos.tituloLgpd}>
-            Não tem cadastro?
-            <Text >
-              {" "}
+          <Pressable>
+            <Text style={estilos.tituloLgpd}>
+              Não tem cadastro?
+              </Text >
+          </Pressable>
+              
               <Pressable onPress={irParaoCadastro}>
                 <Text style={estilos.cadastresess}>Cadastre-se</Text>
               </Pressable>
-            </Text>
-          </Text>
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
@@ -193,6 +193,9 @@ const estilos = StyleSheet.create({
   },
   viewLgpd: {
     alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+    alignContent: "center"
   },
   tituloLgpd: {
     padding: 8,
@@ -201,5 +204,6 @@ const estilos = StyleSheet.create({
   },
   cadastresess: {
     fontWeight: "bold",
+    fontSize: 17,
   },
 });

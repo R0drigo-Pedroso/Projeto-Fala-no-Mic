@@ -12,7 +12,7 @@ function Cadastro({ navigation }) {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-  const [descricao, setDescricao] = useState("");
+  const [descricaoperfil, setDescricaoPerfil] = useState("");
   const nomeInput = createRef();
   const emailInput = createRef();
   const senhaInput = createRef();
@@ -27,7 +27,7 @@ function Cadastro({ navigation }) {
 
     const opcoes = {
       method: "POST",
-      body: JSON.stringify({ descricao, email }),
+      body: JSON.stringify({ nome, descricaoperfil, email }),
       headers: {
         // Configurando cabeçalhos para requisições
         "Content-type": "application/json; charset=utf-8",

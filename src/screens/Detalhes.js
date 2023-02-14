@@ -49,10 +49,11 @@ const Detalhes = ({route}) => {
             <View style={estilos.cardUsuario}>
             <Pressable onPress={teste} style={{flexDirection: "row", alignItems:"center"}}>
             <View style={estilos.imagemPerfil}>
-              <FontAwesome name="user-circle-o" size={50} color="black" />
+              {/* <FontAwesome name="user-circle-o" size={50} color="black" /> */}
+              <Image source={{uri: posts.fotoperfil}} style={estilos.foto} />
             </View>
               <View>
-                <Text style={estilos.donoPost}>Nome do usuário</Text>
+                <Text style={estilos.donoPost}>{posts.nome}</Text>
                   <Text style={estilos.visualizarPerfil}>Visualizar Perfil</Text>
               </View>
               </Pressable>
@@ -150,7 +151,8 @@ const estilos = StyleSheet.create({
     height: 200,
   },
   descricaoEvento: {
-    marginLeft: 10
+    marginLeft: 10,
+    color: "black"
   },
   tituloDescricao: {
     fontFamily: "carterOne",
@@ -170,7 +172,12 @@ const estilos = StyleSheet.create({
   endereco: {
     marginTop: 1,
     marginLeft: 10
-  }
+  }, 
+  foto: {
+    width: 60,
+    height: 60,
+    borderRadius: 350,
+  },
 
 
 

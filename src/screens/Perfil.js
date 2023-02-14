@@ -44,7 +44,7 @@ function Perfil() {
   const [loading, setLoading] = useState(false);
   const [urlFoto, setUrlFoto] = useState(null);
   const [editar, setEditar] = useState("api");
-  const [descricao, setDescricao] = useState("");
+  const [descricaoperfil, setDescricaoPerfil] = useState("");
 
   useEffect(() => {
     async function getPosts() {
@@ -232,6 +232,54 @@ function Perfil() {
     }
   };
 
+  const salvarPerfil = async (event) => {
+    event.preventDefault();
+  
+    if (!uploadInProgress) {
+      setUploadInProgress(true);
+  
+      const response = await fetch(perfil);
+      const blob = await response.blob();
+      const filename = perfil.substring(perfil.lastIndexOf("/") + 1);
+      let upload = firebaseDois.storage().ref("capa/").child(filename).put(blob);
+  
+      upload.on("state_changed", (snapshot) => {
+        setProgress((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+      }, (error) => {
+        console.error(error.message);
+      }, async () => {
+        const url_imagem = await upload.snapshot.ref.getDownloadURL();
+        var imagemCapa = url_imagem;
+  
+  
+       
+      const opcoes = {
+        method: "PATCH",
+        body: JSON.stringify({ fotoperfil: imagemCapa }),
+        headers: {
+          // Configurando cabeçalhos para requisições
+          "Content-type": "application/json; charset=utf-8",
+        },
+      };
+      // Script para envio dos dados para a API
+
+      try {
+        await fetch(
+          `http://10.20.48.31:3000/perfil/${posts.id}`,
+          opcoes
+        );
+        alert("Dados Enviados");
+        setperfil(imagemCapa);
+        setUploadInProgress(false);
+        navigation.navigate("Perfil")
+      } catch (error) {
+        console.log("Deu ruim".error.message);
+        setUploadInProgress(false);
+      }
+    });
+    }
+  };
+
   const editarPerfil = () => {
     setEditar("alterar");
   };
@@ -239,7 +287,7 @@ function Perfil() {
   const salvarDescricao = async (event) => {
     const opcoes = {
       method: "PATCH",
-      body: JSON.stringify({ descricao }),
+      body: JSON.stringify({ descricaoperfil }),
       headers: {
         // Configurando cabeçalhos para requisições
         "Content-type": "application/json; charset=utf-8",
@@ -307,12 +355,20 @@ function Perfil() {
                 style={estilos.imagem}
               >
                 <View style={estilos.viewFoto}>
+                  {perfil &&
+                    <Pressable onPress={salvarPerfil}><Text  style={{
+                      color: "white",
+                      fontWeight: "bold",
+                      fontSize: 18,
+                      marginBottom: 25,
+                    }}>Salvar Perfil</Text></Pressable>
+                  }
                   <Pressable onPress={alterarPerfil}>
                     {perfil && (
                       <Image source={{ uri: perfil }} style={estilos.foto} />
                     )}
                     {!perfil && (
-                      <Image source={astronauta} style={estilos.foto} />
+                      <Image source={{uri: posts.fotoperfil}} style={estilos.foto} />
                     )}
                   </Pressable>
                   <Text style={estilos.usuario}>
@@ -408,17 +464,17 @@ function Perfil() {
               <View style={estilos.card}>
                 <Text style={estilos.titulo}>Descrição:</Text>
                 {editar == "api" && (
-                  <Text style={estilos.texto}>{posts.descricao}</Text>
+                  <Text style={estilos.texto}>{posts.descricaoperfil}</Text>
                 )}
                 {editar == "alterada" && (
-                  <Text style={estilos.texto}>{descricao}</Text>
+                  <Text style={estilos.texto}>{descricaoperfil}</Text>
                 )}
 
                 {editar == "alterar" && (
                   <TextInput
                     style={estilos.texto}
-                    value={descricao}
-                    onChangeText={setDescricao}
+                    value={descricaoperfil}
+                    onChangeText={setDescricaoPerfil}
                   />
                 )}
 
