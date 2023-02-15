@@ -26,7 +26,9 @@ function Cadastro({ navigation }) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [descricaoperfil, setDescricaoPerfil] = useState("");
-  const [fotoperfil, setFotoPerfil] = useState("https://firebasestorage.googleapis.com/v0/b/falanomic-e8ea9.appspot.com/o/capa%2F6d8f13cd-b6e2-45e5-b2f7-56addd125afd.jpeg?alt=media&token=fbb435ac-43eb-4e06-9ecd-6f347aadd4b0");
+  const [fotoperfil, setFotoPerfil] = useState(
+    "https://firebasestorage.googleapis.com/v0/b/falanomic-e8ea9.appspot.com/o/capa%2F6d8f13cd-b6e2-45e5-b2f7-56addd125afd.jpeg?alt=media&token=fbb435ac-43eb-4e06-9ecd-6f347aadd4b0"
+  );
 
   const nomeInput = createRef();
   const emailInput = createRef();
@@ -186,7 +188,9 @@ function Cadastro({ navigation }) {
 
         <View style={estilos.viewBotao}>
           <Pressable style={estilos.botao} onPress={salvar}>
-            <Text style={estilos.textoBotao}>Cadastrar</Text>
+            <Text style={estilos.textoBotao} a>
+              Cadastrar
+            </Text>
           </Pressable>
         </View>
 
