@@ -1,12 +1,25 @@
-import {StatusBar, ScrollView, StyleSheet, Text, View, Image,Pressable, TextInput, Alert, KeyboardAvoidingView, Platform} from "react-native";
+import {
+  StatusBar,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  Pressable,
+  TextInput,
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useState, useEffect, createRef } from "react";
 import Input from "../components/Input/Input";
 import { AntDesign } from "@expo/vector-icons";
-import logo from "../../assets/image/logo_fala_no_mic.png";
+import logo from "../../assets/image/logohiphop250.png";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, db } from "../../firebaseConfig";
 
+import FontLoader from "../components/useFonts/useFont";
 
 function Cadastro({ navigation }) {
   const [nome, setNome] = useState("");
@@ -121,11 +134,11 @@ function Cadastro({ navigation }) {
       .finally(() => setLoading(false));
   };
 
-  
   return (
-    <KeyboardAvoidingView 
-    behavior={Platform.OS === "ios" ? "padding" : null}
-    style={estilos.viewSafe}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : null}
+      style={estilos.viewSafe}
+    >
       <StatusBar barStyle="default" />
       <ScrollView>
         <View style={estilos.viewFoto}>
@@ -177,17 +190,12 @@ function Cadastro({ navigation }) {
 
         <View style={estilos.viewLgpd}>
           <Text style={estilos.tituloLgpd}>
-            Ao criar o seu cadastro, você concorda com a nossa <Text style={{fontWeight: "bold"}}>
-              Política de
-              Privacidade
-            </Text>
+            Ao criar o seu cadastro, você concorda com a nossa{" "}
+            <Text style={{ fontWeight: "bold" }}>Política de Privacidade</Text>
           </Text>
 
           <Text style={estilos.entrar}>
-            Já tem cadastro?{" "}
-            <Text style={estilos.textEntrar} >
-              Entrar
-            </Text>
+            Já tem cadastro? <Text style={estilos.textEntrar}>Entrar</Text>
           </Text>
         </View>
       </ScrollView>
@@ -210,6 +218,7 @@ const estilos = StyleSheet.create({
   },
   titulo: {
     fontSize: 24,
+    fontFamily: "carterOne",
     color: "#372727",
   },
   viewBotao: {
@@ -232,6 +241,7 @@ const estilos = StyleSheet.create({
     fontSize: 24,
     color: "#E3BC40",
     textAlign: "center",
+    fontFamily: "carterOne",
   },
   lgpd: {
     color: "#322727",
@@ -248,13 +258,15 @@ const estilos = StyleSheet.create({
     paddingRight: 22,
     marginVertical: 8,
     fontSize: 16,
+    fontFamily: "nunitoSans",
     color: "#372727",
   },
   entrar: {
     color: "#322727",
     fontSize: 16,
+    fontFamily: "nunitoSans",
   },
   textEntrar: {
-    fontWeight: "bold",
+    fontFamily: "carterOne",
   },
 });

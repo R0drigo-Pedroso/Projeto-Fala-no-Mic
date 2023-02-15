@@ -9,13 +9,13 @@ import {
   TextInput,
   Alert,
   KeyboardAvoidingView,
-  Platform
+  Platform,
 } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useState, createRef, useEffect } from "react";
 import { AntDesign } from "@expo/vector-icons";
-import logo from "../../assets/image/logo_fala_no_mic.png";
+import logo from "../../assets/image/logohiphop250.png";
 import { auth } from "../../firebaseConfig";
 import Input from "../components/Input/Input";
 /* Importamos as funções de autenticação diretamente da lib */
@@ -26,7 +26,9 @@ import {
 import Perfil from "./Perfil";
 import Cadastro from "./Cadastro";
 
-function Login({navigation}) {
+import FontLoader from "../components/useFonts/useFont";
+
+function Login({ navigation }) {
   const [telaCadastro, setTelaCadastro] = useState(false);
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
@@ -37,11 +39,6 @@ function Login({navigation}) {
 
   useEffect(() => emailInput.current.resetError(), [email]);
   useEffect(() => senhaInput.current.resetError(), [senha]);
-
-
- 
-
-
 
   const login = () => {
     if (email == "") {
@@ -59,7 +56,6 @@ function Login({navigation}) {
         setValidaLogin(true);
         Alert.alert("Você foi logado");
         navigation.replace("Perfil");
-        
       })
       .catch((error) => {
         console.log(error);
@@ -89,15 +85,14 @@ function Login({navigation}) {
   };
 
   const irParaoCadastro = () => {
-    navigation.navigate("CadastroStack")
-  }
+    navigation.navigate("CadastroStack");
+  };
 
-  
- 
-    return (
-      <KeyboardAvoidingView 
+  return (
+    <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : null}
-      style={estilos.viewSafe}>
+      style={estilos.viewSafe}
+    >
       <StatusBar barStyle="dark" />
       <ScrollView>
         <View style={estilos.viewFoto}>
@@ -138,19 +133,17 @@ function Login({navigation}) {
 
         <View style={estilos.viewLgpd}>
           <Pressable>
-            <Text style={estilos.tituloLgpd}>
-              Não tem cadastro?
-              </Text >
+            <Text style={estilos.tituloLgpd}>Não tem cadastro?</Text>
           </Pressable>
-              
-              <Pressable onPress={irParaoCadastro}>
-                <Text style={estilos.cadastresess}>Cadastre-se</Text>
-              </Pressable>
+
+          <Pressable onPress={irParaoCadastro}>
+            <Text style={estilos.cadastresess}>Cadastre-se</Text>
+          </Pressable>
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
-    );
-  }
+  );
+}
 
 export default Login;
 
@@ -164,6 +157,7 @@ const estilos = StyleSheet.create({
   },
   viewAcessarConta: {
     marginLeft: 22,
+    fontFamily: "carterOne",
   },
   titulo: {
     fontSize: 24,
@@ -190,12 +184,14 @@ const estilos = StyleSheet.create({
     fontSize: 24,
     color: "#E3BC40",
     textAlign: "center",
+    fontFamily: "carterOne",
   },
   viewLgpd: {
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",
-    alignContent: "center"
+    alignContent: "center",
+    fontFamily: "nunitoSans",
   },
   tituloLgpd: {
     padding: 8,
