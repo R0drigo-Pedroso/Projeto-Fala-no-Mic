@@ -52,44 +52,42 @@ function Favoritos() {
     carregarFavoritos();
   }, []);
 
-  console.log(listaFavoritos)
+  console.log(listaFavoritos.length)
 
-    return (
-      <ScrollView>
-      {listaFavoritos.map((eventosFavoritos) => {
-        return(
-      <View style={estilos.areaConteudo}>
-        <Image style={estilos.imageTamanho} source={imageteste} />
-  
-        <View style={estilos.descricao}>
-          <View>
-            <Text style={estilos.fontTitulo}>{eventosFavoritos.titulo}</Text>
-            <Text style={estilos.textDescricao}>
-              {eventosFavoritos.descricao}
-            </Text>
-          </View>
-  
-          <View style={estilos.interacoes}>
-            <Pressable style={estilos.botaoSaiba}>
-              <Text style={estilos.textSaiba}>Saiba +</Text>
-            </Pressable>
-           
-              <Pressable style={estilos.social}  onPress={onShare}>
-                <Ionicons name="share-social" size={24} color="black" />
-              </Pressable>
-              <Pressable style={estilos.delete}>
-                <Ionicons name="trash-bin" size={24} color="black" />
-              </Pressable>
-           
-          </View>
-        </View>
-      </View>
-    )})}
-  </ScrollView>
-    );
+  return (
+    <ScrollView>
+             <Text style={estilos.titulo}>Favoritos</Text>  
 
-  
-  
+          <View  style={estilos.areaConteudo}>
+            <Image style={estilos.imageTamanho} source={imageteste} />
+            
+            <View style={estilos.descricao}>
+              
+              <View>
+                <Text style={estilos.fontTitulo}>Em breve!</Text>
+                <Text style={estilos.textDescricao}>
+                 A funcionalidade de favoritos está em desenvolvimento e em breve estará inserida neste projeto
+                </Text>
+              </View>
+              {/* 
+              <View style={estilos.interacoes}>
+                <Pressable style={estilos.botaoSaiba}>
+                  <Text style={estilos.textSaiba}>Saiba +</Text>
+                </Pressable> */}
+
+                {/* <Pressable style={estilos.social} onPress={onShare}>
+                  <Ionicons name="share-social" size={24} color="black" />
+                </Pressable>
+                <Pressable style={estilos.delete}>
+                  <Ionicons name="trash-bin" size={24} color="black" />
+                </Pressable> */}
+              {/* </View> */}
+            </View>
+          </View>
+       
+    
+    </ScrollView>
+  );
 }
 
 export default Favoritos;

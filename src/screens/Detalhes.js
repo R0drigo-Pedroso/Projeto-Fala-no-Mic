@@ -5,7 +5,7 @@ import { Entypo } from "@expo/vector-icons";
 import FontLoader from "../components/useFonts/useFont";
 import { FontAwesome } from '@expo/vector-icons';
 
-const Detalhes = ({route}) => {
+const Detalhes = ({route, navigation}) => {
   const evento = route.params.paramKey
 
   console.log(evento)
@@ -31,6 +31,10 @@ const Detalhes = ({route}) => {
     getPosts();
   }, []);
 
+  const visualizarPerfil = () => {
+    navigation.navigate("perfilPubStack")
+  }
+
   return (
     <KeyboardAvoidingView style={estilos.viewSafe}>
       <ScrollView>
@@ -45,7 +49,7 @@ const Detalhes = ({route}) => {
              
 
             <View style={estilos.cardUsuario}>
-            <Pressable  style={{flexDirection: "row", alignItems:"center"}}>
+            <Pressable  style={{flexDirection: "row", alignItems:"center"}} onPress={visualizarPerfil}>
             <View style={estilos.imagemPerfil}>
               {/* <FontAwesome name="user-circle-o" size={50} color="black" /> */}
               <Image source={{uri: posts.fotoperfil}} style={estilos.foto} />

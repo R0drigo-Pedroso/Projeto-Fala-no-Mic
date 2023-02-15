@@ -5,6 +5,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFonts } from "expo-font";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useState, useEffect } from "react";
+import Separator from "../components/Separator/Separator";
 
 function Home({navigation}) {
   const [fontCarregar] = useFonts({
@@ -63,6 +64,7 @@ function Home({navigation}) {
 
       <FlatList
   data={posts}
+  ItemSeparatorComponent={Separator}
   renderItem={({ item: { id, titulo, descricao, capaevento } }) => (
     <View style={estilos.areaConteudo}>
       <Image style={estilos.imageTamanho} source={{ uri: capaevento }} />
@@ -91,6 +93,7 @@ function Home({navigation}) {
     </View>
   )}
   keyExtractor={(item) => item.id}
+  contentContainerStyle={{ paddingBottom: 200 }} // ajuste para exibir a última área de conteúdo
 />
 
     </SafeAreaView>
@@ -129,8 +132,8 @@ const estilos = StyleSheet.create({
     textAlign: "center",
     fontSize: 24,
     padding: 8,
-    marginTop: 5,
-    marginBottom: 5,
+    marginTop: 16,
+    marginBottom: 16,
     fontFamily: "carterTier",
   },
 
@@ -139,6 +142,7 @@ const estilos = StyleSheet.create({
     flexDirection: "row",
     backgroundColor: "#fff",
     elevation: 5,
+    marginBottom: 10,
   },
 
   botaoSaiba: {

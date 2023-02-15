@@ -8,6 +8,7 @@ import Login from "../screens/Login";
 import Cadastro from "../screens/Cadastro";
 import Detalhes from "../screens/Detalhes";
 import EditarRedeSocial from "../screens/EditarRedeSocial";
+import Perfilpublico from "../screens/Perfilpublico";
 
 import { auth } from "../../firebaseConfig";
 
@@ -18,9 +19,12 @@ export function NavegacaoHome() {
     <Stack.Navigator >
       <Stack.Screen name="HomeStack" component={Home} options={{title: "Home", }}/>
       <Stack.Screen name="DetalhesStack" component={Detalhes} options={{ title: "Detalhes do Evento" }}/>
+      <Stack.Screen name="perfilPubStack" component={Perfilpublico} />
     </Stack.Navigator>
   );
 }
+
+
 export function NavegacaoFavoritos() {
   return (
     <Stack.Navigator>

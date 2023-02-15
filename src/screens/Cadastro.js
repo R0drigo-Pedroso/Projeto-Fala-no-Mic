@@ -3,7 +3,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useState, useEffect, createRef } from "react";
 import Input from "../components/Input/Input";
 import { AntDesign } from "@expo/vector-icons";
-import logo from "../../assets/image/logo_fala_no_mic.png";
+import logo from "../../assets/image/logohiphop250.png";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, db } from "../../firebaseConfig";
 

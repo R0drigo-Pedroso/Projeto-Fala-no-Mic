@@ -15,7 +15,7 @@ import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useState, createRef, useEffect } from "react";
 import { AntDesign } from "@expo/vector-icons";
-import logo from "../../assets/image/logo_fala_no_mic.png";
+import logo from "../../assets/image/logohiphop250.png";
 import { auth } from "../../firebaseConfig";
 import Input from "../components/Input/Input";
 /* Importamos as funções de autenticação diretamente da lib */

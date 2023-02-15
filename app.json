@@ -4,10 +4,10 @@
     "slug": "fala-no-mic",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/image/logo_fala_no_mic.png",
+    "icon": "./assets/image/logohiphop250.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/image/logo_fala_no_mic.png",
+      "image": "./assets/image/splash_logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -20,7 +20,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/image/logo_fala_no_mic.png",
+        "foregroundImage": "./assets/image/logohiphop250.png",
         "backgroundColor": "#FFFFFF"
       }
     },
