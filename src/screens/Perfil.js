@@ -51,7 +51,7 @@ function Perfil() {
       try {
         // ATENÇÃO: Usem o aqui o IP da sua máquina
         const resposta = await fetch(
-          `http://10.20.48.31:3000/perfil/${usuarioLogado.email}`
+          `http://192.168.18.60:3000/perfil/${usuarioLogado.email}`
         );
         const dados = await resposta.json();
         setPosts(dados);
@@ -68,7 +68,7 @@ function Perfil() {
        try {
           // ATENÇÃO: Usem o aqui o IP da sua máquina
          const resposta = await fetch(
-           `http:10.20.48.31:3000/rede`
+           `http://192.168.18.60:3000/rede`
          );
          const dados = await resposta.json();
          setRedes(dados);
@@ -217,7 +217,7 @@ function Perfil() {
 
       try {
         await fetch(
-          `http://10.20.48.31:3000/perfil/${posts.id}`,
+          `http://192.168.18.60:3000/perfil/${posts.id}`,
           opcoes
         );
         alert("Dados Enviados");
@@ -265,7 +265,7 @@ function Perfil() {
 
       try {
         await fetch(
-          `http://10.20.48.31:3000/perfil/${posts.id}`,
+          `http://192.168.18.60:3000/perfil/${posts.id}`,
           opcoes
         );
         alert("Dados Enviados");
@@ -287,7 +287,7 @@ function Perfil() {
   const salvarDescricao = async (event) => {
     const opcoes = {
       method: "PATCH",
-      body: JSON.stringify({ descricaoperfil }),
+      body: JSON.stringify({ descricaoperfil:  descricaoperfil }),
       headers: {
         // Configurando cabeçalhos para requisições
         "Content-type": "application/json; charset=utf-8",
@@ -297,7 +297,7 @@ function Perfil() {
 
     try {
       await fetch(
-        `http://10.20.48.31:3000/perfil/${posts.id}`,
+        `http://192.168.18.60:3000/perfil/${posts.id}`,
         opcoes
       );
       alert("Dados Enviados");
@@ -407,7 +407,7 @@ function Perfil() {
                 style={estilos.imagem}
               >
                 <View style={estilos.viewFoto}>
-                  <Image source={astronauta} style={estilos.foto} />
+                  <Image source={{uri: posts.fotoperfil}} style={estilos.foto} />
                   <Text style={estilos.usuario}>
                     {usuarioLogado.displayName}
                   </Text>

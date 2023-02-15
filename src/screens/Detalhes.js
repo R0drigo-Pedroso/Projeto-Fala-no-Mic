@@ -20,7 +20,7 @@ const Detalhes = ({route}) => {
       try {
         // ATENÇÃO: Usem o aqui o IP da sua máquina
         const resposta = await fetch(
-          `http://10.20.48.31:3000/evento/${evento}`
+          `http://192.168.18.60:3000/evento/${evento}`
         );
         const dados = await resposta.json();
         setPosts(dados);
@@ -63,8 +63,10 @@ const Detalhes = ({route}) => {
 
             <View style={estilos.cardTitulo}>
               <Text style={estilos.nomeEvento}>{posts.titulo}</Text>
-              <Text style={estilos.dataEvento}>{posts.dia}</Text> 
-              <Text>10:00hs  às 13:00hs </Text>
+              <View style={{flexDirection: "row"}}>
+                <Text style={estilos.dataEvento}>{posts.dia}</Text>
+                <Text>{posts.horario}</Text>
+              </View>
             </View>
 
             <View style={estilos.descricao}>
@@ -142,7 +144,8 @@ const estilos = StyleSheet.create({
     marginLeft: 10
   },
   dataEvento: {
-    marginLeft: 10
+    marginLeft: 10,
+    marginRight: 25,
   },
   descricao: {
     marginTop: 10,
