@@ -1,4 +1,4 @@
-import { StatusBar, View, Text, SafeAreaView, StyleSheet, Image, Pressable, Share } from "react-native";
+import { StatusBar, View, Text, SafeAreaView, StyleSheet, Image, Pressable, Share, FlatList, ScrollView } from "react-native";
 import imageteste from "../../assets/image/festahiphop.jpg";
 import { useFonts } from "expo-font";
 import { useState, useEffect } from "react";
@@ -54,25 +54,21 @@ function Favoritos() {
 
   console.log(listaFavoritos)
 
-  return (
-    <SafeAreaView style={estilos.corFundo}>
-      <StatusBar barStyle="default" />
-      <Text style={estilos.titulo}>Meus Favoritos</Text>
-      {listaFavoritos.map(({titulo}) => {
-
+    return (
+      <ScrollView>
+      {listaFavoritos.map((eventosFavoritos) => {
+        return(
       <View style={estilos.areaConteudo}>
         <Image style={estilos.imageTamanho} source={imageteste} />
-
+  
         <View style={estilos.descricao}>
           <View>
-            <Text style={estilos.fontTitulo}>{titulo}</Text>
+            <Text style={estilos.fontTitulo}>{eventosFavoritos.titulo}</Text>
             <Text style={estilos.textDescricao}>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry, Lorem Ipsum is simply dummy text of the printing and
-              typesetting industry
+              {eventosFavoritos.descricao}
             </Text>
           </View>
-
+  
           <View style={estilos.interacoes}>
             <Pressable style={estilos.botaoSaiba}>
               <Text style={estilos.textSaiba}>Saiba +</Text>
@@ -87,9 +83,13 @@ function Favoritos() {
            
           </View>
         </View>
-      </View>})}
-    </SafeAreaView>
-  );
+      </View>
+    )})}
+  </ScrollView>
+    );
+
+  
+  
 }
 
 export default Favoritos;

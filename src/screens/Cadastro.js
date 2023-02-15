@@ -26,6 +26,8 @@ function Cadastro({ navigation }) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [descricaoperfil, setDescricaoPerfil] = useState("");
+  const [fotoperfil, setFotoPerfil] = useState("https://firebasestorage.googleapis.com/v0/b/falanomic-e8ea9.appspot.com/o/capa%2F6d8f13cd-b6e2-45e5-b2f7-56addd125afd.jpeg?alt=media&token=fbb435ac-43eb-4e06-9ecd-6f347aadd4b0");
+
   const nomeInput = createRef();
   const emailInput = createRef();
   const senhaInput = createRef();
@@ -40,7 +42,7 @@ function Cadastro({ navigation }) {
 
     const opcoes = {
       method: "POST",
-      body: JSON.stringify({ nome, descricaoperfil, email }),
+      body: JSON.stringify({ nome, descricaoperfil, email, fotoperfil }),
       headers: {
         // Configurando cabeçalhos para requisições
         "Content-type": "application/json; charset=utf-8",
@@ -66,7 +68,7 @@ function Cadastro({ navigation }) {
     }
 
     try {
-      await fetch(`http://10.20.48.31:3000/perfil`, opcoes);
+      await fetch(`http://192.168.18.60:3000/perfil`, opcoes);
       alert("Dados Enviados");
       cadastrar();
     } catch (error) {
