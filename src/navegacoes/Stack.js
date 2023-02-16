@@ -19,7 +19,7 @@ export function NavegacaoHome() {
     <Stack.Navigator >
       <Stack.Screen name="HomeStack" component={Home} options={{title: "Home", }}/>
       <Stack.Screen name="DetalhesStack" component={Detalhes} options={{ title: "Detalhes do Evento" }}/>
-      <Stack.Screen name="perfilPubStack" component={Perfilpublico} />
+      <Stack.Screen name="perfilPubStack" component={Perfilpublico} options={{ title: "Autor do Evento" }}/>
     </Stack.Navigator>
   );
 }
