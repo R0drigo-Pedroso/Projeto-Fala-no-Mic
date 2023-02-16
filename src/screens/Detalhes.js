@@ -39,7 +39,7 @@ const Detalhes = ({route, navigation}) => {
 
   return (
     <KeyboardAvoidingView style={estilos.viewSafe}>
-      <ScrollView>
+      <ScrollView  contentContainerStyle={{ paddingBottom: 80 }}>
         <FontLoader>
           <View style={estilos.container}>
              
@@ -68,7 +68,8 @@ const Detalhes = ({route, navigation}) => {
             </View>
 
             <View style={estilos.cardTitulo}>
-              <Text style={estilos.nomeEvento}>{posts.titulo}</Text>
+            <Text style={estilos.nomeEvento}>{posts.titulo}</Text>
+
               <View style={{flexDirection: "row"}}>
                 <Text style={estilos.dataEvento}>{posts.dia}</Text>
                 <Text>{posts.horario}</Text>
@@ -141,7 +142,7 @@ const estilos = StyleSheet.create({
   cardTitulo: {
     marginTop: 10,
     backgroundColor: "#FFFFFF",
-    height: 100
+    height: "20%",
   },
   nomeEvento: {
     fontFamily: "carterOne",
@@ -171,6 +172,7 @@ const estilos = StyleSheet.create({
   local: {
     marginTop: 10,
     backgroundColor: "#FFFFFF", 
+    paddingBottom: 25
   },
   tituloLocalizacao: {
     fontSize: 25,
