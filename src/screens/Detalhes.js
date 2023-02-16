@@ -32,8 +32,10 @@ const Detalhes = ({route, navigation}) => {
   }, []);
 
   const visualizarPerfil = () => {
-    navigation.navigate("perfilPubStack")
+    navigation.navigate("perfilPubStack", { paramKey: posts.email})
   }
+
+  console.log(posts.email)
 
   return (
     <KeyboardAvoidingView style={estilos.viewSafe}>
